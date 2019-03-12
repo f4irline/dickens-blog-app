@@ -2,10 +2,13 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   container: {
-    padding: '1vh'
+    padding: '1vh',
+    marginTop: '1vh',
+    textAlign: 'center'
   }
 };
 
@@ -21,9 +24,13 @@ const Header = (props) => {
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography>
-          Sign in
-        </Typography>
+        <Button>
+          Log in
+        </Button>
+        <p style={{display: 'inline-block', userSelect: 'none'}}>|</p>
+        <Button>
+          Register
+        </Button>
       </Grid>
     </Grid>
   );

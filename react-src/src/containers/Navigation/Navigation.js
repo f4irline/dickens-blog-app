@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import NavItem from '../../components/NavItem/NavItem';
 
 const styles = {
   container: {
-    padding: '1vh'
+    padding: '1vh',
+    marginBottom: '1vh',
   }
 };
 
