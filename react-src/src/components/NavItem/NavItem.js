@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 const NavItem = (props) => {
   return (
     <Grid item>
-      <NavLink to={props.url}>{props.children}</NavLink>
+      <NavLink style={{textTransform: 'uppercase'}} to={props.url}>{props.children}</NavLink>
     </Grid>
   );
 };
