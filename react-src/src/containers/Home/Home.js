@@ -12,6 +12,7 @@ import axios from 'axios';
 
 import Posts from '../Posts/Posts';
 import Post from '../../components/Post/Post';
+import NewPost from '../NewPost/NewPost';
 
 import './Home.css';
 
@@ -64,7 +65,7 @@ class Home extends Component {
           )}/>
           <Route path='/new' render={() => (
             <Grid item xs={11} lg={7}>
-              <p>New Post</p>
+              <NewPost />
             </Grid>
           )}/>
           <Route path='/post/:id' component={Post}/>
