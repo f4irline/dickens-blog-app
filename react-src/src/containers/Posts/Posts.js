@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Post from '../../components/Post/Post';
+import ShortPost from '../../components/ShortPost/ShortPost';
 
 class Posts extends Component {
 
@@ -11,7 +11,7 @@ class Posts extends Component {
   render() {
 
     let posts = this.state.posts.map((post) => {
-      return <Post key={post.id} data={post}/>;
+      return <ShortPost postOpen={this.props.postOpen} key={post.id} data={post}/>;
     });
 
     return (
