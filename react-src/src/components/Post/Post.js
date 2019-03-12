@@ -13,7 +13,8 @@ import axios from 'axios';
 const styles = {
   post: {
     padding: '1vh',
-    margin: '1vh'
+    margin: '1vh',
+    boxSizing: 'border-box'
   }
 };
 
@@ -59,7 +60,7 @@ class Post extends Component {
               {repeatPost}
             </Typography>
             <Divider/>
-            <Typography variant='caption' style={{fontSize: '2vh', margin: '1vh 0', textAlign: 'end'}}>
+            <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
               Author: Matti - Written: {new Date().toUTCString()}
             </Typography>
           </Paper>
