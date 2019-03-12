@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
+
+import headerImg from '../../assets/images/header_placeholder.jpg';
 
 import axios from 'axios';
 
@@ -47,8 +50,17 @@ class Post extends Component {
       <Grid item xs={11} lg={7}>
         <Grid container>
           <Paper elevation={5} classes={{root: classes.post}}>
-            <Typography>
+            <img src={headerImg} alt='Header' style={{width: '100%'}} />
+            <Typography variant='title' style={{fontSize: '3vh', margin: '1vh 0', textAlign: 'center'}}>
+              {this.state.post.title}
+            </Typography>
+            <Divider/>
+            <Typography variant='body1' style={{margin: '1vh 0'}}>
               {repeatPost}
+            </Typography>
+            <Divider/>
+            <Typography variant='caption' style={{fontSize: '2vh', margin: '1vh 0', textAlign: 'end'}}>
+              Author: Matti - Written: {new Date().toUTCString()}
             </Typography>
           </Paper>
         </Grid>

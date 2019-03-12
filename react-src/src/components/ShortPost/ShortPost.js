@@ -62,7 +62,7 @@ const ShortPost = (props) => {
               </Typography>
             </Grid>
             <Grid item container justify='flex-end' xs={12} lg={6}>
-              <Link to={'/post/'+props.data.id}>
+              <Link to={'/post/'+props.data.id} style={{textDecoration: 'none'}}>
                 <Button size='small' variant='contained' color='primary' onClick={handleClick}>Read more!</Button>
               </Link>
             </Grid>
