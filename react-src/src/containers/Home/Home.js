@@ -67,11 +67,7 @@ class Home extends Component {
               <p>New Post</p>
             </Grid>
           )}/>
-          <Route path='/post/:id' render={() => (
-            <Grid item xs={11} lg={7}>
-              <Post />
-            </Grid>
-          )}/>
+          <Route path='/post/:id' component={Post}/>
         </Switch>
       </Grid>
     );
