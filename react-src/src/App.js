@@ -22,6 +22,7 @@ class App extends Component {
 
   handleLogout = () => {
     this.setState({loggedIn: false, name: ''});
+    this.props.history.push('/');
   }
 
   render() {

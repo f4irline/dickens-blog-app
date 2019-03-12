@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
-const Post = (props) => {
-  return (
-    <Grid item xs={12}>
-      <Paper>
-        <p>{props.data.title}</p>
-        <p>{props.data.body}</p>
+class Post extends Component {
+  render() {
+    return (
+      <Paper elevation={5}>
+        <Typography>Post</Typography>
       </Paper>
-    </Grid>
-  );
-};
+    );  
+  }
+}
 
 export default Post;

@@ -11,6 +11,7 @@ import Navigation from '../Navigation/Navigation';
 import axios from 'axios';
 
 import Posts from '../Posts/Posts';
+import Post from '../../components/Post/Post';
 
 import './Home.css';
 
@@ -57,15 +58,20 @@ class Home extends Component {
         </Grid>
         <Switch>
           <Route path='/' exact render={() => (
-            <Grid item xs={11} md={7}>
+            <Grid item xs={11} lg={7}>
               <Posts postOpen={this.handlePostOpen.bind(this)} posts={this.state.posts} />
             </Grid>
           )}/>
           <Route path='/new' render={() => (
-            <Grid item xs={11} md={7}>
+            <Grid item xs={11} lg={7}>
               <p>New Post</p>
             </Grid>
-          )} />
+          )}/>
+          <Route path='/post/:id' render={() => (
+            <Grid item xs={11} lg={7}>
+              <Post />
+            </Grid>
+          )}/>
         </Switch>
       </Grid>
     );
