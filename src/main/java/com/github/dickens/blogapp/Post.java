@@ -11,7 +11,7 @@ public class Post {
     @Id
     @GeneratedValue
     private int postId;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "USER_ID")
     private User author;
     private String title;
