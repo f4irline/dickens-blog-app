@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
+
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
 
 import Login from './containers/Login/Login';
-import Header from './containers/Header/Header';
-import Navigation from './containers/Navigation/Navigation';
 import Home from './containers/Home/Home';
 
 import './App.css';
@@ -14,27 +11,31 @@ import './App.css';
 class App extends Component {
 
   state = {
-    loggedIn: false
+    loggedIn: false,
+    name: ''
   }
 
   handleLogin = (name) => {
-    this.setState({loggedIn: true});
+    this.setState({loggedIn: true, name: name});
+    this.props.history.push('/');
+  }
+
+  handleLogout = () => {
+    this.setState({loggedIn: false, name: ''});
   }
 
   render() {
     return (
       <Grid direction='row' justify='center' container className='App'>
-        <Grid item xs={8}>
-          <Paper square>
-            <Header />
-            <Divider variant='middle'/>
-            <Navigation />
-          </Paper>
-          <Home />
+        <Grid container justify='center'>
+          <Switch>
+            <Route path='/login' render={() => <Login login={this.handleLogin.bind(this)} />} />
+            <Route path='/' render={() => <Home loggedIn={this.state.loggedIn} logout={this.handleLogout.bind(this)}/>} />
+          </Switch>
         </Grid>
       </Grid>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
