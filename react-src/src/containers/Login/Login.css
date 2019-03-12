@@ -1,0 +1,9 @@
+.Login {
+  height: 100vh;
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10vmin;
+}
