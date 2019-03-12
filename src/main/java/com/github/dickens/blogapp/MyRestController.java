@@ -28,10 +28,14 @@ public class MyRestController {
     */
     @GetMapping(value = "/posts/{postId}")
     public Optional<Post> getPost(@PathVariable int postId) {
-        System.out.println("GET");
         Optional<Post> post = postRepository.findById(postId);
         System.out.println(post);
         return post;
     }
 
+    @GetMapping(value = "/posts/all")
+    public Iterable<Post> getAllPosts() {
+        Iterable<Post> posts = postRepository.findAll();
+        return posts;
+    }
 }
