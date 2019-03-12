@@ -19,7 +19,6 @@ public class MyRestController {
      */
     @PostMapping(value = "/user/add")
     public void addUser(@RequestBody User user) {
-        System.out.println("Post");
         userRepository.save(user);
     }
 
@@ -28,14 +27,23 @@ public class MyRestController {
     */
     @GetMapping(value = "/posts/{postId}")
     public Optional<Post> getPost(@PathVariable int postId) {
-        Optional<Post> post = postRepository.findById(postId);
-        System.out.println(post);
-        return post;
+        System.out.println("get");
+        return postRepository.findById(postId);
     }
 
+    /*
+    curl -i -X GET http://localhost:8080/posts/all
+    */
     @GetMapping(value = "/posts/all")
     public Iterable<Post> getAllPosts() {
-        Iterable<Post> posts = postRepository.findAll();
-        return posts;
+        return postRepository.findAll();
+    }
+
+    /*
+    curl -i -X DELETE http://localhost:8080/posts/4
+    */
+    @DeleteMapping(value = "posts/{postId}")
+    public void deletePost(@PathVariable int postId) {
+        postRepository.deleteById(postId);
     }
 }
