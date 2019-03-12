@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -23,7 +24,7 @@ class Login extends Component {
   }
 
   handleButtonClick() {
-    this.props.onLogin(this.state.name);
+    this.props.login(this.state.name);
   }
 
   handleInputChange(event) {
@@ -45,7 +46,7 @@ class Login extends Component {
 
     return (
       <Grid direction='row' justify='center' alignItems='center' container className='Login'>
-        <Grid item xs={4}>
+        <Grid item xs={11} lg={4}>
           <Paper className='login-wrapper' elevation={5}>
             <Typography variant='h4' gutterBottom>
               USER LOGIN
