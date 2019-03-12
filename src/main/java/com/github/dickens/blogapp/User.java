@@ -19,14 +19,20 @@ public class User {
     private int userId;
     private String userName;
     private String password;
+    private int role;
+
+    public static int USER = 0;
+    public static int ADMIN = 1;
 
     public User() {
 
     }
 
-    public User(String userName, String password) {
+    public User(String userName, String password, int role) {
         this.userName = userName;
         this.password = utils.hashMyPassword(password);
+        this.role = role;
+
       //  System.out.println(utils.hashMyPassWord(password));
     }
 
@@ -54,7 +60,16 @@ public class User {
         this.password = utils.hashMyPassword(password);
         //this.password = passwordEncoder.encode(password);
     }
-/*
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    /*
     public String getMatchingPassword() {
         return matchingPassword;
     }
