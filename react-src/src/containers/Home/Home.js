@@ -50,7 +50,7 @@ class Home extends Component {
 
     return (
       <Grid direction='row' justify='center' container className='Home'>
-        <Grid item xs={11} lg={8}>
+        <Grid item xs={11} md={8}>
           <Paper square>
             <Header logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
@@ -59,12 +59,12 @@ class Home extends Component {
         </Grid>
         <Switch>
           <Route path='/' exact render={() => (
-            <Grid item xs={11} lg={7}>
+            <Grid item xs={11} md={7}>
               <Posts postOpen={this.handlePostOpen.bind(this)} posts={this.state.posts} />
             </Grid>
           )}/>
           <Route path='/new' render={() => (
-            <Grid item xs={11} lg={7}>
+            <Grid item xs={11} md={7}>
               <NewPost />
             </Grid>
           )}/>

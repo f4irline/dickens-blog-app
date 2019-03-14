@@ -20,7 +20,7 @@ const Header = (props) => {
   const { classes } = props;
 
   let buttons = (
-    <Grid item xs={12} lg={6}>
+    <Grid item xs={12} md={6}>
       <Link to='/login' style={{textDecoration: 'none'}}>
         <Button>
           Log in
@@ -37,7 +37,7 @@ const Header = (props) => {
 
   if (props.loggedIn) {
     buttons = (
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} md={6}>
         <Button onClick={props.logout}>
           Logout
         </Button>
@@ -53,7 +53,7 @@ const Header = (props) => {
 
   return (
     <Grid direction='row' justify='space-between' alignItems='center' container classes={{container: classes.container}}>
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} md={6}>
         <Typography variant='h3' style={{textTransform: 'uppercase'}}>
           Dickens Blog
         </Typography>
