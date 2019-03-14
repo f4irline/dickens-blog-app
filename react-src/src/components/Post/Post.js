@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 
+import * as Showdown from 'showdown';
+
 import headerImg from '../../assets/images/header_placeholder.jpg';
 
 import axios from 'axios';
@@ -24,6 +26,13 @@ class Post extends Component {
     post: {},
     loading: true
   }
+
+  converter = new Showdown.Converter({
+    tables: true,
+    simplifiedAutoLink: true,
+    strikethrough: true,
+    tasklists: true
+  });
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -56,7 +65,7 @@ class Post extends Component {
               {this.state.post.title}
             </Typography>
             <Divider/>
-            <Typography variant='body1' style={{margin: '1vh 0'}}>
+            <Typography variant='body1'>
               {repeatPost}
             </Typography>
             <Divider/>
