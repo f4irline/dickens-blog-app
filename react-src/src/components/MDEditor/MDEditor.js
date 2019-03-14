@@ -7,7 +7,7 @@ class MDEditor extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: '**Hello world!!!**',
+      value: '',
       tab: 'write'
     };
     this.converter = new Showdown.Converter({
@@ -20,6 +20,7 @@ class MDEditor extends Component {
 
   handleValueChange = (value) => {
     this.setState({value});
+    this.props.onChange(value);
   };
 
   handleTabChange = tab => {
