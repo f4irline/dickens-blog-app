@@ -17,6 +17,8 @@ public class Comment {
     private String body;
     private int likes;
 
+    public Comment(){};
+
     public Comment(Post post, User user, String body) {
         this.post = post;
         this.user = user;
