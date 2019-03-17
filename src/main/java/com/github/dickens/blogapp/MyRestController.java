@@ -19,9 +19,14 @@ public class MyRestController {
     /*
     curl -H"Content-Type: application/json" -X POST -d {\"userName\":\"mkyong\",\"password\":\"abc\"} http://localhost:8080/user/add
      */
-    @PostMapping(value = "/user/add")
+    @PostMapping(value = "/users/add")
     public void addUser(@RequestBody User user) {
         userRepository.save(user);
+    }
+
+    @DeleteMapping(value = "users/{userId}")
+    public void getUser(@PathVariable int userId) {
+        userRepository.deleteById(userId);
     }
 
     /*
@@ -47,5 +52,15 @@ public class MyRestController {
     @DeleteMapping(value = "posts/{postId}")
     public void deletePost(@PathVariable int postId) {
         postRepository.deleteById(postId);
+    }
+
+    @PostMapping(value="comments/add")
+    public void addComment(@RequestBody Comment comment) {
+        commentRepository.save(comment);
+    }
+
+    @GetMapping(value = "comments/{postId}")
+    public Iterable<Comment> getCommentsByPost(@PathVariable int postId) {
+        return commentRepository.findCommentsByPost(postRepository.findById(postId).get());
     }
 }
