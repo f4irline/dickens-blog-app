@@ -13,6 +13,8 @@ public class MyRestController {
     UserRepository userRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     /*
     curl -H"Content-Type: application/json" -X POST -d {\"userName\":\"mkyong\",\"password\":\"abc\"} http://localhost:8080/user/add
@@ -23,7 +25,7 @@ public class MyRestController {
     }
 
     /*
-    curl -i GET http://localhost:8080/posts/4
+    curl -i -X GET http://localhost:8080/posts/4
     */
     @GetMapping(value = "/posts/{postId}")
     public Optional<Post> getPost(@PathVariable int postId) {
