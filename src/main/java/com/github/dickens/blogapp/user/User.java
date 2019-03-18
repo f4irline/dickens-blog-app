@@ -1,5 +1,6 @@
 package com.github.dickens.blogapp.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.dickens.blogapp.Utils;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class User {
     private String userName;
     private String userFirst;
     private String userLast;
-    private String password;
+    private @JsonIgnore String password;
     private int role;
 
     public static int USER = 0;
