@@ -37,9 +37,9 @@ public class BlogApp implements CommandLineRunner {
 
 	    Lorem lorem = LoremIpsum.getInstance();
 
-        User heikki = new User("Hexa","Koirannimi",User.USER);
-        User tiina = new User("Tintti","Tiina96",User.USER);
-        User tommi = new User("Tombha","GhostRider98",User.ADMIN);
+        User heikki = new User("Hexa","Heiki","Kinnunen","Koirannimi",User.USER);
+        User tiina = new User("Tintti","Tiina","Kullitettu","Tiina96",User.USER);
+        User tommi = new User("Tombha","Tomi","Reikämies","GhostRider98",User.ADMIN);
         List<User> lista = new ArrayList<>();
         lista.add(heikki);
         lista.add(tiina);
