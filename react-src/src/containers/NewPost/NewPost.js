@@ -18,7 +18,7 @@ const styles = {
     marginBottom: '3vh'
   },
   title: {
-    marginBottom: '3vh'
+    margin: '0 2vh 3vh 2vh'
   },
   button: {
     margin: '3vh 3vh'
@@ -63,13 +63,13 @@ class NewPost extends Component {
 
     return (
       <Grid item xs={12} container direction='row' justify='center'>
-        <Grid item xs={8} classes={{item: classes.title}}>
+        <Grid item md={4} sm={7} xs={10} classes={{item: classes.title}}>
           <TextField 
             label='Post Title'
             fullWidth
             onChange={this.handleTitleChange.bind(this)}/>
         </Grid>
-        <Grid item xs={8} classes={{item: classes.title}}>
+        <Grid item md={4} sm={7} xs={10} classes={{item: classes.title}}>
           <TextField 
             label='Title image url'
             fullWidth
