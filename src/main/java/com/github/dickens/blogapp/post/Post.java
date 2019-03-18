@@ -27,15 +27,21 @@ public class Post {
     @Lob
     @Column
     private String body;
+
+    @Lob
+    @Column
+    private String imgUrl;
+
     private int likes;
     private LocalDateTime postDate = LocalDateTime.now();
 
     public Post(){}
 
-    public Post(User author, String title, String body) {
+    public Post(User author, String title, String body, String imgUrl) {
         this.author = author;
         this.title = title;
         this.body = body;
+        this.imgUrl = imgUrl;
         this.likes = likes;
     }
 
@@ -69,6 +75,14 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public int getLikes() {
