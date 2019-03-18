@@ -11,6 +11,8 @@ import Navigation from '../Navigation/Navigation';
 import axios from 'axios';
 
 import Posts from '../Posts/Posts';
+import Post from '../../components/Post/Post';
+import NewPost from '../NewPost/NewPost';
 
 import './Home.css';
 
@@ -48,7 +50,7 @@ class Home extends Component {
 
     return (
       <Grid direction='row' justify='center' container className='Home'>
-        <Grid item xs={11} lg={8}>
+        <Grid item xs={11} md={8}>
           <Paper square>
             <Header logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
@@ -63,9 +65,10 @@ class Home extends Component {
           )}/>
           <Route path='/new' render={() => (
             <Grid item xs={11} md={7}>
-              <p>New Post</p>
+              <NewPost user={this.props.user} />
             </Grid>
-          )} />
+          )}/>
+          <Route path='/post/:id' component={Post}/>
         </Switch>
       </Grid>
     );
