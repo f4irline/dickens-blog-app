@@ -17,6 +17,9 @@ public class BlogApp implements CommandLineRunner {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    CommentRepository commentRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BlogApp.class, args);
 	}
@@ -36,5 +39,7 @@ public class BlogApp implements CommandLineRunner {
 		postRepository.save(new Post(heikki, "Hauskaa hommaa tämä blogaaminen","No ei oikeesti"));
         postRepository.save(new Post(tiina, "Tampere","On helmi mesta"));
         postRepository.save(new Post(tommi, "Sköördiföö","Matafakafoufou"));
+
+        commentRepository.save(new Comment(postRepository.findById(4).get(),userRepository.findById(1).get(),"This is shittu comment"));
 	}
 }
