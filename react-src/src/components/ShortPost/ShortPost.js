@@ -68,7 +68,7 @@ const ShortPost = (props) => {
           </Grid>
         </Grid>
         <Grid container item xs={12} md={6} justify='flex-end' alignItems='center' style={{height: '35vh'}}> 
-          <img src={headerImg} alt='Title' className='image' />
+          <img src={props.data.imgUrl} alt='Title' className='image' />
         </Grid>
       </Grid>
     </Paper>

@@ -29,11 +29,16 @@ class NewPost extends Component {
 
   state = {
     body: '',
-    title: ''
+    title: '',
+    imgUrl: ''
   }
 
   handleTitleChange(event) {
     this.setState({title: event.target.value});
+  }
+
+  handleImageChange(event) {
+    this.setState({imgUrl: event.target.value});
   }
 
   handleBodyChange(value) {
@@ -63,6 +68,12 @@ class NewPost extends Component {
             label='Post Title'
             fullWidth
             onChange={this.handleTitleChange.bind(this)}/>
+        </Grid>
+        <Grid item xs={8} classes={{item: classes.title}}>
+          <TextField 
+            label='Title image url'
+            fullWidth
+            onChange={this.handleImageChange.bind(this)}/>
         </Grid>
         <Grid item xs={12}>
           <Divider />

@@ -19,6 +19,9 @@ const styles = {
     padding: '1vh',
     margin: '1vh',
     boxSizing: 'border-box'
+  },
+  body: {
+    margin: '1vh 0'
   }
 };
 
@@ -67,7 +70,7 @@ class Post extends Component {
               {this.state.post.title}
             </Typography>
             <Divider/>
-            <Typography variant='body1'>
+            <Typography variant='body1' classes={{root: classes.body}}>
               <Markdown>{this.state.post.body}</Markdown>
             </Typography>
             <Divider/>
