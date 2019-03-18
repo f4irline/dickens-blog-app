@@ -22,6 +22,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
     private int userId;
     private String userName;
+    private String userFirst;
+    private String userLast;
     private String password;
     private int role;
 
@@ -32,8 +34,10 @@ public class User {
 
     }
 
-    public User(String userName, String password, int role) {
+    public User(String userName, String userFirst, String userLast, String password, int role) {
         this.userName = userName;
+        this.userFirst = userFirst;
+        this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
         this.role = role;
 
@@ -54,6 +58,22 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserFirst() {
+        return userFirst;
+    }
+
+    public void setUserFirst(String userFirst) {
+        this.userFirst = userFirst;
+    }
+
+    public String getUserLast() {
+        return userLast;
+    }
+
+    public void setUserLast(String userLast) {
+        this.userLast = userLast;
     }
 
     public String getPassword() {
