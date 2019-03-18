@@ -22,6 +22,9 @@ public class Post {
     @JoinColumn(name = "USER_ID")
     private User author;
     private String title;
+
+    @Lob
+    @Column
     private String body;
     private int likes;
     private LocalDate postDate = LocalDate.now();

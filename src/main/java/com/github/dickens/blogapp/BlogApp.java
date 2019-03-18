@@ -6,6 +6,8 @@ import com.github.dickens.blogapp.comment.Comment;
 import com.github.dickens.blogapp.comment.CommentRepository;
 import com.github.dickens.blogapp.post.Post;
 import com.github.dickens.blogapp.post.PostRepository;
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +34,9 @@ public class BlogApp implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+	    Lorem lorem = LoremIpsum.getInstance();
+
         User heikki = new User("Hexa","Koirannimi",User.USER);
         User tiina = new User("Tintti","Tiina96",User.USER);
         User tommi = new User("Tombha","GhostRider98",User.ADMIN);
@@ -42,10 +47,10 @@ public class BlogApp implements CommandLineRunner {
 
 		userRepository.saveAll(lista);
 		//user author, String title, String body, int likes
-		postRepository.save(new Post(heikki, "Hauskaa hommaa tämä blogaaminen","No ei oikeesti"));
-        postRepository.save(new Post(tiina, "Tampere","On helmi mesta"));
-        postRepository.save(new Post(tommi, "Sköördiföö","Matafakafoufou"));
+		postRepository.save(new Post(heikki, lorem.getTitle(4, 6), lorem.getParagraphs(15, 20)));
+        postRepository.save(new Post(tiina, lorem.getTitle(4, 6),lorem.getParagraphs(15, 20)));
+        postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getParagraphs(15, 20)));
 
-        commentRepository.save(new Comment(postRepository.findById(4).get(),userRepository.findById(1).get(),"This is shittu comment"));
+        commentRepository.save(new Comment(postRepository.findById(1001).get(),userRepository.findById(1001).get(),"This is shittu comment"));
 	}
 }
