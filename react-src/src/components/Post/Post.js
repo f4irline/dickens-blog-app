@@ -75,7 +75,7 @@ class Post extends Component {
             </Typography>
             <Divider/>
             <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
-              Author: {this.state.post.author.userName} - Written: {new Date(this.state.post.postDate).toLocaleString('ko-KR', { timeZone: 'UTC' })}
+            Author: {this.state.post.author.userFirst} {this.state.post.author.userLast} - Written: {new Date(this.state.post.postDate).toLocaleString('en-GB')}
             </Typography>
           </Paper>
         </Grid>
