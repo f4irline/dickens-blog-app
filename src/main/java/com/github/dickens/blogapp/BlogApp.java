@@ -47,9 +47,9 @@ public class BlogApp implements CommandLineRunner {
 
 		userRepository.saveAll(lista);
 		//user author, String title, String body, int likes
-		postRepository.save(new Post(heikki, lorem.getTitle(4, 6), lorem.getParagraphs(15, 20)));
-        postRepository.save(new Post(tiina, lorem.getTitle(4, 6),lorem.getParagraphs(15, 20)));
-        postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getParagraphs(15, 20)));
+		postRepository.save(new Post(heikki, lorem.getTitle(4, 6), lorem.getHtmlParagraphs(15, 20)));
+        postRepository.save(new Post(tiina, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20)));
+        postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20)));
 
         commentRepository.save(new Comment(postRepository.findById(1001).get(),userRepository.findById(1001).get(),"This is shittu comment"));
 	}
