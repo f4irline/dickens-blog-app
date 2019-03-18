@@ -29,8 +29,7 @@ class NewPost extends Component {
 
   state = {
     body: '',
-    title: '',
-    author: this.props.user
+    title: ''
   }
 
   handleTitleChange(event) {
@@ -43,7 +42,7 @@ class NewPost extends Component {
 
   handleSend() {
     console.log(this.state);
-    axios.post('/posts/add', this.state)
+    axios.post('/posts/add/1001', this.state)
       .then((res) => console.log(res));
     this.props.history.push('/');
   }

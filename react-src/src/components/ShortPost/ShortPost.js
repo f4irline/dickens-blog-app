@@ -31,9 +31,6 @@ const ShortPost = (props) => {
 
   const { classes } = props;
 
-  let post = props.data.body;
-  let repeatPost = post.repeat(40);
-
   const handleClick = () => {
     props.postOpen(props.data);
   };
@@ -48,21 +45,21 @@ const ShortPost = (props) => {
             </Typography>
             <Divider />
             <Typography variant='caption' classes={{root: classes.contentWrapper}}>
-              {repeatPost}
+              {props.data.body}
             </Typography>
           </Grid>
 
           <Grid container direction='row' justify='space-between'>
             <Grid item xs={12} md={6}>
               <Typography variant='body2'>
-                Author: Matti
+                Author: {props.data.author.userFirst} {props.data.author.userLast}
               </Typography>
               <Typography variant='body2'>
-                {new Date().toUTCString()}
+                {new Date(props.data.postDate).toLocaleString()}
               </Typography>
             </Grid>
             <Grid item container justify='flex-end' xs={12} md={6}>
-              <Link to={'/post/'+props.data.id} style={{textDecoration: 'none'}}>
+              <Link to={'/post/'+props.data.postId} style={{textDecoration: 'none'}}>
                 <Button size='small' variant='contained' color='primary' onClick={handleClick}>Read more!</Button>
               </Link>
             </Grid>

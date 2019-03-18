@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 
-import axios from 'axios';
+import axios from '../../axios-instance';
 
 import Posts from '../Posts/Posts';
 import Post from '../../components/Post/Post';
@@ -26,13 +26,14 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+    axios.get('/posts/all')
       .then((res) => {
         this.setState({posts: res.data, loading: false});
       });
   }
 
   handlePostOpen(post) {
+    console.log(post);
     this.setState({openPost: post}, () => {
       this.setState({modalOpen: true});
     });
