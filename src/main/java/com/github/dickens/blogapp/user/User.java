@@ -1,7 +1,6 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.github.dickens.blogapp.Utils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

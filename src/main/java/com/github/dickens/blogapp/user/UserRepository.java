@@ -1,4 +1,4 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.user;
 
 import org.springframework.data.repository.CrudRepository;
 
