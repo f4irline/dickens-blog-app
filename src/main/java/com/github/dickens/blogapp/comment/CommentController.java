@@ -27,4 +27,9 @@ public class CommentController {
     public Iterable<Comment> getCommentsByPost(@PathVariable int postId) {
         return commentRepository.findCommentsByPost(postRepository.findById(postId).get());
     }
+
+    @DeleteMapping(value = "comments/{commentId}")
+    public void deleteComment(@PathVariable int commentId) {
+        commentRepository.deleteById(commentId);
+    }
 }
