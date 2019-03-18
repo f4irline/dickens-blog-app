@@ -12,6 +12,11 @@ public class PostController {
     @Autowired
     PostRepository postRepository;
 
+    @PostMapping
+    public void addPost(@RequestBody Post post) {
+        postRepository.save(post);
+    }
+
     /*
 curl -i -X GET http://localhost:8080/posts/4
 */
