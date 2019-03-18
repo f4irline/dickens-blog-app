@@ -43,8 +43,9 @@ class NewPost extends Component {
   handleSend() {
     console.log(this.state);
     axios.post('/posts/add/1001', this.state)
-      .then((res) => console.log(res));
-    this.props.history.push('/');
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+      .then(this.props.history.push('/'));
   }
 
   handleCancel() {

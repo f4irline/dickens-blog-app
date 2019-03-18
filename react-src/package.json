@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "axios": "^0.18.0",
+    "markdown-to-jsx": "^6.9.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-mde": "^7.0.4",

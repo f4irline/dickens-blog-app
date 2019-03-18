@@ -9,6 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
+import Markdown from '../../utils/Markdown';
+
 import './ShortPost.css';
 
 import headerImg from '../../assets/images/header_placeholder.jpg';
@@ -45,7 +47,7 @@ const ShortPost = (props) => {
             </Typography>
             <Divider />
             <Typography variant='caption' classes={{root: classes.contentWrapper}}>
-              {props.data.body}
+              <Markdown>{props.data.body}</Markdown>
             </Typography>
           </Grid>
 

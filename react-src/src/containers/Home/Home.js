@@ -26,6 +26,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    console.log('componentDidMount');
     axios.get('/posts/all')
       .then((res) => {
         this.setState({posts: res.data, loading: false});

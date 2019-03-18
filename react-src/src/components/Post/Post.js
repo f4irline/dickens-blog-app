@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 
+import Markdown from '../../utils/Markdown';
+
 import * as Showdown from 'showdown';
 
 import headerImg from '../../assets/images/header_placeholder.jpg';
@@ -66,7 +68,7 @@ class Post extends Component {
             </Typography>
             <Divider/>
             <Typography variant='body1'>
-              {this.state.post.body}
+              <Markdown>{this.state.post.body}</Markdown>
             </Typography>
             <Divider/>
             <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
