@@ -4,6 +4,7 @@ import com.github.dickens.blogapp.user.User;
 import com.github.dickens.blogapp.post.Post;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Comment {
@@ -26,6 +27,7 @@ public class Comment {
     private User author;
     private String body;
     private int likes;
+    private LocalDate postDate = LocalDate.now();
 
     public Comment(){};
 
@@ -69,5 +71,9 @@ public class Comment {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public LocalDate getPostDate() {
+        return postDate;
     }
 }
