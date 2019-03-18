@@ -65,7 +65,7 @@ class Home extends Component {
           )}/>
           <Route path='/new' render={() => (
             <Grid item xs={11} md={7}>
-              <NewPost />
+              <NewPost user={this.props.user} />
             </Grid>
           )}/>
           <Route path='/post/:id' component={Post}/>

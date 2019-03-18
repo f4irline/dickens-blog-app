@@ -31,7 +31,7 @@ class App extends Component {
         <Grid container justify='center'>
           <Switch>
             <Route path='/login' render={() => <Login login={this.handleLogin.bind(this)} />} />
-            <Route path='/' render={() => <Home loggedIn={this.state.loggedIn} logout={this.handleLogout.bind(this)}/>} />
+            <Route path='/' render={() => <Home user={this.state.name} loggedIn={this.state.loggedIn} logout={this.handleLogout.bind(this)}/>} />
           </Switch>
         </Grid>
       </Grid>

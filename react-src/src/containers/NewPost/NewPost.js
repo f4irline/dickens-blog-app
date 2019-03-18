@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import MDEditor from '../../components/MDEditor/MDEditor';
 
-import axios from 'axios';
+import axios from '../../axios-instance';
 
 const styles = {
   editor: {
@@ -29,7 +29,8 @@ class NewPost extends Component {
 
   state = {
     body: '',
-    title: ''
+    title: '',
+    author: this.props.user
   }
 
   handleTitleChange(event) {
@@ -42,6 +43,8 @@ class NewPost extends Component {
 
   handleSend() {
     console.log(this.state);
+    axios.post('/posts/add', this.state)
+      .then((res) => console.log(res));
     this.props.history.push('/');
   }
 
