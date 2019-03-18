@@ -26,6 +26,9 @@ public class Comment {
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User author;
+
+    @Lob
+    @Column
     private String body;
     private int likes;
     private LocalDateTime postDate = LocalDateTime.now();
