@@ -26,7 +26,6 @@ curl -i -X GET http://localhost:8080/posts/4
 */
     @GetMapping(value = "/posts/{postId}")
     public Optional<Post> getPost(@PathVariable int postId) {
-        System.out.println("get");
         return postRepository.findById(postId);
     }
 
