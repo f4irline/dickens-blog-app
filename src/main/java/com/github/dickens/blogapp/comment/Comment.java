@@ -1,19 +1,29 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.comment;
+
+import com.github.dickens.blogapp.user.User;
+import com.github.dickens.blogapp.post.Post;
 
 import javax.persistence.*;
 
 @Entity
 public class Comment {
+    @TableGenerator(name = "Comment_Gen",
+            table = "COMMENT_ID_GEN",
+            pkColumnName = "COMMENT_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "Comment_Gen",
+            initialValue = 1000,
+            allocationSize = 100)
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Comment_Gen")
     private int commentId;
     @OneToOne
     @JoinColumn(name ="POST_ID")
     private Post post;
     @OneToOne
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private User author;
     private String body;
     private int likes;
 
@@ -21,7 +31,7 @@ public class Comment {
 
     public Comment(Post post, User user, String body) {
         this.post = post;
-        this.user = user;
+        this.author = user;
         this.body = body;
     }
 
@@ -37,12 +47,12 @@ public class Comment {
         this.post = post;
     }
 
-    public User getUser() {
-        return user;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getBody() {

@@ -1,15 +1,22 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.post;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.dickens.blogapp.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class Post {
+    @TableGenerator(name = "Post_Gen",
+            table = "POST_ID_GEN",
+            pkColumnName = "POST_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "Post_Gen",
+            initialValue = 1000,
+            allocationSize = 100)
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Post_Gen")
     private int postId;
     @OneToOne
     @JoinColumn(name = "USER_ID")
