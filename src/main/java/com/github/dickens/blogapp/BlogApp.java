@@ -1,5 +1,11 @@
 package com.github.dickens.blogapp;
 
+import com.github.dickens.blogapp.user.User;
+import com.github.dickens.blogapp.user.UserRepository;
+import com.github.dickens.blogapp.comment.Comment;
+import com.github.dickens.blogapp.comment.CommentRepository;
+import com.github.dickens.blogapp.post.Post;
+import com.github.dickens.blogapp.post.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -35,7 +41,7 @@ public class BlogApp implements CommandLineRunner {
         lista.add(tommi);
 
 		userRepository.saveAll(lista);
-		//User author, String title, String body, int likes
+		//user author, String title, String body, int likes
 		postRepository.save(new Post(heikki, "Hauskaa hommaa tämä blogaaminen","No ei oikeesti"));
         postRepository.save(new Post(tiina, "Tampere","On helmi mesta"));
         postRepository.save(new Post(tommi, "Sköördiföö","Matafakafoufou"));

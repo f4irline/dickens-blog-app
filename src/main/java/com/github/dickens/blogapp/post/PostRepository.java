@@ -1,7 +1,6 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.post;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.web.bind.annotation.GetMapping;
 
 public interface PostRepository extends CrudRepository<Post, Integer> {
 

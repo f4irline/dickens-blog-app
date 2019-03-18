@@ -1,4 +1,7 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.comment;
+
+import com.github.dickens.blogapp.user.User;
+import com.github.dickens.blogapp.post.Post;
 
 import javax.persistence.*;
 

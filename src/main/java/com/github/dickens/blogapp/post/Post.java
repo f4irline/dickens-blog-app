@@ -1,6 +1,6 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.post;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.dickens.blogapp.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
