@@ -18,7 +18,7 @@ const styles = {
     marginBottom: '3vh'
   },
   title: {
-    marginBottom: '3vh'
+    margin: '0 2vh 3vh 2vh'
   },
   button: {
     margin: '3vh 3vh'
@@ -30,11 +30,15 @@ class NewPost extends Component {
   state = {
     body: '',
     title: '',
-    author: this.props.user
+    imgUrl: ''
   }
 
   handleTitleChange(event) {
     this.setState({title: event.target.value});
+  }
+
+  handleImageChange(event) {
+    this.setState({imgUrl: event.target.value});
   }
 
   handleBodyChange(value) {
@@ -43,9 +47,10 @@ class NewPost extends Component {
 
   handleSend() {
     console.log(this.state);
-    axios.post('/posts/add', this.state)
-      .then((res) => console.log(res));
-    this.props.history.push('/');
+    axios.post('/posts/add/1001', this.state)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+      .then(this.props.history.push('/'));
   }
 
   handleCancel() {
@@ -58,11 +63,17 @@ class NewPost extends Component {
 
     return (
       <Grid item xs={12} container direction='row' justify='center'>
-        <Grid item xs={8} classes={{item: classes.title}}>
+        <Grid item md={4} sm={7} xs={10} classes={{item: classes.title}}>
           <TextField 
             label='Post Title'
             fullWidth
             onChange={this.handleTitleChange.bind(this)}/>
+        </Grid>
+        <Grid item md={4} sm={7} xs={10} classes={{item: classes.title}}>
+          <TextField 
+            label='Title image url'
+            fullWidth
+            onChange={this.handleImageChange.bind(this)}/>
         </Grid>
         <Grid item xs={12}>
           <Divider />

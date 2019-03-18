@@ -6,17 +6,22 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 
+import Markdown from '../../utils/Markdown';
+
 import * as Showdown from 'showdown';
 
 import headerImg from '../../assets/images/header_placeholder.jpg';
 
-import axios from 'axios';
+import axios from '../../axios-instance';
 
 const styles = {
   post: {
     padding: '1vh',
     margin: '1vh',
     boxSizing: 'border-box'
+  },
+  body: {
+    margin: '1vh 0'
   }
 };
 
@@ -36,7 +41,7 @@ class Post extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    axios.get('https://jsonplaceholder.typicode.com/posts/'+id)
+    axios.get('/posts/'+id)
       .then((res) => {
         this.setState({post: res.data, loading: false});
       });
@@ -54,7 +59,7 @@ class Post extends Component {
       );
     }
 
-    let repeatPost = this.state.post.body.repeat(50);
+    console.log(this.state.post);
 
     return (
       <Grid item xs={11} lg={7}>
@@ -65,12 +70,12 @@ class Post extends Component {
               {this.state.post.title}
             </Typography>
             <Divider/>
-            <Typography variant='body1'>
-              {repeatPost}
+            <Typography variant='body1' classes={{root: classes.body}}>
+              <Markdown>{this.state.post.body}</Markdown>
             </Typography>
             <Divider/>
             <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
-              Author: Matti - Written: {new Date().toUTCString()}
+              Author: {this.state.post.author.userName} - Written: {new Date(this.state.post.postDate).toLocaleString('ko-KR', { timeZone: 'UTC' })}
             </Typography>
           </Paper>
         </Grid>
