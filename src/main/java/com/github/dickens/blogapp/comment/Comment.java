@@ -7,9 +7,16 @@ import javax.persistence.*;
 
 @Entity
 public class Comment {
+    @TableGenerator(name = "Comment_Gen",
+            table = "COMMENT_ID_GEN",
+            pkColumnName = "COMMENT_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "Comment_Gen",
+            initialValue = 1000,
+            allocationSize = 100)
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Comment_Gen")
     private int commentId;
     @OneToOne
     @JoinColumn(name ="POST_ID")

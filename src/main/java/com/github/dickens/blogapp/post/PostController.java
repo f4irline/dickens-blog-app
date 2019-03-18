@@ -1,5 +1,6 @@
 package com.github.dickens.blogapp.post;
 
+import com.github.dickens.blogapp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,12 @@ public class PostController {
 
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    @PostMapping
-    public void addPost(@RequestBody Post post) {
+    @PostMapping(value ="posts/add/{userId}")
+    public void addPost(@RequestBody Post post,@PathVariable int userId) {
+        post.setAuthor(userRepository.findById(userId).get());
         postRepository.save(post);
     }
 

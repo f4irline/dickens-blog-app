@@ -2,10 +2,7 @@ package com.github.dickens.blogapp.user;
 
 import com.github.dickens.blogapp.Utils;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -13,8 +10,16 @@ public class User {
     @Transient
     Utils utils = new Utils();
 
+    @TableGenerator(name = "User_Gen",
+            table = "USER_ID_GEN",
+            pkColumnName = "USER_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "User_Gen",
+            initialValue = 1000,
+            allocationSize = 100)
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
     private int userId;
     private String userName;
     private String password;
