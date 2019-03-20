@@ -6,12 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 
-import Markdown from '../../utils/Markdown';
-
 import * as Showdown from 'showdown';
 
 import headerImg from '../../assets/images/header_placeholder.jpg';
 
+import Comments from './Comments/Comments';
+import Markdown from '../../utils/Markdown';
 import axios from '../../axios-instance';
 
 const styles = {
@@ -29,7 +29,9 @@ class Post extends Component {
 
   state = {
     post: {},
-    loading: true
+    comments: [],
+    loadingPosts: true,
+    loadingComments: true
   }
 
   converter = new Showdown.Converter({
@@ -43,7 +45,11 @@ class Post extends Component {
     const { id } = this.props.match.params;
     axios.get('/posts/'+id)
       .then((res) => {
-        this.setState({post: res.data, loading: false});
+        this.setState({post: res.data, loadingPosts: false});
+      });
+    axios.get('comments/'+id)
+      .then((res) => {
+        this.setState({comments: res.data, loadingComments: false});
       });
   }
 
@@ -51,15 +57,13 @@ class Post extends Component {
 
     const { classes } = this.props;
 
-    if (this.state.loading) {
+    if (this.state.loadingPosts || this.state.loadingComments) {
       return (
         <Grid item xs={11} lg={7}>
           <p style={{textAlign: 'center'}}>Loading...</p>
         </Grid>
       );
     }
-
-    console.log(this.state.post);
 
     return (
       <Grid item xs={11} lg={7}>
@@ -70,14 +74,15 @@ class Post extends Component {
               {this.state.post.title}
             </Typography>
             <Divider/>
-            <Typography variant='body1' classes={{root: classes.body}}>
-              <Markdown>{this.state.post.body}</Markdown>
-            </Typography>
+            <Markdown>{this.state.post.body}</Markdown>
             <Divider/>
             <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
             Author: {this.state.post.author.userFirst} {this.state.post.author.userLast} - Written: {new Date(this.state.post.postDate).toLocaleString('en-GB')}
             </Typography>
           </Paper>
+        </Grid>
+        <Grid container>
+          <Comments comments={this.state.comments}/>
         </Grid>
       </Grid>
     );  
