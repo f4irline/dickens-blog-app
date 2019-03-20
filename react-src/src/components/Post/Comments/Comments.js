@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
+import CommentWriter from './CommentWriter/CommentWriter';
 import Comment from './Comment/Comment';
 
 const styles = {
@@ -40,6 +42,9 @@ class Comments extends Component {
         </Typography>
         <Divider style={{marginTop: '1vh'}}/>
         {comments}
+        <Grid container justify='center'>
+          <CommentWriter postId={this.props.postId} newComment={this.props.newComment}/>
+        </Grid>
       </Paper>
     );
   }
