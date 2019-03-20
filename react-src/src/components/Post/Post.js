@@ -53,6 +53,16 @@ class Post extends Component {
       });
   }
 
+  loadComments() {
+    const { id } = this.props.match.params;
+    this.setState({loadingComments: true}, () => {
+      axios.get('comments/'+id)
+        .then((res) => {
+          this.setState({comments: res.data, loadingComments: false});
+        });
+    });
+  }
+
   render() {
 
     const { classes } = this.props;
@@ -82,7 +92,7 @@ class Post extends Component {
           </Paper>
         </Grid>
         <Grid container>
-          <Comments comments={this.state.comments}/>
+          <Comments postId={this.state.post.postId} newComment={this.loadComments.bind(this)} comments={this.state.comments}/>
         </Grid>
       </Grid>
     );  
