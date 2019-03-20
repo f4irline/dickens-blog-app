@@ -57,7 +57,7 @@ const ShortPost = (props) => {
                 Author: {props.data.author.userFirst} {props.data.author.userLast}
               </Typography>
               <Typography variant='body2'>
-                {new Date(props.data.postDate).toLocaleString('en-GB', { timeZone: 'UTC' })}
+                {new Date(props.data.postDate).toLocaleString('en-GB')}
               </Typography>
             </Grid>
             <Grid item container justify='flex-end' xs={12} md={6}>
