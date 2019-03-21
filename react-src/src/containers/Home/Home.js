@@ -8,9 +8,11 @@ import Divider from '@material-ui/core/Divider';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 
-import axios from 'axios';
+import axios from '../../axios-instance';
 
 import Posts from '../Posts/Posts';
+import Post from '../../components/Post/Post';
+import NewPost from '../NewPost/NewPost';
 
 import './Home.css';
 
@@ -24,13 +26,15 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+    console.log('componentDidMount');
+    axios.get('/posts/all')
       .then((res) => {
         this.setState({posts: res.data, loading: false});
       });
   }
 
   handlePostOpen(post) {
+    console.log(post);
     this.setState({openPost: post}, () => {
       this.setState({modalOpen: true});
     });
@@ -48,7 +52,7 @@ class Home extends Component {
 
     return (
       <Grid direction='row' justify='center' container className='Home'>
-        <Grid item xs={11} lg={8}>
+        <Grid item xs={11} md={8}>
           <Paper square>
             <Header logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
@@ -63,9 +67,10 @@ class Home extends Component {
           )}/>
           <Route path='/new' render={() => (
             <Grid item xs={11} md={7}>
-              <p>New Post</p>
+              <NewPost user={this.props.user} />
             </Grid>
-          )} />
+          )}/>
+          <Route path='/post/:id' component={Post}/>
         </Switch>
       </Grid>
     );

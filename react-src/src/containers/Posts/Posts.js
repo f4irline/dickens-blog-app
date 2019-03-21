@@ -9,9 +9,9 @@ class Posts extends Component {
   }
 
   render() {
-
     let posts = this.state.posts.map((post) => {
-      return <ShortPost postOpen={this.props.postOpen} key={post.id} data={post}/>;
+      console.log(post);
+      return <ShortPost postOpen={this.props.postOpen} key={post.postId} data={post}/>;
     });
 
     return (

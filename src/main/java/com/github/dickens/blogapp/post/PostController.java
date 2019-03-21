@@ -1,33 +1,31 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.post;
 
+import com.github.dickens.blogapp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @RestController
-public class MyRestController {
+@RequestMapping(value = "/api")
+public class PostController {
 
-    @Autowired
-    UserRepository userRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    /*
-    curl -H"Content-Type: application/json" -X POST -d {\"userName\":\"mkyong\",\"password\":\"abc\"} http://localhost:8080/user/add
-     */
-    @PostMapping(value = "/user/add")
-    public void addUser(@RequestBody User user) {
-        userRepository.save(user);
+    @PostMapping(value ="posts/add/{userId}")
+    public void addPost(@RequestBody Post post,@PathVariable int userId) {
+        post.setAuthor(userRepository.findById(userId).get());
+        postRepository.save(post);
     }
 
     /*
-    curl -i GET http://localhost:8080/posts/4
-    */
+curl -i -X GET http://localhost:8080/posts/4
+*/
     @GetMapping(value = "/posts/{postId}")
     public Optional<Post> getPost(@PathVariable int postId) {
-        System.out.println("get");
         return postRepository.findById(postId);
     }
 
@@ -46,4 +44,5 @@ public class MyRestController {
     public void deletePost(@PathVariable int postId) {
         postRepository.deleteById(postId);
     }
+
 }

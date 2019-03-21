@@ -46,7 +46,7 @@ class Login extends Component {
 
     return (
       <Grid direction='row' justify='center' alignItems='center' container className='Login'>
-        <Grid item xs={11} lg={4}>
+        <Grid item xs={11} md={4}>
           <Paper className='login-wrapper' elevation={5}>
             <Typography variant='h4' gutterBottom>
               USER LOGIN

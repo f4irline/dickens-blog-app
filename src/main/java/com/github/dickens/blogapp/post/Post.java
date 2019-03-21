@@ -1,30 +1,47 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.post;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.github.dickens.blogapp.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Post {
+    @TableGenerator(name = "Post_Gen",
+            table = "POST_ID_GEN",
+            pkColumnName = "POST_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "Post_Gen",
+            initialValue = 1000,
+            allocationSize = 100)
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Post_Gen")
     private int postId;
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User author;
     private String title;
+
+    @Lob
+    @Column
     private String body;
+
+    @Lob
+    @Column
+    private String imgUrl;
+
     private int likes;
-    private LocalDate postDate = LocalDate.now();
+    private LocalDateTime postDate = LocalDateTime.now();
 
     public Post(){}
 
-    public Post(User author, String title, String body) {
+    public Post(User author, String title, String body, String imgUrl) {
         this.author = author;
         this.title = title;
         this.body = body;
+        this.imgUrl = imgUrl;
         this.likes = likes;
     }
 
@@ -60,6 +77,14 @@ public class Post {
         this.body = body;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public int getLikes() {
         return likes;
     }
@@ -68,7 +93,7 @@ public class Post {
         this.likes = likes;
     }
 
-    public LocalDate getPostDate() {
+    public LocalDateTime getPostDate() {
         return postDate;
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 import Grid from '@material-ui/core/Grid';
@@ -20,40 +20,40 @@ const Header = (props) => {
   const { classes } = props;
 
   let buttons = (
-    <Grid item xs={12} lg={6}>
-      <NavLink to='/login'>
+    <Grid item xs={12} md={6}>
+      <Link to='/login' style={{textDecoration: 'none'}}>
         <Button>
           Log in
         </Button>
-      </NavLink>
+      </Link>
       <p style={{display: 'inline-block', userSelect: 'none'}}>|</p>
-      <NavLink to='/register'>
+      <Link to='/register' style={{textDecoration: 'none'}}>
         <Button>
           Register
         </Button>
-      </NavLink>
+      </Link>
     </Grid>
   );
 
   if (props.loggedIn) {
     buttons = (
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} md={6}>
         <Button onClick={props.logout}>
           Logout
         </Button>
         <p style={{display: 'inline-block', userSelect: 'none'}}>|</p>
-        <NavLink to='/new'>
+        <Link to='/new' style={{textDecoration: 'none'}}>
           <Button>
             New Post
           </Button>
-        </NavLink>
+        </Link>
       </Grid>
     );
   }
 
   return (
     <Grid direction='row' justify='space-between' alignItems='center' container classes={{container: classes.container}}>
-      <Grid item xs={12} lg={6}>
+      <Grid item xs={12} md={6}>
         <Typography variant='h3' style={{textTransform: 'uppercase'}}>
           Dickens Blog
         </Typography>

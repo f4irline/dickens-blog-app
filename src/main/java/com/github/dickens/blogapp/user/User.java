@@ -1,12 +1,9 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.dickens.blogapp.Utils;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -14,11 +11,21 @@ public class User {
     @Transient
     Utils utils = new Utils();
 
+    @TableGenerator(name = "User_Gen",
+            table = "USER_ID_GEN",
+            pkColumnName = "USER_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "User_Gen",
+            initialValue = 1000,
+            allocationSize = 100)
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
     private int userId;
     private String userName;
-    private String password;
+    private String userFirst;
+    private String userLast;
+    private @JsonIgnore String password;
     private int role;
 
     public static int USER = 0;
@@ -28,8 +35,10 @@ public class User {
 
     }
 
-    public User(String userName, String password, int role) {
+    public User(String userName, String userFirst, String userLast, String password, int role) {
         this.userName = userName;
+        this.userFirst = userFirst;
+        this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
         this.role = role;
 
@@ -50,6 +59,22 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserFirst() {
+        return userFirst;
+    }
+
+    public void setUserFirst(String userFirst) {
+        this.userFirst = userFirst;
+    }
+
+    public String getUserLast() {
+        return userLast;
+    }
+
+    public void setUserLast(String userLast) {
+        this.userLast = userLast;
     }
 
     public String getPassword() {
