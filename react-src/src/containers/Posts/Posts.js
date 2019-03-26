@@ -28,7 +28,34 @@ class Posts extends Component {
         this.delayLoadingPostsResolve();
       });
     }
+  }
 
+  componentDidUpdate() {
+    const { category } = this.props.match.params;
+    console.log('Component updated');
+    if(category === undefined) {
+      axios.get('/posts/all')
+      .then((res) => {
+        this.setState({posts: res.data});
+        this.delayLoadingPostsResolve();
+      });
+    } else {
+      axios.get(`/posts/category/${category}`)
+      .then((res) => {
+        this.setState({posts: res.data});
+        this.delayLoadingPostsResolve();
+      });
+    }    
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      return true;
+    } else if (nextState.posts !== this.state.posts) {
+      return true;
+    }
+
+    return false;
   }
 
   delayLoadingPostsResolve() {
