@@ -135,7 +135,7 @@ class Post extends Component {
 
     return (
       <Grid item xs={11} lg={7}>
-        {this.state.showDialog ? <AlertDialog title='Titteli' description = 'Description' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
+        {this.state.showDialog ? <AlertDialog title='Remove whole post?' description = 'The whole post will be removed. Are you sure?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <Grid container>
           <Paper elevation={5} classes={{root: classes.post}}>
             <img src={headerImg} alt='Header' style={{width: '100%'}} />

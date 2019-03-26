@@ -29,7 +29,7 @@ class Comment extends Component {
   render() {
     return (
       <div>
-        {this.state.showDialog ? <AlertDialog title="Titteli" description = "Description" handleClose={this.onClickCloseHandler.bind(this)} /> : null}
+        {this.state.showDialog ? <AlertDialog title='Remove comment?' description = 'The comment will be removed. Are you sure?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <Typography variant='caption' style={{fontSize: '2vh', margin: '1vh 0', textAlign: 'start', textTransform: 'uppercase'}}>
           {this.state.comment.author.userFirst}
         </Typography>
@@ -39,7 +39,7 @@ class Comment extends Component {
   
         <Grid direction='row' justify='center' container className='Home'>
           <Grid item xs={6}>
-            <IconButton aria-label="Delete" onClick={this.onClickOpenHandler.bind(this)}>
+            <IconButton aria-label='Delete' onClick={this.onClickOpenHandler.bind(this)}>
               <DeleteIcon />
             </IconButton>
           </Grid>

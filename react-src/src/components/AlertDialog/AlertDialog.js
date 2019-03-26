@@ -7,14 +7,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 class AlertDialog extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state.title = props.title;
-    this.state.description = props.description;
-  }
-
   state = {
     open: true,
+    title: this.props.title,
+    description: this.props.description
   };
 
   handleCancel = () => {
@@ -31,20 +27,18 @@ class AlertDialog extends React.Component {
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{this.state.title}</DialogTitle>
+          <DialogTitle>{this.state.title}</DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText>
               {this.state.description}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCancel} color="primary" name="cancel">
+            <Button onClick={this.handleCancel} color="secondary" name="cancel">
               Cancel
             </Button>
-            <Button onClick={this.handleDelete} color="primary" name="delete" autoFocus>
+            <Button onClick={this.handleDelete} color="primary" name="delete">
               Delete
             </Button>
           </DialogActions>
