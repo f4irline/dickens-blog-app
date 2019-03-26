@@ -1,5 +1,6 @@
 package com.github.dickens.blogapp.post;
 
+import com.github.dickens.blogapp.Category;
 import com.github.dickens.blogapp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,11 @@ curl -i -X GET http://localhost:8080/posts/4
     @GetMapping(value = "/posts/{postId}")
     public Optional<Post> getPost(@PathVariable int postId) {
         return postRepository.findById(postId);
+    }
+
+    @GetMapping(value = "/posts/category/{category}")
+    public Iterable<Post> getPostByCategory(@PathVariable("category") Category category) {
+        return postRepository.findByCategory(category);
     }
 
     /*

@@ -1,7 +1,7 @@
 package com.github.dickens.blogapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.dickens.blogapp.Utils;
+import com.github.dickens.blogapp.utils.HashUtils;
 
 import javax.persistence.*;
 
@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class User {
 
     @Transient
-    Utils utils = new Utils();
+    HashUtils utils = new HashUtils();
 
     @TableGenerator(name = "User_Gen",
             table = "USER_ID_GEN",

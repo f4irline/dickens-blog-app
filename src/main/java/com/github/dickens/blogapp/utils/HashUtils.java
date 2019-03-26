@@ -1,4 +1,4 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Utils {
+public class HashUtils {
 
     //https://www.baeldung.com/spring-security-registration-password-encoding-bcrypt
 

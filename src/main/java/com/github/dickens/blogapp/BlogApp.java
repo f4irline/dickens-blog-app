@@ -47,9 +47,11 @@ public class BlogApp implements CommandLineRunner {
 
 		userRepository.saveAll(lista);
 		//user author, String title, String body, int likes
-		postRepository.save(new Post(heikki, lorem.getTitle(4, 6), lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552664622-2cdfdf76ed0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"));
-        postRepository.save(new Post(tiina, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552688400-5e74ea0e494b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"));
-        postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80"));
+		postRepository.save(new Post(heikki, lorem.getTitle(4, 6), lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552664622-2cdfdf76ed0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80", Category.CULTURE));
+        postRepository.save(new Post(tiina, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552688400-5e74ea0e494b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80", Category.HEALTH));
+        postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80", Category.POLITICS));
+        postRepository.save(new Post(heikki, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80", Category.TECH));
+        postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80", Category.STUDIES));
 
         commentRepository.save(new Comment(postRepository.findById(1001).get(),userRepository.findById(1001).get(),lorem.getParagraphs(1, 3)));
         commentRepository.save(new Comment(postRepository.findById(1002).get(),userRepository.findById(1001).get(),lorem.getParagraphs(1, 3)));

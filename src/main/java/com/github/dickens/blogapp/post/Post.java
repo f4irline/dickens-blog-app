@@ -1,5 +1,6 @@
 package com.github.dickens.blogapp.post;
 
+import com.github.dickens.blogapp.Category;
 import com.github.dickens.blogapp.user.User;
 
 import javax.persistence.*;
@@ -32,17 +33,21 @@ public class Post {
     @Column
     private String imgUrl;
 
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
     private int likes;
     private LocalDateTime postDate = LocalDateTime.now();
 
     public Post(){}
 
-    public Post(User author, String title, String body, String imgUrl) {
+    public Post(User author, String title, String body, String imgUrl, Category category) {
         this.author = author;
         this.title = title;
         this.body = body;
         this.imgUrl = imgUrl;
         this.likes = likes;
+        this.category = category;
     }
 
     public int getPostId() {
@@ -92,6 +97,10 @@ public class Post {
     public void setLikes(int likes) {
         this.likes = likes;
     }
+
+    public Category getCategory() { return category; }
+
+    public void setCategory(Category category) { this.category = category; }
 
     public LocalDateTime getPostDate() {
         return postDate;
