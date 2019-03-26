@@ -32,7 +32,7 @@ class Comments extends Component {
     const { classes } = this.props;
 
     let comments = this.state.comments.map((comment) => {
-      return <Comment key={comment.commentId} comment={comment} />;
+      return <Comment handleDelete={this.props.handleDelete} key={comment.commentId} comment={comment} />;
     });
 
     return (
