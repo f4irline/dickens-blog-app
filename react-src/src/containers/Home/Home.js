@@ -50,7 +50,9 @@ class Home extends Component {
           )}/>
           <Route path='/post/:id' component={Post}/>
           <Route path='/category/:category' render={() => (
+            <Grid item xs={11} md={7}>
               <Posts postOpen={this.handlePostOpen.bind(this)} />
+            </Grid>
           )}/>
         </Switch>
       </Grid>

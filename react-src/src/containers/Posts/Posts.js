@@ -17,16 +17,16 @@ class Posts extends Component {
     const { category } = this.props.match.params;
     if(category === undefined) {
       axios.get('/posts/all')
-      .then((res) => {
-        this.setState({posts: res.data});
-        this.delayLoadingPostsResolve();
-      });
+        .then((res) => {
+          this.setState({posts: res.data});
+          this.delayLoadingPostsResolve();
+        });
     } else {
       axios.get(`/posts/category/${category}`)
-      .then((res) => {
-        this.setState({posts: res.data});
-        this.delayLoadingPostsResolve();
-      });
+        .then((res) => {
+          this.setState({posts: res.data});
+          this.delayLoadingPostsResolve();
+        });
     }
   }
 

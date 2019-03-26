@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 
-import Markdown from '../../../../utils/Markdown';
 import AlertDialog from '../../../AlertDialog/AlertDialog';
 
 class Comment extends Component {
