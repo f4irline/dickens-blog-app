@@ -13,8 +13,6 @@ import Markdown from '../../utils/Markdown';
 
 import './ShortPost.css';
 
-import headerImg from '../../assets/images/header_placeholder.jpg';
-
 const styles = {
   post: {
     padding: '1vh',

@@ -3,8 +3,6 @@ import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
-import Markdown from '../../../../utils/Markdown';
-
 const Comment = (props) => {
 
   const comment = props.comment;
