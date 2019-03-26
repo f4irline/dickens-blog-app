@@ -22,8 +22,6 @@ const Navigation = (props) => {
       <NavItem url='/category/politics'>Politics</NavItem>
       <NavItem url='/category/studies'>Studies</NavItem>
       <NavItem url='/category/health'>Health</NavItem>
-     {/* <NavItem url='/category-6'>Cat-6</NavItem>
-     <NavItem url='/category-7'>Cat-7</NavItem> */}
     </Grid>
   );
 };
