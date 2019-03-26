@@ -15,9 +15,11 @@ class CommentWriter extends Component {
 
   handleSubmit() {
     axios.post(`/comments/add/${this.props.postId}/1001`, this.state)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
-      .then(this.props.newComment());
+      .then((res) => {
+        console.log(res);
+        this.props.newComment();
+      })
+      .catch((err) => console.log(err));
   }
 
   handleChange(event) {

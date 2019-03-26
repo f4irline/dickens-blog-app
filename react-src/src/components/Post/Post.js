@@ -14,6 +14,8 @@ import Comments from './Comments/Comments';
 import Markdown from '../../utils/Markdown';
 import axios from '../../axios-instance';
 
+import Loading from '../../components/Loading/Loading';
+
 const styles = {
   post: {
     padding: '1vh',
@@ -45,22 +47,38 @@ class Post extends Component {
     const { id } = this.props.match.params;
     axios.get('/posts/'+id)
       .then((res) => {
-        this.setState({post: res.data, loadingPosts: false});
+        this.setState({post: res.data});
+        this.delayLoadingPostResolve();
       });
     axios.get('comments/'+id)
       .then((res) => {
-        this.setState({comments: res.data, loadingComments: false});
+        this.setState({comments: res.data});
+        this.delayLoadingCommentsResolve();
       });
   }
 
   loadComments() {
     const { id } = this.props.match.params;
+    console.log('Loading');
     this.setState({loadingComments: true}, () => {
       axios.get('comments/'+id)
         .then((res) => {
-          this.setState({comments: res.data, loadingComments: false});
+          this.setState({comments: res.data});
+          this.delayLoadingCommentsResolve();
         });
     });
+  }
+
+  delayLoadingCommentsResolve() {
+    setTimeout(() => {
+      this.setState({loadingComments: false});
+    }, 1500);
+  }
+
+  delayLoadingPostResolve() {
+    setTimeout(() => {
+      this.setState({loadingPosts: false});
+    }, 1500);
   }
 
   render() {
@@ -69,8 +87,8 @@ class Post extends Component {
 
     if (this.state.loadingPosts || this.state.loadingComments) {
       return (
-        <Grid item xs={11} lg={7}>
-          <p style={{textAlign: 'center'}}>Loading...</p>
+        <Grid item container justify='center' xs={12}>
+          <Loading loading={true}/>
         </Grid>
       );
     }

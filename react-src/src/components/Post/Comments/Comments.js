@@ -13,7 +13,8 @@ const styles = {
   comment: {
     padding: '1vh',
     margin: '1vh',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    width: '100%'
   },
 };
 

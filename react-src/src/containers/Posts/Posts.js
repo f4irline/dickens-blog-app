@@ -1,14 +1,41 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import ShortPost from '../../components/ShortPost/ShortPost';
+import Loading from '../../components/Loading/Loading';
+
+import axios from '../../axios-instance';
 
 class Posts extends Component {
 
   state = {
-    posts: this.props.posts
+    loading: true,
+    posts: {}
+  }
+
+  componentDidMount() {
+    axios.get('/posts/all')
+      .then((res) => {
+        this.setState({posts: res.data});
+        this.delayLoadingPostsResolve();
+      });
+  }
+
+  delayLoadingPostsResolve() {
+    setTimeout(() => {
+      this.setState({loading: false});
+    }, 1500);
   }
 
   render() {
+
+    if (this.state.loading) {
+      return (
+        <Grid item container justify='center' xs={12}>
+          <Loading loading={this.state.loading} />
+        </Grid>
+      );
+    }
+
     let posts = this.state.posts.map((post) => {
       console.log(post);
       return <ShortPost postOpen={this.props.postOpen} key={post.postId} data={post}/>;

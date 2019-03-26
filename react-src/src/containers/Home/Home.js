@@ -8,8 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 
-import axios from '../../axios-instance';
-
 import Posts from '../Posts/Posts';
 import Post from '../../components/Post/Post';
 import NewPost from '../NewPost/NewPost';
@@ -19,37 +17,17 @@ import './Home.css';
 class Home extends Component {
 
   state = {
-    loading: true,
-    posts: {},
     modalOpen: false,
     openPost: {}
   }
 
-  componentDidMount() {
-    console.log('componentDidMount');
-    axios.get('/posts/all')
-      .then((res) => {
-        this.setState({posts: res.data, loading: false});
-      });
-  }
-
   handlePostOpen(post) {
-    console.log(post);
     this.setState({openPost: post}, () => {
       this.setState({modalOpen: true});
     });
   }
   
   render() {
-
-    if (this.state.loading) {
-      return (
-        <Grid direction='row' justify='center' container className='Home'>
-          <p style={{textAlign: 'center'}}>Loading...</p>
-        </Grid>
-      );
-    }
-
     return (
       <Grid direction='row' justify='center' container className='Home'>
         <Grid item xs={11} md={8}>
@@ -62,7 +40,7 @@ class Home extends Component {
         <Switch>
           <Route path='/' exact render={() => (
             <Grid item xs={11} md={7}>
-              <Posts postOpen={this.handlePostOpen.bind(this)} posts={this.state.posts} />
+              <Posts postOpen={this.handlePostOpen.bind(this)} />
             </Grid>
           )}/>
           <Route path='/new' render={() => (
