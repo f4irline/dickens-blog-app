@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Visibility from '@material-ui/icons/Visibility';
 
 import './Register.css';
 
@@ -22,11 +27,19 @@ class Register extends Component {
     userName: '',
     password: '',
     userFirst: '',
-    userLast: ''
+    userLast: '',
+    showPassword: false
   }
 
   handleButtonClick() {
-    this.props.register(this.state);
+    const newUser = {
+      userName: this.state.userName,
+      password: this.state.password,
+      userFirst: this.state.userFirst,
+      userLast: this.state.userLast
+    };
+
+    this.props.register(newUser);
   }
 
   handleInputChange(event) {
@@ -46,6 +59,10 @@ class Register extends Component {
     default:
       break;
     }
+  }
+
+  handleClickShowPassword() {
+    this.setState({showPassword: !this.state.showPassword});
   }
 
   validator() {
@@ -110,6 +127,7 @@ class Register extends Component {
             />
             <TextField
               required
+              type={this.state.showPassword ? 'text' : 'password'}
               error = {validator.password}
               helperText='Min. 4 characters'            
               className={classes.loginItem}
@@ -117,7 +135,17 @@ class Register extends Component {
               value={this.state.password}
               onChange={this.handleInputChange.bind(this)}
               name='password'
-              type='password'
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={this.handleClickShowPassword.bind(this)}
+                    >
+                      {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}    
             />
             <TextField
               required

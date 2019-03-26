@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Visibility from '@material-ui/icons/Visibility';
 
 import './Login.css';
 
@@ -20,11 +25,16 @@ class Login extends Component {
 
   state = {
     name: '',
-    password: ''
+    password: '',
+    showPassword: false
   }
 
   handleButtonClick() {
     this.props.login(this.state.name);
+  }
+
+  handleClickShowPassword() {
+    this.setState({showPassword: !this.state.showPassword});
   }
 
   handleInputChange(event) {
@@ -95,7 +105,18 @@ class Login extends Component {
               value={this.state.password}
               onChange={this.handleInputChange.bind(this)}
               name='password'
-              type='password'
+              type={this.state.showPassword ? 'text' : 'password'}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={this.handleClickShowPassword.bind(this)}
+                    >
+                      {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}    
             />
             <Button             
               className={classes.loginItem}
