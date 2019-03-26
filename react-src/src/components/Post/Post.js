@@ -148,8 +148,8 @@ class Post extends Component {
 
             <Grid direction='row' justify='center' container className='Home'>
               <Grid item xs={6}>
-                <IconButton aria-label='Delete' onClick={this.onClickOpenHandler.bind(this)}>
-                  <DeleteIcon />
+                <IconButton onClick={this.onClickOpenHandler.bind(this)}>
+                  <DeleteIcon color='secondary' />
                 </IconButton>
               </Grid>
               <Grid item xs={6}>
