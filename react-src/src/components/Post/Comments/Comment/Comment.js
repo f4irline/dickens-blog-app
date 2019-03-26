@@ -51,15 +51,6 @@ class Comment extends Component {
             </Typography>
           </Grid>
         </Grid>
-  
-        {/* <Button variant="contained" color="secondary" style={{fontSize: '1vh',margin:'1vh 0' ,textAlign: 'start'}}>
-          Delete
-          <DeleteIcon />
-        </Button>
-  
-        <Typography variant='caption' style={{fontSize: '2vh', margin: '1vh 0', textAlign: 'end'}}>
-          {new Date(comment.postDate).toLocaleString('en-GB')}    
-        </Typography> */}
         <Divider />
       </div>
     );

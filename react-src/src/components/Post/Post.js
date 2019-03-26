@@ -64,9 +64,7 @@ class Post extends Component {
   }
 
   deleteComment(id) {
-    console.log(id + " <- id");
     axios.delete("/comments/"+id).then(this.loadComments.bind(this))
-    //Poisto.then(loadComments());------------------------
   }
 
   render() {
