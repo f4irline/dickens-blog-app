@@ -48,9 +48,47 @@ class Register extends Component {
     }
   }
 
+  validator() {
+    let invalidUserName = false;
+    let invalidPassword = false;
+    let invalidFirstName = false;
+    let invalidLastName = false;
+    let invalidFieldFound = false;
+
+    if (this.state.userName.length < 4) {
+      invalidUserName = true;
+      invalidFieldFound = true;
+    }
+
+    if (this.state.password.length < 4) {
+      invalidPassword = true;
+      invalidFieldFound = true;
+    }
+
+    if (this.state.userFirst.length < 2) {
+      invalidFirstName = true;
+      invalidFieldFound = true;
+    }
+
+    if (this.state.userLast.length < 2) {
+      invalidLastName = true;
+      invalidFieldFound = true;
+    }
+
+    return {
+      userName: invalidUserName,
+      password: invalidPassword,
+      firstName: invalidFirstName,
+      lastName: invalidLastName,
+      invalidFound: invalidFieldFound
+    };
+  }
+
   render() {
 
     const { classes } = this.props;
+
+    const validator = this.validator();
 
     return (
       <Grid direction='row' justify='center' alignItems='center' container className='Register'>
@@ -61,6 +99,9 @@ class Register extends Component {
             </Typography>
             <Divider />
             <TextField
+              required
+              error = {validator.userName}
+              helperText='Min. 4 characters'
               className={classes.loginItem}
               label='Name'
               value={this.state.userName}
@@ -68,6 +109,9 @@ class Register extends Component {
               name='userName'
             />
             <TextField
+              required
+              error = {validator.password}
+              helperText='Min. 4 characters'            
               className={classes.loginItem}
               label='Password'
               value={this.state.password}
@@ -76,6 +120,9 @@ class Register extends Component {
               type='password'
             />
             <TextField
+              required
+              error = {validator.firstName}
+              helperText='Min. 2 characters'
               className={classes.loginItem}
               label='First Name'
               value={this.state.userFirst}
@@ -83,6 +130,9 @@ class Register extends Component {
               name='userFirst'
             />
             <TextField
+              required
+              error = {validator.lastName}
+              helperText='Min. 2 characters'
               className={classes.loginItem}
               label='Last Name'
               value={this.state.userLast}
@@ -92,7 +142,7 @@ class Register extends Component {
             <Button             
               className={classes.loginItem}
               size='large' 
-              disabled={false}
+              disabled={validator.invalidFound}
               onClick={this.handleButtonClick.bind(this)} 
               variant='contained'>
               Submit

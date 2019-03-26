@@ -121,6 +121,10 @@ class Post extends Component {
     this.setState({showDialog: false});
   }
 
+  addDefaultSrc(event) {
+    event.target.src = headerImg;
+  }
+
   render() {
 
     const { classes } = this.props;
@@ -135,10 +139,12 @@ class Post extends Component {
 
     return (
       <Grid item xs={11} lg={7}>
-        {this.state.showDialog ? <AlertDialog title='Remove whole post?' description = 'The whole post will be removed. Are you sure?' handleClose={this.onClickCloseHandler.bind(this)} /> : null}
+        {this.state.showDialog ? <AlertDialog title='Remove whole post?' 
+          description = 'The whole post will be removed. Are you sure?' 
+          handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <Grid container>
           <Paper elevation={5} classes={{root: classes.post}}>
-            <img src={headerImg} alt='Header' style={{width: '100%'}} />
+            <img onError={this.addDefaultSrc} src={this.state.post.imgUrl} alt='Header' style={{width: '100%'}} />
             <Typography variant='title' style={{fontSize: '3vh', margin: '1vh 0', textAlign: 'center'}}>
               {this.state.post.title}
             </Typography>

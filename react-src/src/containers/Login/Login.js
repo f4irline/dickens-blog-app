@@ -40,9 +40,33 @@ class Login extends Component {
     }
   }
 
+  validator() {
+    let invalidUserName = false;
+    let invalidPassword = false;
+    let invalidFieldFound = false;
+
+    if (this.state.name.length < 4) {
+      invalidUserName = true;
+      invalidFieldFound = true;
+    }
+
+    if (this.state.password.length < 4) {
+      invalidPassword = true;
+      invalidFieldFound = true;
+    }
+
+    return {
+      userName: invalidUserName,
+      password: invalidPassword,
+      invalidFound: invalidFieldFound
+    };
+  }
+
   render() {
 
     const { classes } = this.props;
+
+    const validator = this.validator();
 
     return (
       <Grid direction='row' justify='center' alignItems='center' container className='Login'>
@@ -53,6 +77,9 @@ class Login extends Component {
             </Typography>
             <Divider />
             <TextField
+              error={validator.userName}
+              helperText='Min. 4 characters'
+              required
               className={classes.loginItem}
               label='Name'
               value={this.state.name}
@@ -60,6 +87,9 @@ class Login extends Component {
               name='username'
             />
             <TextField
+              error={validator.password}
+              helperText='Min. 4 characters'
+              required
               className={classes.loginItem}
               label='Password'
               value={this.state.password}
@@ -70,7 +100,7 @@ class Login extends Component {
             <Button             
               className={classes.loginItem}
               size='large' 
-              disabled={false}
+              disabled={validator.invalidFound}
               onClick={this.handleButtonClick.bind(this)} 
               variant='contained'>
               Submit

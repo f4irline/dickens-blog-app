@@ -11,6 +11,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Markdown from '../../utils/Markdown';
 
+import headerImg from '../../assets/images/header_placeholder.jpg';
+
 import './ShortPost.css';
 
 const styles = {
@@ -34,6 +36,10 @@ const ShortPost = (props) => {
   const handleClick = () => {
     props.postOpen(props.data);
   };
+
+  function addDefaultSrc(event) {
+    event.target.src = headerImg;
+  }
   
   return (
     <Paper classes={{root: classes.post}} elevation={5}>
@@ -66,7 +72,7 @@ const ShortPost = (props) => {
           </Grid>
         </Grid>
         <Grid container item xs={12} md={6} justify='flex-end' alignItems='center' style={{height: '35vh'}}> 
-          <img src={props.data.imgUrl} alt='Title' className='image' />
+          <img onError={addDefaultSrc} src={props.data.imgUrl} alt='Title' className='image' />
         </Grid>
       </Grid>
     </Paper>
