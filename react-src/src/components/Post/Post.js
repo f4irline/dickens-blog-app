@@ -7,7 +7,6 @@ import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import { Redirect } from 'react-router-dom';
 
 import * as Showdown from 'showdown';
 
