@@ -32,4 +32,9 @@ public class CommentController {
     public void deleteComment(@PathVariable int commentId) {
         commentRepository.deleteById(commentId);
     }
+
+    @DeleteMapping(value = "comments/all/{postId}")
+    public void deleteCommentsByPost(@PathVariable int postId) {
+        commentRepository.deleteAll(commentRepository.findCommentsByPost(postRepository.findById(postId).get()));
+    }
 }
