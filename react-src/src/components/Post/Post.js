@@ -63,6 +63,12 @@ class Post extends Component {
     });
   }
 
+  deleteComment(id) {
+    console.log(id + " <- id");
+    axios.delete("/comments/"+id).then(this.loadComments.bind(this))
+    //Poisto.then(loadComments());------------------------
+  }
+
   render() {
 
     const { classes } = this.props;
@@ -92,7 +98,7 @@ class Post extends Component {
           </Paper>
         </Grid>
         <Grid container>
-          <Comments postId={this.state.post.postId} newComment={this.loadComments.bind(this)} comments={this.state.comments}/>
+          <Comments handleDelete={this.deleteComment.bind(this)} postId={this.state.post.postId} newComment={this.loadComments.bind(this)} comments={this.state.comments}/>
         </Grid>
       </Grid>
     );  
