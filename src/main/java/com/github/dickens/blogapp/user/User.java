@@ -25,7 +25,7 @@ public class User {
     private String userName;
     private String userFirst;
     private String userLast;
-    private @JsonIgnore String password;
+    private String password;
     private int role;
 
     public static int USER = 0;
