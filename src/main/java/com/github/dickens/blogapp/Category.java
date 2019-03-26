@@ -2,9 +2,9 @@ package com.github.dickens.blogapp;
 
 public enum Category {
     NONE,
-    CULTURE,
+    MOVIES,
     TECH,
-    POLITICS,
+    MUSIC,
     STUDIES,
     HEALTH
 }

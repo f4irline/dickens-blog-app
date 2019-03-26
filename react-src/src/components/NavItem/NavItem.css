@@ -1,0 +1,44 @@
+.NavItem > a {
+    display: flex;
+    text-decoration: none;
+    color: #555;
+    transition: 0.2s ease;
+}
+
+.item {
+    margin-left: 5px !important;
+    display: none !important;
+}
+
+.NavItem > a.active,
+.NavItem > a:hover {
+    color: #3f51b5;
+}
+
+.active .item:after {
+    left: 0;       
+    width: 100%; 
+}
+
+.item:after {
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: relative;
+    background: #3f51b5;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;      
+}
+
+
+@media only screen and (min-width: 768px) {
+    .item {
+        display: inline-block !important;
+    }
+
+    .link-wrapper:hover .item:after {
+        width: 100% !important; 
+        left: 0;       
+    }
+}
