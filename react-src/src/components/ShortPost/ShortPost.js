@@ -56,7 +56,7 @@ const ShortPost = (props) => {
           </Grid>
 
           <Grid container direction='row' justify='space-between'>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={6}>
               <Typography variant='body2'>
                 Author: {props.data.author.userFirst} {props.data.author.userLast}
               </Typography>
@@ -64,14 +64,14 @@ const ShortPost = (props) => {
                 {new Date(props.data.postDate).toLocaleString('en-GB')}
               </Typography>
             </Grid>
-            <Grid item container justify='flex-end' xs={12} md={6}>
+            <Grid item container justify='flex-end' xs={6} md={6}>
               <Link to={'/post/'+props.data.postId} style={{textDecoration: 'none'}}>
                 <Button size='small' variant='contained' color='primary' onClick={handleClick}>Read more!</Button>
               </Link>
             </Grid>
           </Grid>
         </Grid>
-        <Grid container item xs={12} md={6} justify='flex-end' alignItems='center' style={{height: '35vh'}}> 
+        <Grid container item xs={12} md={6} justify='center' alignItems='center' style={{height: '35vh'}}> 
           <img onError={addDefaultSrc} src={props.data.imgUrl} alt='Title' className='image' />
         </Grid>
       </Grid>

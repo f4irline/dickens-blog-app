@@ -33,7 +33,7 @@ class CommentWriter extends Component {
           Post a comment!
         </Typography>
         <TextField
-          label='Give your opinion on the text!'
+          label='Give your opinion!'
           placeholder='Comment'
           multiline
           margin='normal'
