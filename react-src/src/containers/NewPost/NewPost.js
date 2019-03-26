@@ -36,7 +36,7 @@ class NewPost extends Component {
   state = {
     body: '',
     title: '',
-    category: '',
+    category: 'NONE',
     imgUrl: ''
   }
 
@@ -89,7 +89,7 @@ class NewPost extends Component {
         <Grid item md={3} sm={7} xs={10} classes={{item: classes.title}}>
           <FormControl fullWidth>
             <InputLabel htmlFor="category-label">
-              Category
+              Category (optional)
             </InputLabel>
             <Select
               value={this.state.category}
@@ -97,7 +97,7 @@ class NewPost extends Component {
               fullWidth
               input={<Input name="category" id="category-label" />}
             >
-              <MenuItem value=''>
+              <MenuItem value='NONE'>
                 <em>None</em>
               </MenuItem>
               <MenuItem value='CULTURE'>Culture</MenuItem>
