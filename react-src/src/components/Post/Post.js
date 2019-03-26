@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import { Redirect } from 'react-router-dom';
 
 import * as Showdown from 'showdown';
 
@@ -13,6 +16,9 @@ import headerImg from '../../assets/images/header_placeholder.jpg';
 import Comments from './Comments/Comments';
 import Markdown from '../../utils/Markdown';
 import axios from '../../axios-instance';
+import AlertDialog from '../AlertDialog/AlertDialog';
+
+//import { withRouter } from 'react-router-dom'; selvitä!
 
 const styles = {
   post: {
@@ -31,7 +37,9 @@ class Post extends Component {
     post: {},
     comments: [],
     loadingPosts: true,
-    loadingComments: true
+    loadingComments: true,
+    showDialog: false,
+    redirect: false
   }
 
   converter = new Showdown.Converter({
@@ -63,11 +71,41 @@ class Post extends Component {
     });
   }
 
-  deleteComment(id) {
-    axios.delete("/comments/"+id).then(this.loadComments.bind(this))
+  deleteComment(commentId) {
+    axios.delete("/comments/"+commentId).then(this.loadComments.bind(this))
+  }
+
+  deletePostsComments(postId) {
+    axios.delete('/comments/all/'+postId)
+    .then(this.deletePost(postId));
+  }
+
+  deletePost(postId) {
+    console.log("deletepost")
+    axios.delete('/posts/'+postId)
+    .then(() => {
+      this.setState({redirect: true})
+    });
+    
+  }
+
+  onClickOpenHandler() {
+    this.setState({showDialog: true})
+  }
+
+  onClickCloseHandler(name) {
+    if(name === 'delete') {
+      const { id } = this.props.match.params;
+      this.deletePostsComments(id);
+    }
+    this.setState({showDialog: false})
   }
 
   render() {
+
+    if (this.state.redirect) {
+      return <Redirect to='/'/>;
+    }
 
     const { classes } = this.props;
 
@@ -81,6 +119,7 @@ class Post extends Component {
 
     return (
       <Grid item xs={11} lg={7}>
+        {this.state.showDialog ? <AlertDialog title="Titteli" description = "Description" handleClose={this.onClickCloseHandler.bind(this)} /> : null}
         <Grid container>
           <Paper elevation={5} classes={{root: classes.post}}>
             <img src={headerImg} alt='Header' style={{width: '100%'}} />
@@ -90,9 +129,19 @@ class Post extends Component {
             <Divider/>
             <Markdown>{this.state.post.body}</Markdown>
             <Divider/>
-            <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
-            Author: {this.state.post.author.userFirst} {this.state.post.author.userLast} - Written: {new Date(this.state.post.postDate).toLocaleString('en-GB')}
-            </Typography>
+
+            <Grid direction='row' justify='center' container className='Home'>
+              <Grid item xs={6}>
+                <IconButton aria-label="Delete" onClick={this.onClickOpenHandler.bind(this)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
+                  Author: {this.state.post.author.userFirst} {this.state.post.author.userLast} - Written: {new Date(this.state.post.postDate).toLocaleString('en-GB')}
+                </Typography>
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
         <Grid container>

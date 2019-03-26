@@ -22,7 +22,7 @@ class Comment extends Component {
   }
 
   onClickCloseHandler(name) {
-    if(name == 'delete') {
+    if(name === 'delete') {
       this.props.handleDelete(this.state.comment.commentId);
     }
     this.setState({showDialog: false})
