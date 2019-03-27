@@ -139,9 +139,9 @@ class NewPost extends Component {
               <MenuItem value='NONE'>
                 <em>None</em>
               </MenuItem>
-              <MenuItem value='CULTURE'>Culture</MenuItem>
+              <MenuItem value='MOVIES'>Movies</MenuItem>
               <MenuItem value='TECH'>Tech</MenuItem>
-              <MenuItem value='POLITICS'>Politics</MenuItem>
+              <MenuItem value='MUSIC'>Music</MenuItem>
               <MenuItem value='STUDIES'>Studies</MenuItem>
               <MenuItem value='HEALTH'>Health</MenuItem>
             </Select>  

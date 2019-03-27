@@ -13,9 +13,15 @@ import './App.css';
 
 class App extends Component {
 
+  anonUser = {
+    roles: [
+      'ANONYMOUS'
+    ]
+  }
+
   state = {
     loggedIn: false,
-    user: {}
+    user: this.anonUser
   }
 
   handleLogin = () => {
@@ -31,7 +37,7 @@ class App extends Component {
     axios.post('/logout')
       .then((res) => {
         console.log(res);
-        this.setState({loggedIn: false, user: {}});
+        this.setState({loggedIn: false, user: this.anonUser});
         this.props.history.push('/');
       }).catch(err => console.log(err));
   }

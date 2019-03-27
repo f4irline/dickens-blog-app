@@ -154,9 +154,11 @@ class Post extends Component {
 
             <Grid direction='row' justify='center' container className='Home'>
               <Grid item xs={6}>
-                <IconButton onClick={this.onClickOpenHandler.bind(this)}>
-                  <DeleteIcon color='secondary' />
-                </IconButton>
+                {this.props.user.roles[0] === 'ROLE_ADMIN' ?
+                  <IconButton onClick={this.onClickOpenHandler.bind(this)}>
+                    <DeleteIcon color='secondary' />
+                  </IconButton>
+                  : null}
               </Grid>
               <Grid item xs={6}>
                 <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
