@@ -15,21 +15,28 @@ class App extends Component {
 
   state = {
     loggedIn: false,
-    name: ''
+    user: {}
   }
 
-  handleLogin = (user) => {
-    this.setState({loggedIn: true, name: user.username});
-    this.props.history.push('/');
+  handleLogin = () => {
+    axios.get('/users/details')
+      .then((res) => {
+        console.log(res);
+        this.setState({loggedIn: true, user: res.data.user});
+        this.props.history.push('/');
+      }).catch(err => console.log(err));
   }
 
   handleLogout = () => {
-    this.setState({loggedIn: false, name: ''});
-    this.props.history.push('/');
+    axios.post('/logout')
+      .then((res) => {
+        console.log(res);
+        this.setState({loggedIn: false, user: {}});
+        this.props.history.push('/');
+      }).catch(err => console.log(err));
   }
 
   handleRegister = (user) => {
-    console.log(user);
     axios.post('/users/add', user)
       .then((res) => {
         console.log(res);
@@ -44,7 +51,7 @@ class App extends Component {
           <Switch>
             <Route path='/login' render={() => <Login login={this.handleLogin.bind(this)} />} />
             <Route path='/register' render={() => <Register register={this.handleRegister.bind(this)} />} />
-            <Route path='/' render={() => <Home user={this.state.name} loggedIn={this.state.loggedIn} logout={this.handleLogout.bind(this)}/>} />
+            <Route path='/' render={() => <Home user={this.state.user} loggedIn={this.state.loggedIn} logout={this.handleLogout.bind(this)}/>} />
           </Switch>
         </Grid>
       </Grid>

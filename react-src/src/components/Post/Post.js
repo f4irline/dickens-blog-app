@@ -167,7 +167,7 @@ class Post extends Component {
           </Paper>
         </Grid>
         <Grid container>
-          <Comments handleDelete={this.deleteComment.bind(this)} postId={this.state.post.postId} newComment={this.loadComments.bind(this)} comments={this.state.comments}/>
+          <Comments user={this.props.user} handleDelete={this.deleteComment.bind(this)} postId={this.state.post.postId} newComment={this.loadComments.bind(this)} comments={this.state.comments}/>
         </Grid>
       </Grid>
     );  

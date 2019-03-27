@@ -44,7 +44,7 @@ class Comments extends Component {
         <Divider style={{marginTop: '1vh'}}/>
         {comments}
         <Grid container justify='center'>
-          <CommentWriter postId={this.props.postId} newComment={this.props.newComment}/>
+          <CommentWriter user={this.props.user} postId={this.props.postId} newComment={this.props.newComment}/>
         </Grid>
       </Paper>
     );

@@ -48,7 +48,9 @@ class Home extends Component {
               <NewPost user={this.props.user} />
             </Grid>
           )}/>
-          <Route path='/post/:id' component={Post}/>
+          <Route path='/post/:id' render={() => (
+            <Post user={this.props.user}/>
+          )}/>
           <Route path='/category/:category' render={() => (
             <Grid item xs={11} md={7}>
               <Posts postOpen={this.handlePostOpen.bind(this)} />

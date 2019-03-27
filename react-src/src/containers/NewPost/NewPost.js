@@ -59,7 +59,7 @@ class NewPost extends Component {
 
   handleSend() {
     console.log(this.state);
-    axios.post('/posts/add/1001', this.state)
+    axios.post(`/posts/add/${this.props.user.userId}`, this.state)
       .then((res) => {
         console.log(res);
         this.props.history.push('/');

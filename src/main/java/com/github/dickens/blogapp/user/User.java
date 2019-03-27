@@ -1,6 +1,7 @@
 package com.github.dickens.blogapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.dickens.blogapp.utils.HashUtils;
 
 import javax.persistence.*;
@@ -25,6 +26,8 @@ public class User {
     private String userName;
     private String userFirst;
     private String userLast;
+
+    @JsonIgnore
     private String password;
 
     public User() {
@@ -36,8 +39,6 @@ public class User {
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
-
-      //  System.out.println(utils.hashMyPassWord(password));
     }
 
     public int getUserId() {
@@ -72,10 +73,12 @@ public class User {
         this.userLast = userLast;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = utils.hashMyPassword(password);
     }

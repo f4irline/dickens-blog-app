@@ -48,7 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/api/login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login.html?error=true")
-                .permitAll();
+                .permitAll()
+                .and()
+            .logout()
+                .logoutUrl("/api/logout")
+                .deleteCookies("JSESSIONID");
     }
 
     @Bean

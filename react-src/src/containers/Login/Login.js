@@ -36,7 +36,7 @@ class Login extends Component {
     axios.post(`/login?username=${this.state.userName}&password=${this.state.password}`)
       .then((res) => {
         console.log(res);
-        this.props.login({username: this.state.userName});
+        this.props.login();
       })
       .catch((err) => {
         console.log(err);
