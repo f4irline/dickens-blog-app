@@ -17,6 +17,7 @@ public class PostController {
     @Autowired
     UserRepository userRepository;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value ="posts/add/{userId}")
     public void addPost(@RequestBody Post post,@PathVariable int userId) {
         post.setAuthor(userRepository.findById(userId).get());
@@ -47,6 +48,7 @@ curl -i -X GET http://localhost:8080/posts/4
     /*
     curl -i -X DELETE http://localhost:8080/posts/4
     */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "posts/{postId}")
     public void deletePost(@PathVariable int postId) {
         postRepository.deleteById(postId);

@@ -27,18 +27,20 @@ public class User {
     private String userFirst;
     private String userLast;
 
-    @JsonIgnore
-    private String password;
+    private String[] roles;
+
+    private @JsonIgnore String password;
 
     public User() {
 
     }
 
-    public User(String userName, String userFirst, String userLast, String password) {
+    public User(String userName, String userFirst, String userLast, String password, String[] roles) {
         this.userName = userName;
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
+        this.roles = roles;
     }
 
     public int getUserId() {
@@ -81,5 +83,13 @@ public class User {
     @JsonProperty
     public void setPassword(String password) {
         this.password = utils.hashMyPassword(password);
+    }
+
+    public String[] getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String[] roles) {
+        this.roles = roles;
     }
 }

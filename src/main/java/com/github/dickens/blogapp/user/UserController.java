@@ -1,6 +1,7 @@
 package com.github.dickens.blogapp.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +26,7 @@ public class UserController {
         userRepository.save(user);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "users/{userId}")
     public void deleteUser(@PathVariable int userId) {
         userRepository.deleteById(userId);
