@@ -13,6 +13,8 @@ import Grid from '@material-ui/core/Grid';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
 
+import axios from '../../axios-instance';
+
 import './Login.css';
 
 const styles = {
@@ -24,13 +26,22 @@ const styles = {
 class Login extends Component {
 
   state = {
-    name: '',
+    userName: '',
     password: '',
-    showPassword: false
+    showPassword: false,
+    error: false
   }
 
-  handleButtonClick() {
-    this.props.login(this.state.name);
+  handleButtonClick() {    
+    axios.post(`/login?username=${this.state.userName}&password=${this.state.password}`)
+      .then((res) => {
+        console.log(res);
+        this.props.login({username: this.state.userName});
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({error: true});
+      });
   }
 
   handleClickShowPassword() {
@@ -39,8 +50,8 @@ class Login extends Component {
 
   handleInputChange(event) {
     switch (event.target.name) {
-    case 'username':
-      this.setState({name: event.target.value});
+    case 'userName':
+      this.setState({userName: event.target.value});
       break;
     case 'password':
       this.setState({password: event.target.value});
@@ -55,7 +66,7 @@ class Login extends Component {
     let invalidPassword = false;
     let invalidFieldFound = false;
 
-    if (this.state.name.length < 4) {
+    if (this.state.userName.length < 4) {
       invalidUserName = true;
       invalidFieldFound = true;
     }
@@ -92,9 +103,9 @@ class Login extends Component {
               required
               className={classes.loginItem}
               label='Name'
-              value={this.state.name}
+              value={this.state.userName}
               onChange={this.handleInputChange.bind(this)}
-              name='username'
+              name='userName'
             />
             <TextField
               error={validator.password}
@@ -126,6 +137,7 @@ class Login extends Component {
               variant='contained'>
               Submit
             </Button>
+            {this.state.error ? <Typography variant='caption' style={{color: '#FF000'}}>Error in login.</Typography> : null}
           </Paper>
         </Grid>
       </Grid>

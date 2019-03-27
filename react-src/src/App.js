@@ -18,8 +18,8 @@ class App extends Component {
     name: ''
   }
 
-  handleLogin = (name) => {
-    this.setState({loggedIn: true, name: name});
+  handleLogin = (user) => {
+    this.setState({loggedIn: true, name: user.username});
     this.props.history.push('/');
   }
 

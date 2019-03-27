@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,9 @@ public class BlogApp implements CommandLineRunner {
 
 	    Lorem lorem = LoremIpsum.getInstance();
 
-        User heikki = new User("Hexa","Heiki","Kinnunen","Koirannimi",User.USER);
-        User tiina = new User("Tintti","Tiina","Kullitettu","Tiina96",User.USER);
-        User tommi = new User("Tombha","Tomi","Reikämies","GhostRider98",User.ADMIN);
+        User heikki = new User("Hexa","Heiki","Kinnunen","Koirannimi");
+        User tiina = new User("Tintti","Tiina","Kullitettu","Tiina96");
+        User tommi = new User("Tombha","Tomi","Reikämies","GhostRider98");
         List<User> lista = new ArrayList<>();
         lista.add(heikki);
         lista.add(tiina);

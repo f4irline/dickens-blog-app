@@ -26,21 +26,16 @@ public class User {
     private String userFirst;
     private String userLast;
     private String password;
-    private int role;
-
-    public static int USER = 0;
-    public static int ADMIN = 1;
 
     public User() {
 
     }
 
-    public User(String userName, String userFirst, String userLast, String password, int role) {
+    public User(String userName, String userFirst, String userLast, String password) {
         this.userName = userName;
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
-        this.role = role;
 
       //  System.out.println(utils.hashMyPassWord(password));
     }
@@ -83,24 +78,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = utils.hashMyPassword(password);
-        //this.password = passwordEncoder.encode(password);
     }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
-
-    /*
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
-    }
-    */
 }
