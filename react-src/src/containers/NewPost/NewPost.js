@@ -63,7 +63,7 @@ class NewPost extends Component {
       Authorization: `Bearer ${jwt}`
     };
 
-    axios.post(`/posts/add/${this.props.user.userId}`, JSON.stringify(this.state), {headers: headers})
+    axios.post(`/posts/add/${this.props.user.userId}`, this.state, {headers: headers})
       .then((res) => {
         console.log(res);
         this.props.history.push('/');
