@@ -53,13 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())//.disable()
+            //.headers().frameOptions().disable()
                 .and()
             .requiresChannel()
                 .requestMatchers(r -> r.getHeader("X-Forwarder-Proto") != null)
                 .requiresSecure()
-                .and()
-            .headers().frameOptions().disable()
                 .and()
             .exceptionHandling()
                 .authenticationEntryPoint(unauthorizedHandler)
