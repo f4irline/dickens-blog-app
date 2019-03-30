@@ -58,8 +58,12 @@ class NewPost extends Component {
   }
 
   handleSend() {
-    console.log(this.state);
-    axios.post(`/posts/add/${this.props.user.userId}`, this.state)
+    const jwt = localStorage.getItem('accessToken');
+    const headers = {
+      Authorization: `Bearer ${jwt}`
+    };
+
+    axios.post(`/posts/add/${this.props.user.userId}`, this.state, {headers: headers})
       .then((res) => {
         console.log(res);
         this.props.history.push('/');

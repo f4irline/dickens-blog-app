@@ -25,7 +25,12 @@ class App extends Component {
   }
 
   handleLogin = () => {
-    axios.get('/users/details')
+    const jwt = localStorage.getItem('accessToken');
+    axios.get('/users/details', {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    })
       .then((res) => {
         console.log(res);
         this.setState({loggedIn: true, user: res.data.user});

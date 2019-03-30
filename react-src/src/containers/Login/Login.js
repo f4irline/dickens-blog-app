@@ -33,9 +33,15 @@ class Login extends Component {
   }
 
   handleButtonClick() {    
-    axios.post(`/login?username=${this.state.userName}&password=${this.state.password}`)
+    let user = {
+      userName: this.state.userName,
+      password: this.state.password
+    };
+
+    axios.post('/auth/login', user)
       .then((res) => {
         console.log(res);
+        localStorage.setItem('accessToken', res.data.accessToken);
         this.props.login();
       })
       .catch((err) => {
