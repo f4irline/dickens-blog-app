@@ -16,6 +16,7 @@ public class UserPrincipalImpl implements UserDetails {
         this.user = user;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         final List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
@@ -25,6 +26,7 @@ public class UserPrincipalImpl implements UserDetails {
         return authorities;
     }
 
+    @JsonIgnore
     public Long getId() {
         return user.getUserId();
     }
@@ -35,6 +37,7 @@ public class UserPrincipalImpl implements UserDetails {
         return user.getPassword();
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return user.getUserName();

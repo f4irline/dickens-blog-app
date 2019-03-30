@@ -25,8 +25,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Post_Gen")
     private Long postId;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)

@@ -2,12 +2,17 @@ package com.github.dickens.blogapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.dickens.blogapp.comment.Comment;
+import com.github.dickens.blogapp.post.Post;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.utils.HashUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +54,15 @@ public class User {
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Collection<Role> roles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author")
+    private Collection<Post> posts;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author")
+    private Collection<Comment> comments;
 
     public User() {
 
@@ -102,9 +115,17 @@ public class User {
         this.password = utils.hashMyPassword(password);
     }
 
-    public Set<Role> getRoles() { return roles; }
+    public Collection<Role> getRoles() { return roles; }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public Collection<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Collection<Post> posts) {
+        this.posts = posts;
     }
 }

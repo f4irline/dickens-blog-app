@@ -53,7 +53,11 @@ public class DataInit {
                 .orElseThrow(() -> new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
 
         User heikki = new User("Hexa","Heiki","Kinnunen","Koirannimi");
-        heikki.setRoles(Collections.singleton(adminRole));
+
+        List<Role> roles = new ArrayList<>();
+        roles.add(userRole);
+        roles.add(adminRole);
+        heikki.setRoles(roles);
 
         User tiina = new User("Tintti","Tiina","Kullitettu","Tiina96");
         tiina.setRoles(Collections.singleton(userRole));
