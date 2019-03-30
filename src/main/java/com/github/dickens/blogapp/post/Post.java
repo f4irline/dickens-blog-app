@@ -1,13 +1,17 @@
 package com.github.dickens.blogapp.post;
 
 import com.github.dickens.blogapp.Category;
+import com.github.dickens.blogapp.comment.Comment;
 import com.github.dickens.blogapp.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "posts")
 public class Post {
     @TableGenerator(name = "Post_Gen",
             table = "POST_ID_GEN",
@@ -19,10 +23,15 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Post_Gen")
-    private int postId;
+    private Long postId;
+
     @OneToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "user_id")
     private User author;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
     private String title;
 
     @Lob
@@ -50,11 +59,11 @@ public class Post {
         this.category = category;
     }
 
-    public int getPostId() {
+    public Long getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(Long postId) {
         this.postId = postId;
     }
 

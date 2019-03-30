@@ -2,11 +2,17 @@ package com.github.dickens.blogapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.utils.HashUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Transient
@@ -22,32 +28,45 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
-    private int userId;
+    private Long userId;
+
+    @NotBlank
+    @Size(min = 4, max = 40)
     private String userName;
+
+    @NotBlank
+    @Size(min = 4, max = 40)
     private String userFirst;
+
+    @NotBlank
+    @Size(min = 4, max = 40)
     private String userLast;
 
-    private String[] roles;
+    @JsonIgnore
+    private String password;
 
-    private @JsonIgnore String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
 
     }
 
-    public User(String userName, String userFirst, String userLast, String password, String[] roles) {
+    public User(String userName, String userFirst, String userLast, String password) {
         this.userName = userName;
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
-        this.roles = roles;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -75,21 +94,17 @@ public class User {
         this.userLast = userLast;
     }
 
-    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
-    @JsonProperty
     public void setPassword(String password) {
         this.password = utils.hashMyPassword(password);
     }
 
-    public String[] getRoles() {
-        return roles;
-    }
+    public Set<Role> getRoles() { return roles; }
 
-    public void setRoles(String[] roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

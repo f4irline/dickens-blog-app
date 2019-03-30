@@ -57,6 +57,12 @@
 			<version>5.1.4.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.thedeanda/lorem -->
 		<dependency>
 			<groupId>com.thedeanda</groupId>

@@ -18,20 +18,14 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
-    /*
-    curl -H"Content-Type: application/json" -X POST -d {\"userName\":\"mkyong\",\"password\":\"abc\"} http://localhost:8080/api/user/add
-     */
-    @PostMapping(value = "/users/add")
-    public void addUser(@RequestBody User user) {
-        userRepository.save(user);
-    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "users/{userId}")
-    public void deleteUser(@PathVariable int userId) {
+    public void deleteUser(@PathVariable Long userId) {
         userRepository.deleteById(userId);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/users/details")
     public UserDetails getDetails(Authentication authentication) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

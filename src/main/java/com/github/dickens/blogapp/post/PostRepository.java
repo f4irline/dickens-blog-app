@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface PostRepository extends CrudRepository<Post, Integer> {
+public interface PostRepository extends CrudRepository<Post, Long> {
     Iterable<Post> findByCategory(Category category);
 }

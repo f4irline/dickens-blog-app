@@ -12,7 +12,8 @@ public class MvcConfiguration implements WebMvcConfigurer {
 
         registry.addMapping("/**")
                 .allowedOrigins("https://localhost:3000", "http://localhost:3000")
-                .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH");
+                .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH")
+                .maxAge(3600);
     }
 
     @Override

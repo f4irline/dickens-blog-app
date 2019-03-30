@@ -19,12 +19,14 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Comment_Gen")
-    private int commentId;
-    @OneToOne
-    @JoinColumn(name ="POST_ID")
+    private Long commentId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
     private Post post;
+
     @OneToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "user_id")
     private User author;
 
     @Lob
@@ -41,7 +43,7 @@ public class Comment {
         this.body = body;
     }
 
-    public int getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
