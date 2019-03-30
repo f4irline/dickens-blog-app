@@ -53,7 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
+            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
+            .requiresChannel()
+                .requestMatchers(r -> r.getHeader("X-Forwarder-Proto") != null)
+                .requiresSecure()
+                .and()
             .headers().frameOptions().disable()
                 .and()
             .exceptionHandling()
@@ -67,17 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
-            //.formLogin()
-                //.loginPage("/login")
-                //.loginProcessingUrl("/api/auth/login")
-                //.defaultSuccessUrl("/", true)
-                //.failureUrl("/login.html?error=true")
-                //.permitAll()
-                //.and()
-            //.logout()
-                //.logoutUrl("/api/logout")
-                //.logoutSuccessUrl("/")
-                //.deleteCookies("JSESSIONID");
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
