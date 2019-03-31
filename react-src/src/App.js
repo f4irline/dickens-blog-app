@@ -19,8 +19,16 @@ class App extends Component {
     ]
   }
 
+  componentDidMount() {
+    const jwt = localStorage.getItem('accessToken');
+
+    if (jwt) {
+      this.handleLogin();
+    }
+  }
+
   state = {
-    loggedIn: false,
+    loggedIn: true,
     user: this.anonUser
   }
 
@@ -32,19 +40,16 @@ class App extends Component {
       }
     })
       .then((res) => {
-        console.log(res);
         this.setState({loggedIn: true, user: res.data.user});
         this.props.history.push('/');
       }).catch(err => console.log(err));
   }
 
   handleLogout = () => {
-    axios.post('/logout')
-      .then((res) => {
-        console.log(res);
-        this.setState({loggedIn: false, user: this.anonUser});
-        this.props.history.push('/');
-      }).catch(err => console.log(err));
+    this.setState({loggedIn: false, user: this.anonUser}, () => {
+      localStorage.removeItem('accessToken');
+    });
+    this.props.history.push('/');
   }
 
   handleRegister = (user) => {

@@ -68,7 +68,6 @@ class NewPost extends Component {
 
     axios.post(`/posts/add/${this.props.user.userId}`, this.state, options)
       .then((res) => {
-        console.log(res);
         this.props.history.push('/');
       }).catch(err => console.log(err));
   }

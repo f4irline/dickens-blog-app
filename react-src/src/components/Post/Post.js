@@ -88,11 +88,28 @@ class Post extends Component {
   }
 
   deleteComment(commentId) {
-    axios.delete('/comments/'+commentId).then(this.loadComments.bind(this));
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    axios.delete('/comments/'+commentId, options)
+      .then(this.loadComments.bind(this));
   }
 
   deletePostsComments(postId) {
-    axios.delete('/comments/all/'+postId)
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    axios.delete('/comments/all/'+postId, options)
       .then((res) => {
         console.log(res);
         this.deletePost(postId);
@@ -101,7 +118,15 @@ class Post extends Component {
   }
 
   deletePost(postId) {
-    axios.delete('/posts/'+postId)
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+
+    axios.delete('/posts/'+postId, options)
       .then((res) => {
         console.log(res);
         this.props.history.push('/');
