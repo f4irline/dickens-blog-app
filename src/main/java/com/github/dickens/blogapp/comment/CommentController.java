@@ -17,7 +17,7 @@ public class CommentController {
     @Autowired
     UserRepository userRepository;
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping(value="comments/add/{postId}/{userId}")
     public void addComment(@RequestBody Comment comment, @PathVariable Long postId,@PathVariable Long userId) {
         comment.setPost(postRepository.findById(postId).get());
