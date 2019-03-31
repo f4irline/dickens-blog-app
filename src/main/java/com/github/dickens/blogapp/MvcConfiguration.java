@@ -23,9 +23,9 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("https://localhost:3000", "http://localhost:3000", "https://dickens-blog-app.herokuapp.com")
                 .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH")
-                .allowedHeaders("authorization, content-type, xsrf-token")
+                .allowedHeaders("authorization, content-type, content-length, xsrf-token")
                 .exposedHeaders("xsrf-token")
                 .maxAge(3600);
     }
