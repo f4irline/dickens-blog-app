@@ -5,7 +5,6 @@ import com.github.dickens.blogapp.comment.Comment;
 import com.github.dickens.blogapp.user.User;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
