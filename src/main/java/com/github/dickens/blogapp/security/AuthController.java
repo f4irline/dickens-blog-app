@@ -62,8 +62,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) {
         if(userRepository.existsByUserName(signUpRequest.getUserName())) {
-            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(new ApiResponse(false, "Username already taken."));
         }
 
         // Creating user's account

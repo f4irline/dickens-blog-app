@@ -40,6 +40,7 @@ class App extends Component {
       }
     })
       .then((res) => {
+        console.log(res);
         this.setState({loggedIn: true, user: res.data.user});
         this.props.history.push('/');
       }).catch(err => console.log(err));

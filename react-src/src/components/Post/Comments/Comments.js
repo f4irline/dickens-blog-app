@@ -43,7 +43,7 @@ class Comments extends Component {
         </Typography>
         <Divider style={{marginTop: '1vh'}}/>
         {comments}
-        {this.props.user.roles[0].definition === 'ROLE_USER' ? 
+        {this.props.user.roles[0] !== undefined && this.props.user.roles[0].definition === 'ROLE_USER' ? 
           <Grid container justify='center'>
             <CommentWriter user={this.props.user} postId={this.props.postId} newComment={this.props.newComment}/>
           </Grid> : null }
