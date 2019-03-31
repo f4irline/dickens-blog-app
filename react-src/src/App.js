@@ -19,17 +19,17 @@ class App extends Component {
     ]
   }
 
+  state = {
+    loggedIn: false,
+    user: this.anonUser
+  }
+
   componentDidMount() {
     const jwt = localStorage.getItem('accessToken');
 
     if (jwt) {
       this.handleLogin();
     }
-  }
-
-  state = {
-    loggedIn: true,
-    user: this.anonUser
   }
 
   handleLogin = () => {
