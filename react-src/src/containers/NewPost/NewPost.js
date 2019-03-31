@@ -66,18 +66,11 @@ class NewPost extends Component {
       }
     };
 
-    fetch(`/posts/add/${this.props.user.userId}`, {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwt}`
-      },
-      body: JSON.stringify(this.state)
-    }).then(res => res.json)
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
+    axios.post(`/posts/add/${this.props.user.userId}`, this.state, options)
+      .then((res) => {
+        console.log(res);
+        this.props.history.push('/');
+      }).catch(err => console.log(err));
   }
 
   handleCancel() {
