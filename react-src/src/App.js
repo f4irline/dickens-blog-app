@@ -40,7 +40,6 @@ class App extends Component {
       }
     })
       .then((res) => {
-        console.log(res);
         this.setState({loggedIn: true, user: res.data.user});
         this.props.history.push('/');
       }).catch(err => console.log(err));
@@ -54,7 +53,7 @@ class App extends Component {
   }
 
   handleRegister = (user) => {
-    axios.post('/users/add', user)
+    axios.post('/auth/register', user)
       .then((res) => {
         console.log(res);
         this.props.history.push('/');
