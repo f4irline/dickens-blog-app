@@ -19,6 +19,17 @@ import java.util.List;
 
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("https://localhost:3000", "http://localhost:3000", "https://dickens-blog-app.herokuapp.com")
+                .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH")
+                .allowedHeaders("authorization, content-type, xsrf-token")
+                .exposedHeaders("xsrf-token")
+                .maxAge(3600);
+    }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToEnumConverter());
