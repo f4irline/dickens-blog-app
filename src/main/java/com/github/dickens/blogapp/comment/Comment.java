@@ -4,7 +4,6 @@ import com.github.dickens.blogapp.user.User;
 import com.github.dickens.blogapp.post.Post;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

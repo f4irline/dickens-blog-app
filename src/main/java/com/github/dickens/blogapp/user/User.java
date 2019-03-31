@@ -1,20 +1,15 @@
 package com.github.dickens.blogapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.dickens.blogapp.comment.Comment;
 import com.github.dickens.blogapp.post.Post;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.utils.HashUtils;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
