@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
+import TextField from '@material-ui/core/TextField';
 
 import Posts from '../Posts/Posts';
 import Post from '../../components/Post/Post';
@@ -18,13 +19,18 @@ class Home extends Component {
 
   state = {
     modalOpen: false,
-    openPost: {}
+    openPost: {},
+    searchValue: undefined
   }
 
   handlePostOpen(post) {
     this.setState({openPost: post}, () => {
       this.setState({modalOpen: true});
     });
+  }
+
+  onSearchSubmit(e) {
+    this.setState({searchValue: e.target.value})
   }
   
   render() {
@@ -54,6 +60,30 @@ class Home extends Component {
               <Posts postOpen={this.handlePostOpen.bind(this)} />
             </Grid>
           )}/>
+          <Route path={'/search/'} render={() => (
+            <Grid item xs={11} md={7}>
+              <TextField
+                onKeyPress={(ev) => {
+                    if (ev.key === 'Enter') {
+                      this.onSearchSubmit(ev);
+                      ev.preventDefault();
+                    }
+                  }}
+                id='outlined-full-width'
+                label='SEARCH'
+                style={{ margin: 8 }}
+                placeholder='Find posts by title'
+                helperText='Hope it helps!'
+                fullWidth
+                margin='normal'
+                variant='outlined'
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <Posts postOpen={this.handlePostOpen.bind(this)} searchValue={this.state.searchValue} />
+            </Grid>
+          )} />
         </Switch>
       </Grid>
     );

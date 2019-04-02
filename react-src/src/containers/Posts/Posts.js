@@ -14,7 +14,9 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    if (this.props.match.params !== undefined) {
+    if(this.props.searchValue !== undefined){
+      this.loadSearchedPosts(this.props.searchValue);
+    }else if (this.props.match.params !== undefined) {
       this.loadCategoryPosts(this.props.match.params);
     } else {
       this.loadPosts();
@@ -22,7 +24,11 @@ class Posts extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.match.params !== newProps.match.params) {
+    if(this.props.searchValue !== newProps.searchValue){
+      if(newProps.searchValue !== undefined){
+        this.loadSearchedPosts(newProps.searchValue);
+      }
+    }else if (this.props.match.params !== newProps.match.params) {
       if (newProps.match.params !== undefined) {
         this.loadCategoryPosts(newProps.match.params);
       }
@@ -34,6 +40,16 @@ class Posts extends Component {
       axios.get('/posts/all')
         .then((res) => {
           this.setState({posts: res.data});
+          this.delayLoadingResolve();
+        });
+    });
+  }
+
+  loadSearchedPosts(value) {
+    this.setState({loading: true}, () => {
+      axios.get(`/posts/search/${value}`)
+        .then((res) => {
+          this.setState({posts: res.data,searchValue: undefined});
           this.delayLoadingResolve();
         });
     });

@@ -52,6 +52,8 @@ public class BlogApp implements CommandLineRunner {
         postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80", Category.MUSIC));
         postRepository.save(new Post(heikki, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80", Category.TECH));
         postRepository.save(new Post(tommi, lorem.getTitle(4, 6),lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80", Category.STUDIES));
+        postRepository.save(new Post(tommi, "titteli",lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552838357-602b552f57b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80", Category.STUDIES));
+
 
         commentRepository.save(new Comment(postRepository.findById(1001).get(),userRepository.findById(1001).get(),lorem.getParagraphs(1, 3)));
         commentRepository.save(new Comment(postRepository.findById(1002).get(),userRepository.findById(1001).get(),lorem.getParagraphs(1, 3)));

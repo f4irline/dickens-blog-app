@@ -1,10 +1,15 @@
 package com.github.dickens.blogapp.post;
 
 import com.github.dickens.blogapp.Category;
+import com.github.dickens.blogapp.MyHibernateSearch;
 import com.github.dickens.blogapp.user.UserRepository;
+import javafx.geometry.Pos;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @RestController
@@ -15,6 +20,20 @@ public class PostController {
     PostRepository postRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    MyHibernateSearch hibernateSearch;
+
+    @GetMapping(value = "posts/search/{text}")
+    public Iterable<Post> searchPosts(@PathVariable String text) {
+        System.out.println(text);
+        Iterable<Post> results = null;
+        try {
+            results = hibernateSearch.search(text);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return results;
+    }
 
     @PostMapping(value ="posts/add/{userId}")
     public void addPost(@RequestBody Post post,@PathVariable int userId) {

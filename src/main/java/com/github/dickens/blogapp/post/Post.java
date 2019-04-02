@@ -2,12 +2,16 @@ package com.github.dickens.blogapp.post;
 
 import com.github.dickens.blogapp.Category;
 import com.github.dickens.blogapp.user.User;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.TermVector;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Indexed
 public class Post {
     @TableGenerator(name = "Post_Gen",
             table = "POST_ID_GEN",
@@ -23,6 +27,7 @@ public class Post {
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User author;
+    @Field
     private String title;
 
     @Lob

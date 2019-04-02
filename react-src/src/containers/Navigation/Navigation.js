@@ -9,6 +9,8 @@ import Favorite from '@material-ui/icons/Favorite';
 import MusicNote from '@material-ui/icons/MusicNote';
 import School from '@material-ui/icons/School';
 import Computer from '@material-ui/icons/Computer';
+import Search from '@material-ui/icons/Search'
+
 
 const styles = {
   container: {
@@ -29,6 +31,7 @@ const Navigation = (props) => {
       <NavItem url='/category/movies' icon={<Theaters />}>Movies</NavItem>
       <NavItem url='/category/music' icon={<MusicNote />}>Music</NavItem>
       <NavItem url='/category/health' icon={<Favorite />}>Health</NavItem>
+      <NavItem url={'/search/'} icon={<Search />}>Search</NavItem>
     </Grid>
   );
 };
