@@ -4,7 +4,8 @@ let instance = null;
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   instance = axios.create({
-    baseURL: 'http://localhost:8080/api'
+    withCredentials: true,
+    baseURL: '/api'
   });
 } else {
   const CSRF_TOKEN = document.cookie.match(new RegExp('XSRF-TOKEN=([^;]+)'))[1];
