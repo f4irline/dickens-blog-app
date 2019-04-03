@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
-import TextField from '@material-ui/core/TextField';
 
 import Posts from '../Posts/Posts';
 import Post from '../../components/Post/Post';
@@ -29,8 +28,8 @@ class Home extends Component {
     });
   }
 
-  onSearchSubmit(e) {
-    this.setState({searchValue: e.target.value})
+  handleSearch(value) {
+    this.setState({searchValue: value});
   }
   
   render() {
@@ -38,17 +37,12 @@ class Home extends Component {
       <Grid direction='row' justify='center' container className='Home'>
         <Grid item xs={11} md={8}>
           <Paper square>
-            <Header logout={this.props.logout} loggedIn={this.props.loggedIn} />
+            <Header onSearch={this.handleSearch.bind(this)} logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
             <Navigation />
           </Paper>
         </Grid>
         <Switch>
-          <Route path='/' exact render={() => (
-            <Grid item xs={11} md={7}>
-              <Posts postOpen={this.handlePostOpen.bind(this)} />
-            </Grid>
-          )}/>
           <Route path='/new' render={() => (
             <Grid item xs={11} md={7}>
               <NewPost user={this.props.user} />
@@ -57,33 +51,14 @@ class Home extends Component {
           <Route path='/post/:id' component={Post}/>
           <Route path='/category/:category' render={() => (
             <Grid item xs={11} md={7}>
-              <Posts postOpen={this.handlePostOpen.bind(this)} />
+              <Posts searchValue={this.state.searchValue} postOpen={this.handlePostOpen.bind(this)} />
             </Grid>
           )}/>
-          <Route path={'/search/'} render={() => (
+          <Route path='/' render={() => (
             <Grid item xs={11} md={7}>
-              <TextField
-                onKeyPress={(ev) => {
-                    if (ev.key === 'Enter') {
-                      this.onSearchSubmit(ev);
-                      ev.preventDefault();
-                    }
-                  }}
-                id='outlined-full-width'
-                label='SEARCH'
-                style={{ margin: 8 }}
-                placeholder='Find posts by title'
-                helperText='Hope it helps!'
-                fullWidth
-                margin='normal'
-                variant='outlined'
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <Posts postOpen={this.handlePostOpen.bind(this)} searchValue={this.state.searchValue} />
+              <Posts searchValue={this.state.searchValue} postOpen={this.handlePostOpen.bind(this)} />
             </Grid>
-          )} />
+          )}/>
         </Switch>
       </Grid>
     );

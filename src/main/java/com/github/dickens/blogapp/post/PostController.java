@@ -3,7 +3,6 @@ package com.github.dickens.blogapp.post;
 import com.github.dickens.blogapp.Category;
 import com.github.dickens.blogapp.MyHibernateSearch;
 import com.github.dickens.blogapp.user.UserRepository;
-import javafx.geometry.Pos;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.springframework.beans.factory.annotation.Autowired;

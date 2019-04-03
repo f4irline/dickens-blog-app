@@ -7,6 +7,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import Search from '../../components/Search/Search';
+
 const styles = {
   container: {
     padding: '1vh',
@@ -20,7 +22,7 @@ const Header = (props) => {
   const { classes } = props;
 
   let buttons = (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={3}>
       <Link to='/login' style={{textDecoration: 'none'}}>
         <Button style={{color: '#555'}}>
           Log in
@@ -37,7 +39,7 @@ const Header = (props) => {
 
   if (props.loggedIn) {
     buttons = (
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={3}>
         <Button onClick={props.logout} style={{color: '#555'}}>
           Logout
         </Button>
@@ -59,6 +61,7 @@ const Header = (props) => {
         </Typography>
       </Grid>
       {buttons}
+      <Search onSearch={props.onSearch}/>
     </Grid>
   );
 };
