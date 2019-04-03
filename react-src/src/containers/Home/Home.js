@@ -37,7 +37,7 @@ class Home extends Component {
       <Grid direction='row' justify='center' container className='Home'>
         <Grid item xs={11} md={8}>
           <Paper square>
-            <Header onSearch={this.handleSearch.bind(this)} logout={this.props.logout} loggedIn={this.props.loggedIn} />
+            <Header user={this.props.user} onSearch={this.handleSearch.bind(this)} logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
             <Navigation />
           </Paper>
