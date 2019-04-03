@@ -42,6 +42,9 @@ public class HibernateSearch {
             query =
                     queryBuilder
                             .keyword()
+                            .fuzzy()
+                            .withPrefixLength(1)
+                            .withEditDistanceUpTo(1)
                             .onFields("title", "author.userFirst", "author.userLast")
                             .matching(text)
                             .createQuery();
