@@ -1,4 +1,4 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.search;
 
 import com.github.dickens.blogapp.utils.StringToEnumConverter;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class MvcConfiguration implements WebMvcConfigurer {
+public class HibernateSearchConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")

@@ -2,6 +2,7 @@ package com.github.dickens.blogapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.dickens.blogapp.utils.HashUtils;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 
@@ -23,7 +24,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
     private int userId;
     private String userName;
+    @Field
     private String userFirst;
+    @Field
     private String userLast;
     private String password;
     private int role;

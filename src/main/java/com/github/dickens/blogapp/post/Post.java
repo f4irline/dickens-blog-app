@@ -4,6 +4,7 @@ import com.github.dickens.blogapp.Category;
 import com.github.dickens.blogapp.user.User;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.TermVector;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Post {
     private int postId;
     @OneToOne
     @JoinColumn(name = "USER_ID")
+    @IndexedEmbedded
     private User author;
     @Field
     private String title;

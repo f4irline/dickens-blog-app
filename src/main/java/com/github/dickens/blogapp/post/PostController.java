@@ -1,14 +1,11 @@
 package com.github.dickens.blogapp.post;
 
 import com.github.dickens.blogapp.Category;
-import com.github.dickens.blogapp.MyHibernateSearch;
+import com.github.dickens.blogapp.search.HibernateSearch;
 import com.github.dickens.blogapp.user.UserRepository;
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @RestController
@@ -20,7 +17,7 @@ public class PostController {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    MyHibernateSearch hibernateSearch;
+    HibernateSearch hibernateSearch;
 
     @GetMapping(value = "posts/search/{text}")
     public Iterable<Post> searchPosts(@PathVariable String text) {

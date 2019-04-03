@@ -1,4 +1,4 @@
-package com.github.dickens.blogapp;
+package com.github.dickens.blogapp.search;
 
 import com.github.dickens.blogapp.post.Post;
 import org.hibernate.search.jpa.FullTextEntityManager;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 
 @Transactional
 @Repository
-public class MyHibernateSearch {
+public class HibernateSearch {
     @PersistenceContext
     EntityManager entityManager;
 
@@ -30,14 +30,13 @@ public class MyHibernateSearch {
         org.apache.lucene.search.Query query =
                 queryBuilder
                         .keyword()
-                        .onFields("title")
-                        .matching(text)
+                        .wildcard()
+                        .onFields("title","author.userFirst","author.userLast")
+                        .matching(text+"*")
                         .createQuery();
 
         org.hibernate.search.jpa.FullTextQuery jpaQuery =
                 fullTextEntityManager.createFullTextQuery(query, Post.class);
-
-        System.out.println(jpaQuery.getResultSize() +""+ jpaQuery.getFirstResult());
 
         Iterable<Post> results = jpaQuery.getResultList();
 
