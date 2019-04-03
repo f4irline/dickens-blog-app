@@ -28,6 +28,8 @@ public class User {
     private String userFirst;
     @Field
     private String userLast;
+    @Field
+    private String userWhole;
     private String password;
     private int role;
 
@@ -44,6 +46,7 @@ public class User {
         this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
         this.role = role;
+        this.userWhole = userFirst+" "+userLast;
 
       //  System.out.println(utils.hashMyPassWord(password));
     }
@@ -75,6 +78,8 @@ public class User {
     public String getUserLast() {
         return userLast;
     }
+
+    public String getWholeName() {return userWhole;}
 
     public void setUserLast(String userLast) {
         this.userLast = userLast;

@@ -34,7 +34,7 @@ public class HibernateSearch {
 
 
         if(text.startsWith("\"") && text.endsWith("\"")) {
-            query = queryBuilder.phrase().onField("title").sentence(text.replace("\"","")).createQuery();
+            query = queryBuilder.phrase().onField("title").andField("author.userWhole").sentence(text.replace("\"","")).createQuery();
             jpaQuery =
                     fullTextEntityManager.createFullTextQuery(query, Post.class);
             results = jpaQuery.getResultList();
