@@ -21,6 +21,8 @@ public class HibernateSearch {
 
     public Iterable<Post> search(String text) {
         Iterable<Post> results = new ArrayList<>();
+        org.apache.lucene.search.Query query;
+        org.hibernate.search.jpa.FullTextQuery jpaQuery;
 
         FullTextEntityManager fullTextEntityManager =
                 org.hibernate.search.jpa.Search.
@@ -31,30 +33,37 @@ public class HibernateSearch {
                 .buildQueryBuilder().forEntity(Post.class).get();
 
 
-                org.apache.lucene.search.Query query =
-                queryBuilder
-                        .keyword()
-                        .onFields("title","author.userFirst","author.userLast")
-                        .matching(text)
-                        .createQuery();
-
-        org.hibernate.search.jpa.FullTextQuery jpaQuery =
-                fullTextEntityManager.createFullTextQuery(query, Post.class);
-
-        if(jpaQuery.getResultSize() == 0) {
-            query =
-                    queryBuilder
-                            .keyword()
-                            .wildcard()
-                            .onFields("title","author.userFirst","author.userLast")
-                            .matching(text+"*")
-                            .createQuery();
-
+        if(text.startsWith("\"") && text.endsWith("\"")) {
+            query = queryBuilder.phrase().onField("title").sentence(text.replace("\"","")).createQuery();
             jpaQuery =
                     fullTextEntityManager.createFullTextQuery(query, Post.class);
             results = jpaQuery.getResultList();
         } else {
-            results = jpaQuery.getResultList();
+            query =
+                    queryBuilder
+                            .keyword()
+                            .onFields("title", "author.userFirst", "author.userLast")
+                            .matching(text)
+                            .createQuery();
+
+            jpaQuery =
+                    fullTextEntityManager.createFullTextQuery(query, Post.class);
+
+            if (jpaQuery.getResultSize() == 0) {
+                query =
+                        queryBuilder
+                                .keyword()
+                                .wildcard()
+                                .onFields("title", "author.userFirst", "author.userLast")
+                                .matching(text + "*")
+                                .createQuery();
+
+                jpaQuery =
+                        fullTextEntityManager.createFullTextQuery(query, Post.class);
+                results = jpaQuery.getResultList();
+            } else {
+                results = jpaQuery.getResultList();
+            }
         }
         return results;
     }
