@@ -5,6 +5,7 @@ import com.github.dickens.blogapp.comment.Comment;
 import com.github.dickens.blogapp.post.Post;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.utils.HashUtils;
+import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,12 +36,17 @@ public class User {
     private String userName;
 
     @NotBlank
+    @Field
     @Size(min = 4, max = 40)
     private String userFirst;
 
     @NotBlank
+    @Field
     @Size(min = 4, max = 40)
     private String userLast;
+
+    @Field
+    private String userWhole;
 
     @JsonIgnore
     private String password;
@@ -68,6 +74,7 @@ public class User {
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
+        this.userWhole = userFirst+" "+userLast;
     }
 
     public Long getUserId() {
@@ -97,6 +104,8 @@ public class User {
     public String getUserLast() {
         return userLast;
     }
+
+    public String getWholeName() {return userWhole;}
 
     public void setUserLast(String userLast) {
         this.userLast = userLast;

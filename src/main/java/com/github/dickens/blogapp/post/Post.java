@@ -3,6 +3,10 @@ package com.github.dickens.blogapp.post;
 import com.github.dickens.blogapp.Category;
 import com.github.dickens.blogapp.comment.Comment;
 import com.github.dickens.blogapp.user.User;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.TermVector;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "posts")
+@Indexed
 public class Post {
     @TableGenerator(name = "Post_Gen",
             table = "POST_ID_GEN",
@@ -26,11 +31,13 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @IndexedEmbedded
     private User author;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @Field
     private String title;
 
     @Lob

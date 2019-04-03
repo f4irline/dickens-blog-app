@@ -18,7 +18,8 @@ class Home extends Component {
 
   state = {
     modalOpen: false,
-    openPost: {}
+    openPost: {},
+    searchValue: undefined
   }
 
   handlePostOpen(post) {
@@ -26,23 +27,22 @@ class Home extends Component {
       this.setState({modalOpen: true});
     });
   }
+
+  handleSearch(value) {
+    this.setState({searchValue: value});
+  }
   
   render() {
     return (
       <Grid direction='row' justify='center' container className='Home'>
         <Grid item xs={11} md={8}>
           <Paper square>
-            <Header user={this.props.user} logout={this.props.logout} loggedIn={this.props.loggedIn} />
+            <Header onSearch={this.handleSearch.bind(this)} logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
             <Navigation />
           </Paper>
         </Grid>
         <Switch>
-          <Route path='/' exact render={() => (
-            <Grid item xs={11} md={7}>
-              <Posts postOpen={this.handlePostOpen.bind(this)} />
-            </Grid>
-          )}/>
           <Route path='/new' render={() => (
             <Grid item xs={11} md={7}>
               <NewPost user={this.props.user} />
@@ -53,7 +53,12 @@ class Home extends Component {
           )}/>
           <Route path='/category/:category' render={() => (
             <Grid item xs={11} md={7}>
-              <Posts postOpen={this.handlePostOpen.bind(this)} />
+              <Posts searchValue={this.state.searchValue} postOpen={this.handlePostOpen.bind(this)} />
+            </Grid>
+          )}/>
+          <Route path='/' render={() => (
+            <Grid item xs={11} md={7}>
+              <Posts searchValue={this.state.searchValue} postOpen={this.handlePostOpen.bind(this)} />
             </Grid>
           )}/>
         </Switch>

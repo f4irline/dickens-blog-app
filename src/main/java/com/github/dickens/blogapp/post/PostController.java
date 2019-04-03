@@ -1,6 +1,7 @@
 package com.github.dickens.blogapp.post;
 
 import com.github.dickens.blogapp.Category;
+import com.github.dickens.blogapp.search.HibernateSearch;
 import com.github.dickens.blogapp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,20 @@ public class PostController {
     PostRepository postRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    HibernateSearch hibernateSearch;
+
+    @GetMapping(value = "posts/search/{text}")
+    public Iterable<Post> searchPosts(@PathVariable String text) {
+        System.out.println(text);
+        Iterable<Post> results = null;
+        try {
+            results = hibernateSearch.search(text);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return results;
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value ="posts/add/{userId}")
