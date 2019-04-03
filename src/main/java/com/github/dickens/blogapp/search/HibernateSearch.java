@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 
 @Transactional
 @Repository
@@ -19,6 +20,8 @@ public class HibernateSearch {
     EntityManager entityManager;
 
     public Iterable<Post> search(String text) {
+        Iterable<Post> results = new ArrayList<>();
+
         FullTextEntityManager fullTextEntityManager =
                 org.hibernate.search.jpa.Search.
                 getFullTextEntityManager(entityManager);
@@ -27,19 +30,32 @@ public class HibernateSearch {
                 fullTextEntityManager.getSearchFactory()
                 .buildQueryBuilder().forEntity(Post.class).get();
 
-        org.apache.lucene.search.Query query =
+
+                org.apache.lucene.search.Query query =
                 queryBuilder
                         .keyword()
-                        .wildcard()
                         .onFields("title","author.userFirst","author.userLast")
-                        .matching(text+"*")
+                        .matching(text)
                         .createQuery();
 
         org.hibernate.search.jpa.FullTextQuery jpaQuery =
                 fullTextEntityManager.createFullTextQuery(query, Post.class);
 
-        Iterable<Post> results = jpaQuery.getResultList();
+        if(jpaQuery.getResultSize() == 0) {
+            query =
+                    queryBuilder
+                            .keyword()
+                            .wildcard()
+                            .onFields("title","author.userFirst","author.userLast")
+                            .matching(text+"*")
+                            .createQuery();
 
+            jpaQuery =
+                    fullTextEntityManager.createFullTextQuery(query, Post.class);
+            results = jpaQuery.getResultList();
+        } else {
+            results = jpaQuery.getResultList();
+        }
         return results;
     }
 
