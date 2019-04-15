@@ -32,6 +32,12 @@ public class PostController {
         return results;
     }
 
+    @PostMapping(value= "posts/addlike/{postId}")
+    public void addLike(@PathVariable Long postId) {
+        Post post = postRepository.findById(postId).get();
+        post.setLikes(post.getLikes() +1);
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value ="posts/add/{userId}")
     public void addPost(@RequestBody Post post, @PathVariable Long userId) {
