@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -32,10 +33,16 @@ public class PostController {
         return results;
     }
 
-    @PostMapping(value= "posts/addlike/{postId}")
+    @PostMapping(value= "posts/likes/add/{postId}")
     public void addLike(@PathVariable Long postId) {
         Post post = postRepository.findById(postId).get();
         post.setLikes(post.getLikes() +1);
+    }
+
+    @PostMapping(value= "posts/likes/remove/{postId}")
+    public void removeLike(@PathVariable Long postId) {
+        Post post = postRepository.findById(postId).get();
+        post.setLikes(post.getLikes() -1);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
