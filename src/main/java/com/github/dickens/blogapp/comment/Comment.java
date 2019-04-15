@@ -4,7 +4,6 @@ import com.github.dickens.blogapp.user.User;
 import com.github.dickens.blogapp.post.Post;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,12 +18,14 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Comment_Gen")
-    private int commentId;
-    @OneToOne
-    @JoinColumn(name ="POST_ID")
+    private Long commentId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
     private Post post;
-    @OneToOne
-    @JoinColumn(name = "USER_ID")
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User author;
 
     @Lob
@@ -41,7 +42,7 @@ public class Comment {
         this.body = body;
     }
 
-    public int getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 

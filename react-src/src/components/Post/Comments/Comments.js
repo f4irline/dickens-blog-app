@@ -33,7 +33,7 @@ class Comments extends Component {
     const { classes } = this.props;
 
     let comments = this.state.comments.map((comment) => {
-      return <Comment handleDelete={this.props.handleDelete} key={comment.commentId} comment={comment} />;
+      return <Comment user={this.props.user} handleDelete={this.props.handleDelete} key={comment.commentId} comment={comment} />;
     });
 
     return (
@@ -43,9 +43,10 @@ class Comments extends Component {
         </Typography>
         <Divider style={{marginTop: '1vh'}}/>
         {comments}
-        <Grid container justify='center'>
-          <CommentWriter postId={this.props.postId} newComment={this.props.newComment}/>
-        </Grid>
+        {this.props.user.roles[0] !== undefined && this.props.user.roles[0].definition === 'ROLE_USER' ? 
+          <Grid container justify='center'>
+            <CommentWriter user={this.props.user} postId={this.props.postId} newComment={this.props.newComment}/>
+          </Grid> : null }
       </Paper>
     );
   }

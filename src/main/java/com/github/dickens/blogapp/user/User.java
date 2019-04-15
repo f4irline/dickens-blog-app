@@ -1,12 +1,19 @@
 package com.github.dickens.blogapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.dickens.blogapp.comment.Comment;
+import com.github.dickens.blogapp.post.Post;
+import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.utils.HashUtils;
 import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Transient
@@ -22,40 +29,59 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
-    private int userId;
+    private Long userId;
+
+    @NotBlank
+    @Size(min = 4, max = 40)
     private String userName;
+
+    @NotBlank
     @Field
+    @Size(min = 4, max = 40)
     private String userFirst;
+
+    @NotBlank
     @Field
+    @Size(min = 4, max = 40)
     private String userLast;
+
     @Field
     private String userWhole;
-    private String password;
-    private int role;
 
-    public static int USER = 0;
-    public static int ADMIN = 1;
+    @JsonIgnore
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author")
+    private Collection<Post> posts;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author")
+    private Collection<Comment> comments;
 
     public User() {
 
     }
 
-    public User(String userName, String userFirst, String userLast, String password, int role) {
+    public User(String userName, String userFirst, String userLast, String password) {
         this.userName = userName;
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.password = utils.hashMyPassword(password);
-        this.role = role;
         this.userWhole = userFirst+" "+userLast;
-
-      //  System.out.println(utils.hashMyPassWord(password));
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -91,24 +117,19 @@ public class User {
 
     public void setPassword(String password) {
         this.password = utils.hashMyPassword(password);
-        //this.password = passwordEncoder.encode(password);
     }
 
-    public int getRole() {
-        return role;
+    public Collection<Role> getRoles() { return roles; }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public Collection<Post> getPosts() {
+        return posts;
     }
 
-    /*
-    public String getMatchingPassword() {
-        return matchingPassword;
+    public void setPosts(Collection<Post> posts) {
+        this.posts = posts;
     }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
-    }
-    */
 }
