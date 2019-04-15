@@ -14,15 +14,7 @@ class CommentWriter extends Component {
   }
 
   handleSubmit() {
-    const jwt = localStorage.getItem('accessToken');
-    const options = {
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    };
-
-    axios.post(`/comments/add/${this.props.postId}/${this.props.user.userId}`, this.state, options)
+    axios.post(`/comments/add/${this.props.postId}/1001`, this.state)
       .then((res) => {
         console.log(res);
         this.props.newComment();

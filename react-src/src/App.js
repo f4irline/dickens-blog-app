@@ -13,47 +13,24 @@ import './App.css';
 
 class App extends Component {
 
-  anonUser = {
-    roles: [
-      'ANONYMOUS'
-    ]
-  }
-
   state = {
     loggedIn: false,
-    user: this.anonUser
+    name: ''
   }
 
-  componentDidMount() {
-    const jwt = localStorage.getItem('accessToken');
-
-    if (jwt) {
-      this.handleLogin();
-    }
-  }
-
-  handleLogin = () => {
-    const jwt = localStorage.getItem('accessToken');
-    axios.get('/users/details', {
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    })
-      .then((res) => {
-        this.setState({loggedIn: true, user: res.data.user});
-        this.props.history.push('/');
-      }).catch(err => console.log(err));
+  handleLogin = (name) => {
+    this.setState({loggedIn: true, name: name});
+    this.props.history.push('/');
   }
 
   handleLogout = () => {
-    this.setState({loggedIn: false, user: this.anonUser}, () => {
-      localStorage.removeItem('accessToken');
-    });
+    this.setState({loggedIn: false, name: ''});
     this.props.history.push('/');
   }
 
   handleRegister = (user) => {
-    axios.post('/auth/register', user)
+    console.log(user);
+    axios.post('/users/add', user)
       .then((res) => {
         console.log(res);
         this.props.history.push('/');
@@ -67,7 +44,7 @@ class App extends Component {
           <Switch>
             <Route path='/login' render={() => <Login login={this.handleLogin.bind(this)} />} />
             <Route path='/register' render={() => <Register register={this.handleRegister.bind(this)} />} />
-            <Route path='/' render={() => <Home user={this.state.user} loggedIn={this.state.loggedIn} logout={this.handleLogout.bind(this)}/>} />
+            <Route path='/' render={() => <Home user={this.state.name} loggedIn={this.state.loggedIn} logout={this.handleLogout.bind(this)}/>} />
           </Switch>
         </Grid>
       </Grid>

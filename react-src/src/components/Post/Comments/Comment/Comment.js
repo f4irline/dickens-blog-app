@@ -39,11 +39,9 @@ class Comment extends Component {
   
         <Grid direction='row' justify='center' container className='Home'>
           <Grid item xs={6}>
-            {this.props.user.roles[1] !== undefined && this.props.user.roles[1].definition === 'ROLE_ADMIN' ?
-              <IconButton onClick={this.onClickOpenHandler.bind(this)}>
-                <DeleteIcon color='secondary'/>
-              </IconButton>
-              : null }
+            <IconButton onClick={this.onClickOpenHandler.bind(this)}>
+              <DeleteIcon color='secondary'/>
+            </IconButton>
           </Grid>
           <Grid item xs={6}>
             <Typography variant='caption' style={{fontSize: '2vh', margin: '1vh 0', textAlign: 'end'}}>

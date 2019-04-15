@@ -24,7 +24,3 @@ HELP.md
 /nbdist/
 /.nb-gradle/
 /build/
-
-### Search index files ###
-
-/src/main/java/com/github/dickens/blogapp/search/com.github.dickens.blogapp.post.Post/

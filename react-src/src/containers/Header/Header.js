@@ -43,13 +43,12 @@ const Header = (props) => {
         <Button onClick={props.logout} style={{color: '#555'}}>
           Logout
         </Button>
-        {props.user.roles[1] !== undefined && props.user.roles[1].definition === 'ROLE_ADMIN' ? 
-          <React.Fragment>
-            <p style={{display: 'inline-block', userSelect: 'none'}}>|</p>
-            <Link to='/new' style={{textDecoration: 'none', color: '#444'}}>
-              <Button>New Post</Button>
-            </Link>
-          </React.Fragment> : null}
+        <p style={{display: 'inline-block', userSelect: 'none'}}>|</p>
+        <Link to='/new' style={{textDecoration: 'none', color: '#444'}}>
+          <Button>
+            New Post
+          </Button>
+        </Link>
       </Grid>
     );
   }

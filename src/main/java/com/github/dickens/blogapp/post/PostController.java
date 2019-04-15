@@ -4,10 +4,8 @@ import com.github.dickens.blogapp.Category;
 import com.github.dickens.blogapp.search.HibernateSearch;
 import com.github.dickens.blogapp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -33,27 +31,17 @@ public class PostController {
         return results;
     }
 
-    @PostMapping(value= "posts/likes/add/{postId}")
-    public void addLike(@PathVariable Long postId) {
-        Post post = postRepository.findById(postId).get();
-        post.setLikes(post.getLikes() +1);
-    }
-
-    @PostMapping(value= "posts/likes/remove/{postId}")
-    public void removeLike(@PathVariable Long postId) {
-        Post post = postRepository.findById(postId).get();
-        post.setLikes(post.getLikes() -1);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value ="posts/add/{userId}")
-    public void addPost(@RequestBody Post post, @PathVariable Long userId) {
+    public void addPost(@RequestBody Post post,@PathVariable int userId) {
         post.setAuthor(userRepository.findById(userId).get());
         postRepository.save(post);
     }
 
+    /*
+curl -i -X GET http://localhost:8080/posts/4
+*/
     @GetMapping(value = "/posts/{postId}")
-    public Optional<Post> getPost(@PathVariable Long postId) {
+    public Optional<Post> getPost(@PathVariable int postId) {
         return postRepository.findById(postId);
     }
 
@@ -62,14 +50,19 @@ public class PostController {
         return postRepository.findByCategory(category);
     }
 
+    /*
+    curl -i -X GET http://localhost:8080/posts/all
+    */
     @GetMapping(value = "/posts/all")
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    /*
+    curl -i -X DELETE http://localhost:8080/posts/4
+    */
     @DeleteMapping(value = "posts/{postId}")
-    public void deletePost(@PathVariable Long postId) {
+    public void deletePost(@PathVariable int postId) {
         postRepository.deleteById(postId);
     }
 

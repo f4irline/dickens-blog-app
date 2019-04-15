@@ -88,28 +88,11 @@ class Post extends Component {
   }
 
   deleteComment(commentId) {
-    const jwt = localStorage.getItem('accessToken');
-    const options = {
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    };
-
-    axios.delete('/comments/'+commentId, options)
-      .then(this.loadComments.bind(this));
+    axios.delete('/comments/'+commentId).then(this.loadComments.bind(this));
   }
 
   deletePostsComments(postId) {
-    const jwt = localStorage.getItem('accessToken');
-    const options = {
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    };
-
-    axios.delete('/comments/all/'+postId, options)
+    axios.delete('/comments/all/'+postId)
       .then((res) => {
         console.log(res);
         this.deletePost(postId);
@@ -118,15 +101,7 @@ class Post extends Component {
   }
 
   deletePost(postId) {
-    const jwt = localStorage.getItem('accessToken');
-    const options = {
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    };
-
-    axios.delete('/posts/'+postId, options)
+    axios.delete('/posts/'+postId)
       .then((res) => {
         console.log(res);
         this.props.history.push('/');
@@ -179,11 +154,9 @@ class Post extends Component {
 
             <Grid direction='row' justify='center' container className='Home'>
               <Grid item xs={6}>
-                {this.props.user.roles[1] !== undefined && this.props.user.roles[1].definition === 'ROLE_ADMIN' ?
-                  <IconButton onClick={this.onClickOpenHandler.bind(this)}>
-                    <DeleteIcon color='secondary' />
-                  </IconButton>
-                  : null}
+                <IconButton onClick={this.onClickOpenHandler.bind(this)}>
+                  <DeleteIcon color='secondary' />
+                </IconButton>
               </Grid>
               <Grid item xs={6}>
                 <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
@@ -194,7 +167,7 @@ class Post extends Component {
           </Paper>
         </Grid>
         <Grid container>
-          <Comments user={this.props.user} handleDelete={this.deleteComment.bind(this)} postId={this.state.post.postId} newComment={this.loadComments.bind(this)} comments={this.state.comments}/>
+          <Comments handleDelete={this.deleteComment.bind(this)} postId={this.state.post.postId} newComment={this.loadComments.bind(this)} comments={this.state.comments}/>
         </Grid>
       </Grid>
     );  

@@ -58,18 +58,13 @@ class NewPost extends Component {
   }
 
   handleSend() {
-    const jwt = localStorage.getItem('accessToken');
-    const options = {
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    };
-
-    axios.post(`/posts/add/${this.props.user.userId}`, this.state, options)
+    console.log(this.state);
+    axios.post('/posts/add/1001', this.state)
       .then((res) => {
+        console.log(res);
         this.props.history.push('/');
-      }).catch(err => console.log(err));
+      })
+      .catch((err) => console.log(err));
   }
 
   handleCancel() {
@@ -144,9 +139,9 @@ class NewPost extends Component {
               <MenuItem value='NONE'>
                 <em>None</em>
               </MenuItem>
-              <MenuItem value='MOVIES'>Movies</MenuItem>
+              <MenuItem value='CULTURE'>Culture</MenuItem>
               <MenuItem value='TECH'>Tech</MenuItem>
-              <MenuItem value='MUSIC'>Music</MenuItem>
+              <MenuItem value='POLITICS'>Politics</MenuItem>
               <MenuItem value='STUDIES'>Studies</MenuItem>
               <MenuItem value='HEALTH'>Health</MenuItem>
             </Select>  

@@ -37,7 +37,7 @@ class Home extends Component {
       <Grid direction='row' justify='center' container className='Home'>
         <Grid item xs={11} md={8}>
           <Paper square>
-            <Header user={this.props.user} onSearch={this.handleSearch.bind(this)} logout={this.props.logout} loggedIn={this.props.loggedIn} />
+            <Header onSearch={this.handleSearch.bind(this)} logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
             <Navigation />
           </Paper>
@@ -48,9 +48,7 @@ class Home extends Component {
               <NewPost user={this.props.user} />
             </Grid>
           )}/>
-          <Route path='/post/:id' render={() => (
-            <Post user={this.props.user}/>
-          )}/>
+          <Route path='/post/:id' component={Post}/>
           <Route path='/category/:category' render={() => (
             <Grid item xs={11} md={7}>
               <Posts searchValue={this.state.searchValue} postOpen={this.handlePostOpen.bind(this)} />
