@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './Post.css';
+
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +27,8 @@ const styles = {
   post: {
     padding: '1vh',
     margin: '1vh',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    width: '100%'
   },
   body: {
     margin: '1vh 0'
@@ -174,7 +177,9 @@ class Post extends Component {
               {this.state.post.title}
             </Typography>
             <Divider/>
-            <Markdown>{this.state.post.body}</Markdown>
+            <div class='body-wrapper-full'>
+              <Markdown>{this.state.post.body}</Markdown>
+            </div>
             <Divider/>
 
             <Grid direction='row' justify='center' container className='Home'>

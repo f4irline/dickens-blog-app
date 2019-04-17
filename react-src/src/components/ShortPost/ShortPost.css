@@ -2,3 +2,11 @@
   height: 25vh;
   margin: 2vh;
 }
+
+.body-wrapper {
+  height: 21vh;
+  width: 100%;
+  overflow: hidden;
+  margin: 2vh;
+  word-wrap: break-word;
+}

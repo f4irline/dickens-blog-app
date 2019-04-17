@@ -20,12 +20,13 @@ const styles = {
     padding: '1vh',
     margin: '1vh',
     minHeight: '30vh',
-    width: '100%'
+    width: '100%',
   },
   contentWrapper: {
     height: '21vh',
     overflow: 'hidden',
-    margin: '2vh'
+    margin: '2vh',
+    wordWrap: 'break-word'
   }
 };
 
@@ -45,14 +46,14 @@ const ShortPost = (props) => {
     <Paper classes={{root: classes.post}} elevation={5}>
       <Grid container direction='row'>
         <Grid container item xs={12} md={6} direction='column' justify='space-between'>
-          <Grid item>
+          <Grid item style={{width: '100%'}}>
             <Typography variant='title'>
               {props.data.title.toUpperCase()}
             </Typography>
             <Divider />
-            <Typography variant='caption' classes={{root: classes.contentWrapper}}>
+            <div className='body-wrapper'>
               <Markdown>{props.data.body}</Markdown>
-            </Typography>
+            </div>
           </Grid>
 
           <Grid container direction='row' justify='space-between'>
