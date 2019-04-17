@@ -1,8 +1,13 @@
 package com.github.dickens.blogapp.user;
 
+import com.github.dickens.blogapp.comment.Comment;
+import com.github.dickens.blogapp.comment.CommentRepository;
+import com.github.dickens.blogapp.post.Post;
+import com.github.dickens.blogapp.post.PostRepository;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.user.role.RoleDefinition;
 import com.github.dickens.blogapp.user.role.RoleRepository;
+import org.hibernate.event.spi.PostCollectionRecreateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,12 +32,32 @@ public class UserController {
     UserRepository userRepository;
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
+
+    @Autowired
     RoleRepository roleRepository;
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "users/{userId}")
     public void deleteUser(@PathVariable Long userId) {
-        userRepository.deleteById(userId);
+        Optional<User> userToDelete = userRepository.findById(userId);
+
+        userToDelete.ifPresent(user -> {
+            Iterable<Post> posts = postRepository.findByAuthor(user);
+            for (Post post : posts) {
+                postRepository.delete(post);
+            }
+
+            Iterable<Comment> comments = commentRepository.findByAuthor(user);
+            for (Comment comment : comments) {
+                commentRepository.delete(comment);
+            }
+
+            userRepository.delete(user);
+        });
     }
 
     @PreAuthorize("hasRole('ADMIN')")
