@@ -18,7 +18,7 @@ import './ShortPost.css';
 const styles = {
   post: {
     padding: '1vh',
-    margin: '1vh',
+    margin: '1vh 0',
     minHeight: '30vh',
     width: '100%',
   },

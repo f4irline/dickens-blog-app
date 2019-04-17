@@ -26,12 +26,12 @@ import Loading from '../../components/Loading/Loading';
 const styles = {
   post: {
     padding: '1vh',
-    margin: '1vh',
+    margin: '1vh 0',
     boxSizing: 'border-box',
     width: '100%'
   },
   body: {
-    margin: '1vh 0'
+    margin: '1vh 0',
   }
 };
 
