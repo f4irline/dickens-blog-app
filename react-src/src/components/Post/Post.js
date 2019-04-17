@@ -177,7 +177,7 @@ class Post extends Component {
               {this.state.post.title}
             </Typography>
             <Divider/>
-            <div class='body-wrapper-full'>
+            <div className='body-wrapper-full'>
               <Markdown>{this.state.post.body}</Markdown>
             </div>
             <Divider/>
