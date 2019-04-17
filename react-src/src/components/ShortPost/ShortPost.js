@@ -50,10 +50,11 @@ const ShortPost = (props) => {
             <Typography variant='title'>
               {props.data.title.toUpperCase()}
             </Typography>
-            <Divider />
+            <Divider style={{marginTop: '1vh'}}/>
             <div className='body-wrapper'>
               <Markdown>{props.data.body}</Markdown>
             </div>
+            <Divider />
           </Grid>
 
           <Grid container direction='row' justify='space-between'>
