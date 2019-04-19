@@ -12,6 +12,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from '../../axios-instance';
 import AlertDialog from '../../components/AlertDialog/AlertDialog'
+import Grid from '@material-ui/core/Grid';
+import Loading from '../../components/Loading/Loading';
 
 
 class ControlPanel extends Component {
@@ -19,7 +21,8 @@ class ControlPanel extends Component {
   state = {
     showDialog: false,
     users: [],
-    userToDelete: undefined
+    userToDelete: undefined,
+    loading: false
   }
 
   componentDidMount() {
@@ -34,7 +37,7 @@ class ControlPanel extends Component {
         Authorization: `Bearer ${jwt}`
       }
     };
-    axios.get(`users/all`,options).then((res) =>  this.setState({users: res.data})).catch(err => console.log(err));
+    this.setState({loading:true}, () =>axios.get(`users/all`,options).then((res) =>  this.setState({users: res.data, loading: false})).catch(err => console.log(err)));
   }
 
   handleSelectChange(event, user) {
@@ -115,8 +118,17 @@ class ControlPanel extends Component {
       { value: 'yes', label: 'Yes' },
       { value: 'no', label: 'No' },
     ]
+    if (this.state.loading) {
+      return (
+        <Grid item container justify='center' xs={12}>
+          <Loading loading={this.state.loading} />
+        </Grid>
+      );
+    }
     
     return (
+
+
       <Paper>
         {this.state.showDialog ? <AlertDialog title='Delete user' description = {`Are you sure you want to delete ${this.state.userToDelete.userName}?`} handleClose={this.handleDelete.bind(this)} /> : null}
         <Table>
