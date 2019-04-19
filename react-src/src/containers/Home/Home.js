@@ -11,6 +11,7 @@ import Navigation from '../Navigation/Navigation';
 import Posts from '../Posts/Posts';
 import Post from '../../components/Post/Post';
 import NewPost from '../NewPost/NewPost';
+import ControlPanel from '../ControlPanel/ControlPanel';
 
 import './Home.css';
 
@@ -46,6 +47,11 @@ class Home extends Component {
           <Route path='/new' render={() => (
             <Grid item xs={11} md={7}>
               <NewPost user={this.props.user} />
+            </Grid>
+          )}/>
+          <Route path='/admin' render={() => (
+            <Grid item xs={11} md={7}>
+              <ControlPanel user={this.props.user} />
             </Grid>
           )}/>
           <Route path='/post/:id' render={() => (
