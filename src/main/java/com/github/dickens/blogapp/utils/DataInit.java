@@ -51,17 +51,17 @@ public class DataInit {
         Role adminRole = roleRepository.findByDefinition(RoleDefinition.ROLE_ADMIN)
                 .orElseThrow(() -> new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
 
-        User heikki = new User("Hexa","Heiki","Kinnunen","Koirannimi");
+        User heikki = new User("Hexa","Heikki","Kinnunen","Koirannimi");
 
         List<Role> roles = new ArrayList<>();
         roles.add(userRole);
         roles.add(adminRole);
         heikki.setRoles(roles);
 
-        User tiina = new User("Tintti","Tiina","Kullitettu","Tiina96");
+        User tiina = new User("Tintti","Tiina","Salonen","Tiina96");
         tiina.setRoles(Collections.singleton(userRole));
 
-        User tommi = new User("Tombha","Tomi","Reikämies","GhostRider98");
+        User tommi = new User("Tombha","Tomi","Syrjänen","GhostRider98");
         tommi.setRoles(Collections.singleton(userRole));
 
         List<User> lista = new ArrayList<>();

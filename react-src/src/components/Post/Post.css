@@ -1,0 +1,6 @@
+.body-wrapper-full {
+    width: 100%;
+    word-wrap: break-word;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}

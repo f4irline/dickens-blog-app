@@ -12,7 +12,7 @@ import Comment from './Comment/Comment';
 const styles = {
   comment: {
     padding: '1vh',
-    margin: '1vh',
+    margin: '1vh 0',
     boxSizing: 'border-box',
     width: '100%'
   },
