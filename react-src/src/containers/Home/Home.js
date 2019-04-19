@@ -51,7 +51,7 @@ class Home extends Component {
           )}/>
           <Route path='/admin' render={() => (
             <Grid item xs={11} md={7}>
-              <ControlPanel user={this.props.user} />
+              <ControlPanel logout={this.props.logout} user={this.props.user} />
             </Grid>
           )}/>
           <Route path='/post/:id' render={() => (

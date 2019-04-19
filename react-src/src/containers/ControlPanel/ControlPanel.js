@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,21 +25,53 @@ class ControlPanel extends Component {
   }
 
   updateUsers() {
-    axios.get('users/all').then((res) =>  this.setState({users: res.data})).catch(err => console.log(err));
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+    axios.get(`users/all`,options).then((res) =>  this.setState({users: res.data})).catch(err => console.log(err));
   }
 
   handleSelectChange(event, user) {
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
     let isAdmin;
     if(event.target.value === 'Admin') {
       isAdmin = true;
     } else if(event.target.value === 'User') {
       isAdmin = false;
     }
-    axios.post(`users/role/${user.userId}/${isAdmin}`).then(() => this.updateUsers()).catch(err => console.log(err));
+    axios.post(`users/role/${user.userId}/${isAdmin}`,options).then(() => {
+      this.updateUsers()
+      if(this.props.user.userId === user.userId) {
+        this.props.history.push('/')
+      }
+    }).catch(err => console.log(err));
   }
 
   handleDeleteOnClick(event, user) {
-    
+    const jwt = localStorage.getItem('accessToken');
+    const options = {
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
+    axios.delete(`users/${user.userId}`,options)
+    .then(() => {
+      this.updateUsers()
+      if(this.props.user.userId === user.userId) {
+        this.props.logout();
+      }
+    }).catch(err => console.log(err));
   }
 
   createData(user) {
@@ -119,5 +152,5 @@ class ControlPanel extends Component {
   
 }
 
-export default ControlPanel;
+export default withRouter(ControlPanel);
 
