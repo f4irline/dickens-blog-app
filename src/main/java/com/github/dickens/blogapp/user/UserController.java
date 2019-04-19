@@ -60,7 +60,13 @@ public class UserController {
         });
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "users/all")
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+   // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "users/role/{userId}/{isAdmin}")
     public void editUserRole(@PathVariable Long userId, @PathVariable boolean isAdmin) {
         Optional<User> user = userRepository.findById(userId);
