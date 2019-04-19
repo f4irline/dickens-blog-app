@@ -50,7 +50,7 @@ const Header = (props) => {
               <Button>New Post</Button>
             </Link>
             <p style={{display: 'inline-block', userSelect: 'none'}}>|</p>
-            <Link to='/admin' styke={{textDecoration: 'none', color: '#444'}}>
+            <Link to='/admin' style={{textDecoration: 'none', color: '#444'}}>
               <Button>Control Panel</Button>
             </Link>
           </React.Fragment> : null}
