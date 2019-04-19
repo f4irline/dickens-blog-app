@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from '../../axios-instance';
+import AlertDialog from '../../components/AlertDialog/AlertDialog'
 
 
 class ControlPanel extends Component {
@@ -18,6 +19,7 @@ class ControlPanel extends Component {
   state = {
     showDialog: false,
     users: [],
+    userToDelete: undefined
   }
 
   componentDidMount() {
@@ -49,15 +51,20 @@ class ControlPanel extends Component {
     } else if(event.target.value === 'User') {
       isAdmin = false;
     }
-    axios.post(`users/role/${user.userId}/${isAdmin}`,options).then(() => {
+    axios.post(`users/role/${user.userId}/${isAdmin}`,options)
+    .then(() => {
       this.updateUsers()
       if(this.props.user.userId === user.userId) {
-        this.props.history.push('/')
+        this.props.logout();
       }
     }).catch(err => console.log(err));
   }
 
   handleDeleteOnClick(event, user) {
+    this.setState({showDialog: true, userToDelete: user});
+  }
+
+  handleDelete(name) {
     const jwt = localStorage.getItem('accessToken');
     const options = {
       credentials: 'include',
@@ -65,13 +72,16 @@ class ControlPanel extends Component {
         Authorization: `Bearer ${jwt}`
       }
     };
-    axios.delete(`users/${user.userId}`,options)
-    .then(() => {
-      this.updateUsers()
-      if(this.props.user.userId === user.userId) {
-        this.props.logout();
-      }
-    }).catch(err => console.log(err));
+    if(name === 'delete') {
+      axios.delete(`users/${this.state.userToDelete.userId}`,options)
+      .then(() => {
+        this.updateUsers()
+        if(this.props.user.userId === this.state.userToDelete.userId) {
+          this.props.logout();
+        }
+      }).catch(err => console.log(err));
+    }
+    this.setState({showDialog: false});
   }
 
   createData(user) {
@@ -108,6 +118,7 @@ class ControlPanel extends Component {
     
     return (
       <Paper>
+        {this.state.showDialog ? <AlertDialog title='Delete user' description = {`Are you sure you want to delete ${this.state.userToDelete.userName}?`} handleClose={this.handleDelete.bind(this)} /> : null}
         <Table>
           <TableHead>
             <TableRow>
@@ -142,7 +153,7 @@ class ControlPanel extends Component {
                     </IconButton>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))}            
             </TableBody>
           </Table>
         </Paper>
