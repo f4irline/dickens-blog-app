@@ -7,7 +7,6 @@ import com.github.dickens.blogapp.post.PostRepository;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.user.role.RoleDefinition;
 import com.github.dickens.blogapp.user.role.RoleRepository;
-import org.hibernate.event.spi.PostCollectionRecreateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -11,7 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from '../../axios-instance';
-import AlertDialog from '../../components/AlertDialog/AlertDialog'
+import AlertDialog from '../../components/AlertDialog/AlertDialog';
 import Grid from '@material-ui/core/Grid';
 import Loading from '../../components/Loading/Loading';
 
@@ -37,7 +37,12 @@ class ControlPanel extends Component {
         Authorization: `Bearer ${jwt}`
       }
     };
-    this.setState({loading:true}, () =>axios.get(`users/all`,options).then((res) =>  this.setState({users: res.data, loading: false})).catch(err => console.log(err)));
+
+    this.setState({loading:true}, () =>
+      axios.get('users/all',options)
+        .then((res) => 
+          this.setState({users: res.data, loading: false}))
+        .catch(err => console.log(err)));
   }
 
   handleSelectChange(event, user) {
@@ -48,19 +53,23 @@ class ControlPanel extends Component {
         Authorization: `Bearer ${jwt}`
       }
     };
+
     let isAdmin;
+
     if(event.target.value === 'Admin') {
       isAdmin = true;
     } else if(event.target.value === 'User') {
       isAdmin = false;
     }
-    axios.post(`users/role/${user.userId}/${isAdmin}`,options)
-    .then(() => {
-      this.updateUsers();
-      if(this.props.user.userId === user.userId) {
-        this.props.logout();
-      }
-    }).catch(err => console.log(err));
+
+    axios.post(`users/role/${user.userId}/${isAdmin}`, undefined, options)
+      .then(() => {
+        this.updateUsers();
+
+        if(this.props.user.userId === user.userId) {
+          this.props.logout();
+        }
+      }).catch(err => console.log(err));
   }
 
   handleDeleteOnClick(event, user) {
@@ -75,14 +84,17 @@ class ControlPanel extends Component {
         Authorization: `Bearer ${jwt}`
       }
     };
+
     if(name === 'delete') {
-      axios.delete(`users/${this.state.userToDelete.userId}`,options)
-      .then(() => {
-        this.updateUsers()
-        if(this.props.user.userId === this.state.userToDelete.userId) {
-          this.props.logout();
-        }
-      }).catch(err => console.log(err));
+      axios.delete(`users/${this.state.userToDelete.userId}`, options)
+        .then(() => {
+          this.updateUsers();
+
+          if(this.props.user.userId === this.state.userToDelete.userId) {
+            this.props.logout();
+          }
+
+        }).catch(err => console.log(err));
     }
     this.setState({showDialog: false});
   }
@@ -93,16 +105,16 @@ class ControlPanel extends Component {
     let wholeName = user.wholeName;
     let role = '';
     if(user.roles.length > 1) {
-      role = 'Admin'
+      role = 'Admin';
     } else {
-      role = 'User'
+      role = 'User';
     }
     return {userId, userName, wholeName, role};
   }
 
   render() {
 
-    const rows = this.state.users.map(data => this.createData(data))
+    const rows = this.state.users.map(data => this.createData(data));
 
     if (this.state.loading) {
       return (
@@ -113,8 +125,6 @@ class ControlPanel extends Component {
     }
     
     return (
-
-
       <Paper>
         {this.state.showDialog ? <AlertDialog title='Delete user' description = {`Are you sure you want to delete ${this.state.userToDelete.userName}?`} handleClose={this.handleDelete.bind(this)} /> : null}
         <Table>
@@ -127,36 +137,36 @@ class ControlPanel extends Component {
               <TableCell align='right'>Delete</TableCell>
             </TableRow>
           </TableHead>
-            <TableBody>
-              {rows.map(row => (
-                <TableRow key={row.userId}>
-                  <TableCell component='th' scope='row'>
-                    {row.userId}
-                  </TableCell>
-                  <TableCell align='right'>{row.userName}</TableCell>
-                  <TableCell align='right'>{row.wholeName}</TableCell>
-                  <TableCell align='right'>
-                    <Select value={row.role} onChange={(event) => {
-                      this.handleSelectChange(event, row);
-                    }}>
-                      <MenuItem value='Admin'>Admin</MenuItem>
-                      <MenuItem value='User'>User</MenuItem>
-                    </Select>
-                  </TableCell>
-                  <TableCell align='right'>
-                    <IconButton onClick={(event) => {
-                      this.handleDeleteOnClick(event, row);
-                    }}>
-                      <DeleteIcon/>
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}            
-            </TableBody>
-          </Table>
-        </Paper>
-      );
-    } 
+          <TableBody>
+            {rows.map(row => (
+              <TableRow key={row.userId}>
+                <TableCell component='th' scope='row'>
+                  {row.userId}
+                </TableCell>
+                <TableCell align='right'>{row.userName}</TableCell>
+                <TableCell align='right'>{row.wholeName}</TableCell>
+                <TableCell align='right'>
+                  <Select value={row.role} onChange={(event) => {
+                    this.handleSelectChange(event, row);
+                  }}>
+                    <MenuItem value='Admin'>Admin</MenuItem>
+                    <MenuItem value='User'>User</MenuItem>
+                  </Select>
+                </TableCell>
+                <TableCell align='right'>
+                  <IconButton onClick={(event) => {
+                    this.handleDeleteOnClick(event, row);
+                  }}>
+                    <DeleteIcon/>
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}            
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  } 
 }
 
 export default withRouter(ControlPanel);
