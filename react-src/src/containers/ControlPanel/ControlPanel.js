@@ -56,7 +56,7 @@ class ControlPanel extends Component {
     }
     axios.post(`users/role/${user.userId}/${isAdmin}`,options)
     .then(() => {
-      this.updateUsers()
+      this.updateUsers();
       if(this.props.user.userId === user.userId) {
         this.props.logout();
       }
@@ -97,27 +97,13 @@ class ControlPanel extends Component {
     } else {
       role = 'User'
     }
-    console.log(userId + userName + wholeName + role)
     return {userId, userName, wholeName, role};
   }
 
   render() {
-    const styles = theme => ({
-      root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
-      },
-      table: {
-        minWidth: 700,
-      },
-    });
+
     const rows = this.state.users.map(data => this.createData(data))
 
-    const options = [
-      { value: 'yes', label: 'Yes' },
-      { value: 'no', label: 'No' },
-    ]
     if (this.state.loading) {
       return (
         <Grid item container justify='center' xs={12}>
@@ -170,9 +156,7 @@ class ControlPanel extends Component {
           </Table>
         </Paper>
       );
-
-    }
-  
+    } 
 }
 
 export default withRouter(ControlPanel);
