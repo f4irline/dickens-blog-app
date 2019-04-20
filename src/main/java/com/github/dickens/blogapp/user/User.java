@@ -6,6 +6,7 @@ import com.github.dickens.blogapp.post.Post;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.utils.HashUtils;
 import org.hibernate.search.annotations.Field;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,7 +15,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends ResourceSupport {
 
     @Transient
     HashUtils utils = new HashUtils();

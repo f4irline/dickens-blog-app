@@ -7,6 +7,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.TermVector;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "posts")
 @Indexed
-public class Post {
+public class Post extends ResourceSupport {
     @TableGenerator(name = "Post_Gen",
             table = "POST_ID_GEN",
             pkColumnName = "POST_ID",

@@ -6,6 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PostRepository extends CrudRepository<Post, Long> {
     Iterable<Post> findByCategory(Category category);
-
     Iterable<Post> findByAuthor(User author);
 }
