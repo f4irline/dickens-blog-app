@@ -28,8 +28,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  *
  * @author Tommi Lepola
  * @author Ville -Veikko Nieminen
- * @version 2019 -23-04
- * @since 1.8
+ * @since 1.0
+ * @version 1.0
  */
 @RestController
 @RequestMapping(value = "/api")

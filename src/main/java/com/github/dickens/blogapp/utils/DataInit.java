@@ -28,8 +28,8 @@ import java.util.List;
  *
  * @author Tommi Lepola
  * @author Ville-Veikko Nieminen
- * @since 1.8
- * @version 2019-23-04
+ * @since 1.0
+ * @version 1.0
  */
 @Component
 public class DataInit {

@@ -4,8 +4,8 @@ package com.github.dickens.blogapp;
  * The enum Category.
  *
  * @author Tommi Lepola
- * @since 1.8
- * @version 2019-23-04
+ * @since 1.0
+ * @version 1.0
  */
 public enum Category {
     /**

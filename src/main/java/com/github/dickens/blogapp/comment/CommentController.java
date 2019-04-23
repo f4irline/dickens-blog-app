@@ -17,8 +17,8 @@ import org.springframework.web.util.UriComponentsBuilder;
  *
  * @author Tommi Lepola
  * @author Ville-Veikko Nieminen
- * @since 1.8
- * @version 2019-23-04
+ * @since 1.0
+ * @version 1.0
  */
 @RestController
 @RequestMapping(value = "/api")
