@@ -7,7 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Repository to use database for posts
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Ville-Veikko Nieminen
+ * @author Tommi Lepola
  * @since 1.8
  * @version 2019-23-04
  */

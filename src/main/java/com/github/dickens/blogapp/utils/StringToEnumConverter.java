@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 /**
  * Class for converting String to Category for enum.
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Tommi Lepola
  * @since 1.8
  * @version 2019-23-04
  */

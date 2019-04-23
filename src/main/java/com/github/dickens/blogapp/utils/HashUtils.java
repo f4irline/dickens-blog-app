@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 /**
  * Utils for hashing password.
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Ville-Veikko Nieminen
+ * @author Tommi Lepola
  * @since 1.8
  * @version 2019-23-04
  */

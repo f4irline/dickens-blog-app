@@ -9,7 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Main class for this app.
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Ville-Veikko Nieminen
+ * @author Tommi Lepola
  * @since 1.8
  * @version 2019-23-04
  */

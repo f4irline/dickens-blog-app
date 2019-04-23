@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Repository to use database for comments
  *
+ * @author Tommi Lepola
  * @author Ville-Veikko Nieminen
  * @version 1.8
  * @since 2019-04-21

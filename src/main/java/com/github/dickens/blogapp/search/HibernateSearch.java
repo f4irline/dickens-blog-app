@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Hibernate search handles searching.
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Ville-Veikko Nieminen
  * @since 1.8
  * @version 2019-23-04
  */

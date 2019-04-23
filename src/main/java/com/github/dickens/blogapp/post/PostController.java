@@ -26,7 +26,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 /**
  * Controller for the comment.
  *
- * @author Ville -Veikko Nieminen, Tommi Lepola
+ * @author Tommi Lepola
+ * @author Ville -Veikko Nieminen
  * @version 2019 -23-04
  * @since 1.8
  */

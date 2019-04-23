@@ -26,7 +26,8 @@ import java.util.List;
 /**
  * Class for putting some data in application.
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Tommi Lepola
+ * @author Ville-Veikko Nieminen
  * @since 1.8
  * @version 2019-23-04
  */
@@ -126,6 +127,9 @@ public class DataInit {
         commentRepository.save(new Comment(postRepository.findById(1001L).get(),userRepository.findById(1002L).get(),lorem.getParagraphs(1, 3)));
     }
 
+    /**
+     * Exposes curl commands explained.
+     */
     private void exposeCurlCommands() {
         Logger logger = LoggerFactory.getLogger(DataInit.class);
         logger.info("CURL commands for REST testing: ");

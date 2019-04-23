@@ -15,7 +15,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 /**
  * Controller for the comment.
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Tommi Lepola
+ * @author Ville-Veikko Nieminen
  * @since 1.8
  * @version 2019-23-04
  */

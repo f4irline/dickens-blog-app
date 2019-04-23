@@ -17,7 +17,8 @@ import java.util.List;
 /**
  * Representing the Post.
  *
- * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @author Tommi Lepola
+ * @author Ville-Veikko Nieminen
  * @since 1.8
  * @version 2019-23-04
  */

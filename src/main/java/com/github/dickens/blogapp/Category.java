@@ -2,6 +2,10 @@ package com.github.dickens.blogapp;
 
 /**
  * The enum Category.
+ *
+ * @author Tommi Lepola
+ * @since 1.8
+ * @version 2019-23-04
  */
 public enum Category {
     /**
