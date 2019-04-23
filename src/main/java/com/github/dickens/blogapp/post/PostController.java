@@ -6,7 +6,6 @@ import com.github.dickens.blogapp.comment.CommentController;
 import com.github.dickens.blogapp.comment.CommentRepository;
 import com.github.dickens.blogapp.search.HibernateSearch;
 import com.github.dickens.blogapp.security.auth.ApiResponse;
-import com.github.dickens.blogapp.user.UserController;
 import com.github.dickens.blogapp.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
@@ -20,7 +19,6 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Iterator;
-import java.util.Optional;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
