@@ -70,6 +70,8 @@ public class AuthController {
 
         user.setRoles(Collections.singleton(userRole));
 
+        userRepository.save(user);
+
         UriComponents components = b.path("/api/users/{userName}").buildAndExpand(user.getUserName());
 
         return ResponseEntity.status(HttpStatus.OK).location(components.toUri()).body(new ApiResponse(true, "User registered successfully"));
