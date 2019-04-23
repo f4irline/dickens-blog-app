@@ -13,12 +13,28 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 
+/**
+ * Hibernate search handles searching.
+ *
+ * @author Ville-Veikko Nieminen, Tommi Lepola
+ * @since 1.8
+ * @version 2019-23-04
+ */
 @Transactional
 @Repository
 public class HibernateSearch {
+    /**
+     * The Entity manager.
+     */
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * Returns Iterable containing Post found with search value.
+     *
+     * @param text containgin the search value
+     * @return Iterable representing posts
+     */
     public Iterable<Post> search(String text) {
         Iterable<Post> results = new ArrayList<>();
         org.apache.lucene.search.Query query;
