@@ -12,6 +12,8 @@ import com.github.dickens.blogapp.user.role.RoleDefinition;
 import com.github.dickens.blogapp.user.role.RoleRepository;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -89,12 +91,12 @@ public class DataInit {
         User tommi = new User("Tombha","Tomi","Syrjänen","GhostRider98");
         tommi.setRoles(Collections.singleton(userRole));
 
-        List<User> lista = new ArrayList<>();
-        lista.add(heikki);
-        lista.add(tiina);
-        lista.add(tommi);
+        List<User> listOfUsers = new ArrayList<>();
+        listOfUsers.add(heikki);
+        listOfUsers.add(tiina);
+        listOfUsers.add(tommi);
 
-        userRepository.saveAll(lista);
+        userRepository.saveAll(listOfUsers);
     }
 
     /**
@@ -124,17 +126,43 @@ public class DataInit {
         commentRepository.save(new Comment(postRepository.findById(1001L).get(),userRepository.findById(1002L).get(),lorem.getParagraphs(1, 3)));
     }
 
+    private void exposeCurlCommands() {
+        Logger logger = LoggerFactory.getLogger(DataInit.class);
+        logger.info("CURL commands for REST testing: ");
+        logger.info("Register: ");
+        logger.info("\"curl -v -XPOST -H \"Content-type: application/json\" -d '{\"userName\": \"Test\", \"password\": \"12345\", \"userFirst\":\"TestFirst\", \"userLast\":\"TestLast\"}' 'http://localhost:8080/api/auth/register'\"");
+        logger.info("------------------------------------------------------------------");
+        logger.info("Login with admin: ");
+        logger.info("\"curl -v -XPOST -H \"Content-type: application/json\" -d '{\"userName\":\"Hexa\", \"password\":\"Koirannimi\"}' 'http://localhost:8080/api/auth/login'\"");
+        logger.info("!! SAVE YOUR ACCESS TOKEN FROM THE RESPONSE. !!");
+        logger.info("------------------------------------------------------------------");
+        logger.info("Get all posts: ");
+        logger.info("\"curl -v 'http://localhost:8080/api/posts/all'\"");
+        logger.info("------------------------------------------------------------------");
+        logger.info("Get comments from a post: ");
+        logger.info("\"curl -v 'http://localhost:8080/api/comments/1001\"");
+        logger.info("------------------------------------------------------------------");
+        logger.info("Get all posts (HATEOAS with Admin rights)");
+        logger.info("\"curl -v -XGET -H 'Authorization: Bearer <YOUR ACCESS TOKEN HERE>' 'http://localhost:8080/api/posts'\"");
+        logger.info("------------------------------------------------------------------");
+        logger.info("Create a post");
+        logger.info("\"curl -v -XPOST -H 'Authorization: Bearer <YOUR ACCESS TOKEN HERE>' -H \"Content-type: application/json\" -d '{\"body\": \"Test post\", \"category\": \"TECH\", \"imgUrl\": \"https://images.unsplash.com/photo-1556038024-07f7daf0b84f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80\", \"title\": \"Test title\"}' 'http://localhost:8080/api/posts/add/1001'\"");
+        logger.info("------------------------------------------------------------------");
+        logger.info("Create a comment");
+        logger.info("\"curl -v -XPOST -H 'Authorization: Bearer <YOUR ACCESS TOKEN HERE>' -H \"Content-type: application/json\" -d '{\"body\": \"Test comment\"}' 'http://localhost:3000/api/comments/add/1001/1001'\"");
+        logger.info("------------------------------------------------------------------");
+        logger.info("Delete a post");
+        logger.info("\"curl -v -XDELETE -H 'Authorization: Bearer <YOUR ACCESS TOKEN HERE>' 'http://localhost:8080/api/posts/1005'\"");
+    }
+
     /**
      * Calls methods to create and save data.
      */
     public void initData() {
-
         initRoles();
-
         initUsers();
-
         initPosts();
-
         initComments();
+        exposeCurlCommands();
     }
 }
