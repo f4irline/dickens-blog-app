@@ -42,6 +42,7 @@ public class UserController {
     @Autowired
     RoleRepository roleRepository;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value="users", produces = { "application/hal+json" })
     public Resources<User> getUsers() {
         Iterable<User> allUsers = userRepository.findAll();

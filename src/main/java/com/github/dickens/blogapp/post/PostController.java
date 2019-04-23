@@ -32,6 +32,7 @@ public class PostController {
     @Autowired
     HibernateSearch hibernateSearch;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "posts", produces = {"application/hal+json"})
     public Resources<Post> getPosts() {
         Iterable<Post> allPosts = postRepository.findAll();

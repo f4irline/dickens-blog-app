@@ -30,7 +30,11 @@ class Home extends Component {
   }
 
   handleSearch(value) {
-    this.setState({searchValue: value});
+    if (value === '') {
+      this.setState({searchValue: undefined});
+    } else {
+      this.setState({searchValue: value});
+    }
   }
   
   render() {
