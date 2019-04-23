@@ -19,10 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.Collections;
 
 @RestController
@@ -57,9 +57,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest, UriComponentsBuilder b) {
         if(userRepository.existsByUserName(signUpRequest.getUserName())) {
-            return ResponseEntity.badRequest().body(new ApiResponse(false, "Username already taken."));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, "Username already taken."));
         }
 
         User user = new User(signUpRequest.getUserName(), signUpRequest.getUserFirst(),
@@ -70,12 +70,8 @@ public class AuthController {
 
         user.setRoles(Collections.singleton(userRole));
 
-        User result = userRepository.save(user);
+        UriComponents components = b.path("/api/users/{userName}").buildAndExpand(user.getUserName());
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{username}")
-                .buildAndExpand(result.getUserName()).toUri();
-
-        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+        return ResponseEntity.status(HttpStatus.OK).location(components.toUri()).body(new ApiResponse(true, "User registered successfully"));
     }
 }
