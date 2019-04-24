@@ -67,8 +67,8 @@ public class JwtTokenizer {
      * We parse the JWT token using the user's provided token and our defined secret key together.
      * Then we get the user related to the JWT token that user provided.
      *
-     * @param token
-     * @return
+     * @param token the token provided by user.
+     * @return the user's ID.
      */
     public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()

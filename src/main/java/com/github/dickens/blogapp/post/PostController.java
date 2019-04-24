@@ -127,6 +127,8 @@ public class PostController {
      *
      * @param post containing info about post
      * @param userId containing id of the user
+     * @param b builder related to this action to build a location URI for response headers.
+     * @return HTTP status 201 when succesful.
      */
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value ="posts/add/{userId}")
@@ -186,6 +188,8 @@ public class PostController {
      * Delete post from database using postRepository.
      *
      * @param postId containing id of the post
+     * @return HTTP status no content if succesful
+     * @throws ResponseStatusException if no posts with given id was found.
      */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "posts/{postId}")

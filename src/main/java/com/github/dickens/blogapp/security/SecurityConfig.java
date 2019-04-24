@@ -105,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * We're also telling spring that we're using JWT as our authentication filter. Also every request
      * going to HTTP are redirected to HTTPS if X-Forwarded-Proto header is present.
      * </p>
-     * @param http
+     * @param http security configuration object.
      * @throws Exception
      */
     @Override

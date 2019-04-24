@@ -52,6 +52,8 @@ public class CommentController {
      * @param comment containing info about comment
      * @param postId containing id for the post
      * @param userId containing id for the user/author
+     * @param b builder related to this action to build a location URI for response headers.
+     * @return HTTP response 201 when succesful
      */
     @PreAuthorize("hasRole('USER')")
     @PostMapping(value="comments/add/{postId}/{userId}")
@@ -87,6 +89,8 @@ public class CommentController {
      * Delete comment from database using commentRepository.
      *
      * @param commentId containing id for the comment
+     * @return HTTP response 204 when succesful
+     * @throws ResponseStatusException if no comment with given ID was found.
      */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "comments/{commentId}")
@@ -104,6 +108,8 @@ public class CommentController {
      * Delete comments by post from database using commentRepository.
      *
      * @param postId containing id of the post
+     * @return HTTP status no content if succesful
+     * @throws ResponseStatusException if no comments in a post with given id was found.
      */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "comments/all/{postId}")

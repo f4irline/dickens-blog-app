@@ -104,9 +104,9 @@ public class AuthController {
      * the new user.
      * </p>
      *
-     * @param signUpRequest
-     * @param b
-     * @return
+     * @param signUpRequest the register request object with required fields for users.
+     * @param b builder related to this action to build a location URI for response headers.
+     * @return HTTP status 200 if succesful, 400 if user with given name already exists.
      */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest, UriComponentsBuilder b) {
