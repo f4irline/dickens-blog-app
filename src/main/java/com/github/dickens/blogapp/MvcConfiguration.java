@@ -17,9 +17,38 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Used to configure the MVC configuration, mappings, CORS and such.
+ *
+ * <p>
+ * Working with React router and Spring Boot was a bit of a pain in the ass.
+ * We had to include pretty heavy resolvers for paths so that for example refreshing and
+ * such would work properly on the app.
+ * </p>
+ *
+ * <p>
+ * Issues would occur if we had built the ReactJS app and included it in this Spring app's static pages.
+ * </p>
+ *
+ * <p>
+ * We basically use the functionalities used in here:
+ * https://github.com/geowarin/boot-react - to redirect EVERY page to index.html, which is the
+ * ReactJS's main starting point.
+ * </p>
+ *
+ * @author Tommi Lepola
+ * @author Ville-Veikko Nieminen
+ * @version 1.0
+ * @since 2019.0403
+ */
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {
 
+    /**
+     * Configure CORS globally to the whole app.
+     *
+     * @param registry the global registry with all the cors configuration for the app.
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -31,11 +60,23 @@ public class MvcConfiguration implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 
+    /**
+     * Add a converter which allows us to convert role parameter from
+     * HTTP requests to Enums.
+     *
+     * @param registry the registry of field formatting logic.
+     */
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToEnumConverter());
     }
 
+    /**
+     * Used to add handlers to serve our static resources. Basically our ReactJS app when it's
+     * bundled with the Spring backend.
+     *
+     * @param registry the registry which holds the resource handling logic.
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
@@ -44,6 +85,13 @@ public class MvcConfiguration implements WebMvcConfigurer {
                 .addResolver(new PushStateResourceResolver());
     }
 
+    /**
+     * Provides functionalities for resolving incoming requests to our static resources.
+     *
+     * @author Tommi Lepola
+     * @version 1.0
+     * @since 2019.0403
+     */
     private class PushStateResourceResolver implements ResourceResolver {
         private Resource index = new ClassPathResource("/static/index.html");
         private List<String> handledExtensions = Arrays.asList("html", "js", "json", "csv", "css", "png", "svg", "eot", "ttf", "woff", "appcache", "jpg", "jpeg", "gif", "ico");

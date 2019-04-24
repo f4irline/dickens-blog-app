@@ -10,31 +10,66 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * JwtTokenizer is a utility class implementation which is used to generate JWT tokens
+ * and verify them when user's send them back.
+ *
+ * @author Tommi Lepola
+ * @version 1.0
+ * @since 2019.0330
+ */
 @Component
 public class JwtTokenizer {
+    /**
+     * Logger which is used for debugging purposes.
+     */
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenizer.class);
 
+    /**
+     * Used to sign the returned JWT token with this secret key.
+     */
     @Value("${app.jwtSecret}")
     private String jwtSecret;
 
+    /**
+     * Used to set an expiration time to the JWT token which is sent to user.
+     */
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
+    /**
+     * Generates the token that's distributed to user.
+     *
+     * <p>
+     * We build the JWT token using SHA-512 algorithm and the jwtSecret key. We set the
+     * JWT token to point to one user and set it's creation date and expiration date.
+     * </p>
+     *
+     * @param authentication the token for the authentication request.
+     * @return JWT token as a string.
+     */
     public String generateToken(Authentication authentication) {
 
         UserPrincipalImpl userPrincipal = (UserPrincipalImpl) authentication.getPrincipal();
 
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+        Date expirationDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
+                .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
+    /**
+     * We parse the JWT token using the user's provided token and our defined secret key together.
+     * Then we get the user related to the JWT token that user provided.
+     *
+     * @param token
+     * @return
+     */
     public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -44,6 +79,12 @@ public class JwtTokenizer {
         return Long.parseLong(claims.getSubject());
     }
 
+    /**
+     * Used to validate user's sent token.
+     *
+     * @param authToken the token user provided.
+     * @return true if validated, false if not.
+     */
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

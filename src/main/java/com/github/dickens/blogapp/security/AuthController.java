@@ -25,24 +25,52 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.util.Collections;
 
+/**
+ * RestController implementation that's related to authentication requests.
+ *
+ * @author Tommi Lepola
+ * @version 2.0
+ * @since 2019.0323
+ */
 @RestController
 @RequestMapping(value = "/api/auth")
 public class AuthController {
+    /**
+     * AuthenticationManager instance that's used for the authentication.
+     */
     @Autowired
     AuthenticationManager authenticationManager;
 
+    /**
+     * CrudRepository for users.
+     */
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * CrudRepository for roles.
+     */
     @Autowired
     RoleRepository roleRepository;
 
+    /**
+     * Implementation for generating JWT tokens and validating the JWT tokens send in requests.
+     */
     @Autowired
     JwtTokenizer tokenizer;
 
+    /**
+     * Returns HTTP OK response if user authenticates succesfully.
+     *
+     * @param loginRequest the login request which includes userName and password to be checked.
+     * @return HTTP OK response with JwtToken in the body of the response.
+     */
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
+        /**
+         * Try to authenticate user.
+         */
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUserName(),
@@ -50,12 +78,36 @@ public class AuthController {
                 )
         );
 
+        /**
+         * Changes the currently authenticated principal if authentication was succesful.
+         */
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        /**
+         * Generate JWT token from the tokenizer and respond with it.
+         */
         String jwt = tokenizer.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthResponse(jwt));
+        return ResponseEntity.status(HttpStatus.OK).body(new JwtAuthResponse(jwt));
     }
 
+    /**
+     * Handles registering the user.
+     *
+     * <p>
+     * Method checks first if a user with the given name already exists. If user does exist, we respond
+     * with HTTP bad request and body to tell the user that username was already taken.
+     * </p>
+     *
+     * <p>
+     * If user does not exist, we create a new User entity, set it's role initially to be just a regular
+     * user and then save it to repository. Then we return HTTP OK to user with the endpoint location of
+     * the new user.
+     * </p>
+     *
+     * @param signUpRequest
+     * @param b
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest signUpRequest, UriComponentsBuilder b) {
         if(userRepository.existsByUserName(signUpRequest.getUserName())) {
