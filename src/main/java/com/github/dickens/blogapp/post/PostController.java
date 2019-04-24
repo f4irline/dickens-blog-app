@@ -28,7 +28,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  *
  * @author Tommi Lepola
  * @author Ville -Veikko Nieminen
- * @since 1.0
+ * @since 2019.0312
  * @version 1.0
  */
 @RestController

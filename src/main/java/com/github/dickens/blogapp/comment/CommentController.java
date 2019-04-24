@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  *
  * @author Tommi Lepola
  * @author Ville-Veikko Nieminen
- * @since 1.0
+ * @since 2019.0317
  * @version 1.0
  */
 @RestController

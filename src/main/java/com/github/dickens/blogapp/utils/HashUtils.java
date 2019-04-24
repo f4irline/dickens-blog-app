@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Ville-Veikko Nieminen
  * @author Tommi Lepola
- * @since 1.0
+ * @since 2019.0312
  * @version 1.0
  */
 @Service

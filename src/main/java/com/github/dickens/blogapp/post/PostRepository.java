@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Ville-Veikko Nieminen
  * @author Tommi Lepola
- * @since 1.0
+ * @since 2019.0312
  * @version 1.0
  */
 public interface PostRepository extends CrudRepository<Post, Long> {

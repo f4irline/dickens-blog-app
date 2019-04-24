@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author Tommi Lepola
  * @author Ville-Veikko Nieminen
- * @since 1.0
+ * @since 2019.0330
  * @version 1.0
  */
 @Component

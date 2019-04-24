@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  *
  * @author Tommi Lepola
  * @author Ville-Veikko Nieminen
- * @since 1.0
+ * @since 2019.0317
  * @version 1.0
  */
 @Entity

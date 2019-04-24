@@ -4,7 +4,7 @@ package com.github.dickens.blogapp;
  * The enum Category.
  *
  * @author Tommi Lepola
- * @since 1.0
+ * @since 2019.0326
  * @version 1.0
  */
 public enum Category {

@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Tommi Lepola
  * @author Ville-Veikko Nieminen
- * @since 1.0
+ * @since 2019.0317
  * @version 1.0
  */
 public interface CommentRepository extends CrudRepository<Comment, Long> {

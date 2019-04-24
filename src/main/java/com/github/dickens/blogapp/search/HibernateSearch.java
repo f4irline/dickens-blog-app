@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Hibernate search handles searching.
  *
  * @author Ville-Veikko Nieminen
- * @since 1.0
+ * @since 2019.0204
  * @version 1.0
  */
 @Transactional

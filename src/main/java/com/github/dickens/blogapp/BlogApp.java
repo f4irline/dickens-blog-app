@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author Ville-Veikko Nieminen
  * @author Tommi Lepola
- * @since 1.0
+ * @since 2019.0312
  * @version 1.0
  */
 @SpringBootApplication
