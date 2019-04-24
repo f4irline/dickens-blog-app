@@ -1,8 +1,12 @@
 package com.github.dickens.blogapp.comment;
 
+import com.github.dickens.blogapp.post.Post;
 import com.github.dickens.blogapp.post.PostRepository;
 import com.github.dickens.blogapp.security.auth.ApiResponse;
+import com.github.dickens.blogapp.security.auth.jwt.JwtTokenizer;
 import com.github.dickens.blogapp.user.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +27,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping(value = "/api")
 public class CommentController {
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenizer.class);
 
     /**
      * CrudRepository for the comment.
@@ -68,8 +74,10 @@ public class CommentController {
     @GetMapping(value = "comments/{postId}")
     public Iterable<Comment> getCommentsByPost(@PathVariable Long postId) {
         try {
-            return commentRepository.findCommentsByPost(postRepository.findById(postId).get());
+            Post post = postRepository.findById(postId).get();
+            return commentRepository.findCommentsByPost(post);
         } catch (Exception ex) {
+            logger.info(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No comments in post with id "+postId+" was found.", ex);
         }
     }
