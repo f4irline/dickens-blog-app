@@ -23,19 +23,44 @@ import java.util.Iterator;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * Controller for the comment.
+ *
+ * @author Tommi Lepola
+ * @author Ville -Veikko Nieminen
+ * @since 2019.0312
+ * @version 1.0
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class PostController {
 
+    /**
+     * CrudRepository for the post.
+     */
     @Autowired
     PostRepository postRepository;
+    /**
+     * CrudRepository for the user.
+     */
     @Autowired
     UserRepository userRepository;
+    /**
+     * CrudRepository for the comment.
+     */
     @Autowired
     CommentRepository commentRepository;
+    /**
+     * The Hibernate search.
+     */
     @Autowired
     HibernateSearch hibernateSearch;
 
+    /**
+     * Gets posts for HATEOAS.
+     *
+     * @return Resources containing posts and links for HATEOAS
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "posts", produces = {"application/hal+json"})
     public Resources<Post> getPosts() {
@@ -58,6 +83,12 @@ public class PostController {
         return result;
     }
 
+    /**
+     * Returns Iterable containing posts by author.
+     *
+     * @param userId containing id of the user
+     * @return Iterable representing posts
+     */
     @GetMapping(value = "posts/all/{userId}")
     public Iterable<Post> getPostsByAuthor(@PathVariable Long userId) {
         try {
@@ -68,6 +99,12 @@ public class PostController {
     }
 
 
+    /**
+     * Returns Iterable containing posts found by search value.
+     *
+     * @param text containing search value
+     * @return Iterable representing posts
+     */
     @GetMapping(value = "posts/search/{text}")
     public Iterable<Post> searchPosts(@PathVariable String text) {
         try {
@@ -77,6 +114,12 @@ public class PostController {
         }
     }
 
+    /**
+     * Adds post to database using postRepository.
+     *
+     * @param post containing info about post
+     * @param userId containing id of the user
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value ="posts/add/{userId}")
     public ResponseEntity<?> addPost(@RequestBody Post post, @PathVariable Long userId, UriComponentsBuilder b) {
@@ -88,6 +131,12 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).location(components.toUri()).body(new ApiResponse(true, "Created new post succesfully."));
     }
 
+    /**
+     * Returns post by id of the post
+     *
+     * @param postId containing id of the post
+     * @return optional post representing the post
+     */
     @GetMapping(value = "/posts/{postId}")
     public Post getPost(@PathVariable Long postId) {
         try {
@@ -97,6 +146,12 @@ public class PostController {
         }
     }
 
+    /**
+     * Returns Iterable containing posts by category.
+     *
+     * @param category containing the category
+     * @return Iterable representing the posts
+     */
     @GetMapping(value = "/posts/category/{category}")
     public Iterable<Post> getPostByCategory(@PathVariable("category") Category category) {
         try {
@@ -106,11 +161,21 @@ public class PostController {
         }
     }
 
+    /**
+     * Return Iterable containing all posts.
+     *
+     * @return Iterable representing posts
+     */
     @GetMapping(value = "/posts/all")
     public Iterable<Post> getAllPosts() {
         return postRepository.findAll();
     }
 
+    /**
+     * Delete post from database using postRepository.
+     *
+     * @param postId containing id of the post
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "posts/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId) {

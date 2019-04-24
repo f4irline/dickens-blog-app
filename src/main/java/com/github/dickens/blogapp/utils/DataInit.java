@@ -23,22 +23,45 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class for putting some data in application.
+ *
+ * @author Tommi Lepola
+ * @author Ville-Veikko Nieminen
+ * @since 2019.0330
+ * @version 1.0
+ */
 @Component
 public class DataInit {
 
+    /**
+     * CrudRepository for the user.
+     */
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * CrudRepository for the post.
+     */
     @Autowired
     PostRepository postRepository;
 
+    /**
+     * CrudRepository for the comment.
+     */
     @Autowired
     CommentRepository commentRepository;
 
+    /**
+     * CrudRepository for the role.
+     */
     @Autowired
     RoleRepository roleRepository;
 
 
+    /**
+     * Creates roles and saves it to database using roleRepository.
+     */
     private void initRoles() {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role(RoleDefinition.ROLE_ADMIN));
@@ -47,6 +70,9 @@ public class DataInit {
         roleRepository.saveAll(roles);
     }
 
+    /**
+     * Creates users, intializes them and adds them to database using userRepository.
+     */
     private void initUsers() {
         Role userRole = roleRepository.findByDefinition(RoleDefinition.ROLE_USER)
                 .orElseThrow(() -> new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -74,6 +100,9 @@ public class DataInit {
         userRepository.saveAll(listOfUsers);
     }
 
+    /**
+     * Creates posts and adds those to databse using postRepository.
+     */
     private void initPosts() {
         Lorem lorem = LoremIpsum.getInstance();
 
@@ -85,6 +114,9 @@ public class DataInit {
 
     }
 
+    /**
+     * Creates comments and adds those to databse using commentRepository.
+     */
     private void initComments() {
         Lorem lorem = LoremIpsum.getInstance();
 
@@ -95,6 +127,9 @@ public class DataInit {
         commentRepository.save(new Comment(postRepository.findById(1001L).get(),userRepository.findById(1002L).get(),lorem.getParagraphs(1, 3)));
     }
 
+    /**
+     * Exposes curl commands explained.
+     */
     private void exposeCurlCommands() {
         Logger logger = LoggerFactory.getLogger(DataInit.class);
         logger.info("CURL COMMANDS FOR REST TESTING: ");
@@ -124,6 +159,9 @@ public class DataInit {
         logger.info("\"curl -v -XDELETE -H 'Authorization: Bearer <YOUR ACCESS TOKEN HERE>' 'http://localhost:8080/api/posts/1005'\"");
     }
 
+    /**
+     * Calls methods to create and save data.
+     */
     public void initData() {
         initRoles();
         initUsers();

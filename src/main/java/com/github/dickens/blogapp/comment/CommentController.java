@@ -12,17 +12,41 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ * Controller for the comment.
+ *
+ * @author Tommi Lepola
+ * @author Ville-Veikko Nieminen
+ * @since 2019.0317
+ * @version 1.0
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class CommentController {
 
+    /**
+     * CrudRepository for the comment.
+     */
     @Autowired
     CommentRepository commentRepository;
+    /**
+     * CrudRepository for the post.
+     */
     @Autowired
     PostRepository postRepository;
+    /**
+     * CrudRepository for the user.
+     */
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Adds comment to the database via commentRepository.
+     *
+     * @param comment containing info about comment
+     * @param postId containing id for the post
+     * @param userId containing id for the user/author
+     */
     @PreAuthorize("hasRole('USER')")
     @PostMapping(value="comments/add/{postId}/{userId}")
     public ResponseEntity<?> addComment(@RequestBody Comment comment, @PathVariable Long postId,@PathVariable Long userId, UriComponentsBuilder b) {
@@ -35,6 +59,12 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).location(components.toUri()).body(new ApiResponse(true, "Created new comment succesfully."));
     }
 
+    /**
+     * Returns Iterable containing all comments by post using commentRepository.
+     *
+     * @param postId containing id for the post
+     * @return Iterable representing comments
+     */
     @GetMapping(value = "comments/{postId}")
     public Iterable<Comment> getCommentsByPost(@PathVariable Long postId) {
         try {
@@ -44,6 +74,11 @@ public class CommentController {
         }
     }
 
+    /**
+     * Delete comment from database using commentRepository.
+     *
+     * @param commentId containing id for the comment
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "comments/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable Long commentId) {
@@ -55,6 +90,11 @@ public class CommentController {
         }
     }
 
+    /**
+     * Delete comments by post from database using commentRepository.
+     *
+     * @param postId containing id of the post
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "comments/all/{postId}")
     public ResponseEntity<?> deleteCommentsByPost(@PathVariable Long postId) {
