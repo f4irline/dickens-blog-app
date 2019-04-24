@@ -9,6 +9,8 @@ import com.github.dickens.blogapp.security.auth.ApiResponse;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.user.role.RoleDefinition;
 import com.github.dickens.blogapp.user.role.RoleRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
@@ -40,6 +42,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping(value = "/api")
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     /**
      * CrudRepository for users.
@@ -126,6 +130,7 @@ public class UserController {
 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user with id "+userId+" was found.", ex);
         }
     }
@@ -176,6 +181,7 @@ public class UserController {
 
             return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse(true, "Edited user's role with id "+userId+" succesfully."));
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user with id "+userId+" was found.", ex);
         }
     }

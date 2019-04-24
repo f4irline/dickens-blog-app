@@ -7,12 +7,15 @@ import com.github.dickens.blogapp.comment.CommentRepository;
 import com.github.dickens.blogapp.search.HibernateSearch;
 import com.github.dickens.blogapp.security.auth.ApiResponse;
 import com.github.dickens.blogapp.user.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponents;
@@ -34,6 +37,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping(value = "/api")
 public class PostController {
+
+    private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     /**
      * CrudRepository for the post.
@@ -94,6 +99,7 @@ public class PostController {
         try {
             return postRepository.findByAuthor(userRepository.findById(userId).get());
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No posts for author with id "+userId+" was found.", ex);
         }
     }
@@ -105,11 +111,13 @@ public class PostController {
      * @param text containing search value
      * @return Iterable representing posts
      */
+    @Transactional
     @GetMapping(value = "posts/search/{text}")
     public Iterable<Post> searchPosts(@PathVariable String text) {
         try {
             return hibernateSearch.search(text);
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No posts for with text "+text+" was found.", ex);
         }
     }
@@ -142,6 +150,7 @@ public class PostController {
         try {
             return postRepository.findById(postId).get();
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No posts with id "+postId+" was found.", ex);
         }
     }
@@ -152,11 +161,13 @@ public class PostController {
      * @param category containing the category
      * @return Iterable representing the posts
      */
+    @Transactional
     @GetMapping(value = "/posts/category/{category}")
     public Iterable<Post> getPostByCategory(@PathVariable("category") Category category) {
         try {
             return postRepository.findByCategory(category);
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No posts with category "+category+" was found.", ex);
         }
     }
@@ -183,6 +194,7 @@ public class PostController {
             postRepository.deleteById(postId);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No posts with id "+postId+" was found.", ex);
         }
     }

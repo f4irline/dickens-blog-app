@@ -3,7 +3,6 @@ package com.github.dickens.blogapp.comment;
 import com.github.dickens.blogapp.post.Post;
 import com.github.dickens.blogapp.post.PostRepository;
 import com.github.dickens.blogapp.security.auth.ApiResponse;
-import com.github.dickens.blogapp.security.auth.jwt.JwtTokenizer;
 import com.github.dickens.blogapp.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping(value = "/api")
 public class CommentController {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenizer.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommentController.class);
 
     /**
      * CrudRepository for the comment.
@@ -79,7 +78,7 @@ public class CommentController {
             Post post = postRepository.findById(postId).get();
             return commentRepository.findCommentsByPost(post);
         } catch (Exception ex) {
-            logger.info(ex.toString());
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No comments in post with id "+postId+" was found.", ex);
         }
     }
@@ -96,6 +95,7 @@ public class CommentController {
             commentRepository.deleteById(commentId);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No comment with id "+commentId+" was found.", ex);
         }
     }
@@ -112,6 +112,7 @@ public class CommentController {
             commentRepository.deleteAll(commentRepository.findCommentsByPost(postRepository.findById(postId).get()));
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception ex) {
+            logger.error(ex.toString());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No comments in post with id "+postId+" was found.", ex);
         }
     }
