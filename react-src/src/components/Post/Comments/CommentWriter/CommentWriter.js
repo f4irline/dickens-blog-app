@@ -24,10 +24,12 @@ class CommentWriter extends Component {
 
     axios.post(`/comments/add/${this.props.postId}/${this.props.user.userId}`, this.state, options)
       .then((res) => {
-        console.log(res);
         this.props.newComment();
       })
-      .catch((err) => console.log(err));
+      .catch(err => {
+        alert('There was some error with the request.');
+        console.log(err);
+      });
   }
 
   handleChange(event) {

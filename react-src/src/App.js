@@ -28,8 +28,23 @@ class App extends Component {
     const jwt = localStorage.getItem('accessToken');
 
     if (jwt) {
-      this.handleLogin();
+      this.initUserDetails();
     }
+  }
+
+  initUserDetails() {
+    const jwt = localStorage.getItem('accessToken');
+    axios.get('/users/details', {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    })
+      .then((res) => {
+        this.setState({loggedIn: true, user: res.data.user});
+      }).catch(err => {
+        alert('There was some error with the request.');
+        console.log(err);
+      });
   }
 
   handleLogin = () => {
@@ -42,7 +57,10 @@ class App extends Component {
       .then((res) => {
         this.setState({loggedIn: true, user: res.data.user});
         this.props.history.push('/');
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        alert('There was some error with the request.');
+        console.log(err);
+      });
   }
 
   handleLogout = () => {
@@ -55,9 +73,11 @@ class App extends Component {
   handleRegister = (user) => {
     axios.post('/auth/register', user)
       .then((res) => {
-        console.log(res);
         this.props.history.push('/');
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        alert('There was some error with the request.');
+        console.log(err);
+      });
   }
 
   render() {

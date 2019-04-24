@@ -56,38 +56,22 @@ class Post extends Component {
     const { id } = this.props.match.params;
     axios.get('/posts/'+id)
       .then((res) => {
-        this.setState({post: res.data});
-        this.delayLoadingPostResolve();
+        this.setState({post: res.data, loadingPosts: false});
       });
     axios.get('comments/'+id)
       .then((res) => {
-        this.setState({comments: res.data});
-        this.delayLoadingCommentsResolve();
+        this.setState({comments: res.data, loadingComments: false});
       });
   }
 
   loadComments() {
     const { id } = this.props.match.params;
-    console.log('Loading');
     this.setState({loadingComments: true}, () => {
       axios.get('comments/'+id)
         .then((res) => {
-          this.setState({comments: res.data});
-          this.delayLoadingCommentsResolve();
+          this.setState({comments: res.data, loadingComments: false});
         });
     });
-  }
-
-  delayLoadingCommentsResolve() {
-    setTimeout(() => {
-      this.setState({loadingComments: false});
-    }, 1500);
-  }
-
-  delayLoadingPostResolve() {
-    setTimeout(() => {
-      this.setState({loadingPosts: false});
-    }, 1500);
   }
 
   deleteComment(commentId) {
@@ -114,10 +98,12 @@ class Post extends Component {
 
     axios.delete('/comments/all/'+postId, options)
       .then((res) => {
-        console.log(res);
         this.deletePost(postId);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert('There was some error with the request.');
+        console.log(err);
+      });
   }
 
   deletePost(postId) {
@@ -131,10 +117,12 @@ class Post extends Component {
 
     axios.delete('/posts/'+postId, options)
       .then((res) => {
-        console.log(res);
         this.props.history.push('/');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        alert('There was some error with the request.');
+        console.log(err);
+      });
   }
 
   onClickOpenHandler() {

@@ -42,7 +42,11 @@ class ControlPanel extends Component {
       axios.get('users/all',options)
         .then((res) => 
           this.setState({users: res.data, loading: false}))
-        .catch(err => console.log(err)));
+        .catch(err => {
+          alert('There was some error with the request.');
+          console.log(err);
+        })
+    );
   }
 
   handleSelectChange(event, user) {
@@ -69,7 +73,10 @@ class ControlPanel extends Component {
         if(this.props.user.userId === user.userId) {
           this.props.logout();
         }
-      }).catch(err => console.log(err));
+      }).catch(err => {
+        alert('There was some error with the request.');
+        console.log(err);
+      });
   }
 
   handleDeleteOnClick(event, user) {
@@ -94,7 +101,10 @@ class ControlPanel extends Component {
             this.props.logout();
           }
 
-        }).catch(err => console.log(err));
+        }).catch(err => {
+          alert('There was some error with the request.');
+          console.log(err);
+        });
     }
     this.setState({showDialog: false});
   }

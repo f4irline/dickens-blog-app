@@ -42,7 +42,6 @@ class Login extends Component {
       credentials: 'include'
     })
       .then((res) => {
-        console.log(res);
         localStorage.setItem('accessToken', res.data.accessToken);
         this.props.login();
       })

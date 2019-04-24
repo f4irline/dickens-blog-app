@@ -39,8 +39,7 @@ class Posts extends Component {
     this.setState({loading: true}, () => {
       axios.get('/posts/all')
         .then((res) => {
-          this.setState({posts: res.data});
-          this.delayLoadingResolve();
+          this.setState({posts: res.data, loading: false});
         });
     });
   }
@@ -49,8 +48,7 @@ class Posts extends Component {
     this.setState({loading: true}, () => {
       axios.get(`/posts/search/${value}`)
         .then((res) => {
-          this.setState({posts: res.data,searchValue: undefined});
-          this.delayLoadingResolve();
+          this.setState({posts: res.data, searchValue: undefined, loading: false});
         });
     });
   }
@@ -63,17 +61,10 @@ class Posts extends Component {
       this.setState({loading: true}, () => {
         axios.get(`/posts/category/${category}`)
           .then((res) => {
-            this.setState({posts: res.data});
-            this.delayLoadingResolve();
+            this.setState({posts: res.data, loading: false});
           });
       });  
     }
-  }
-
-  delayLoadingResolve() {
-    setTimeout(() => {
-      this.setState({loading: false});
-    }, 1500);
   }
 
   render() {
