@@ -110,6 +110,7 @@ public class UserController {
      * @throws ResponseStatusException with status 404 and message if user with given id was not found.
      *
      */
+    @Transactional
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "users/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
