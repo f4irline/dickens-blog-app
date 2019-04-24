@@ -181,7 +181,7 @@ public class PostController {
      */
     @GetMapping(value = "/posts/all")
     public Iterable<Post> getAllPosts() {
-        return postRepository.findAll();
+        return postRepository.findAllByOrderByPostDateDesc();
     }
 
     /**

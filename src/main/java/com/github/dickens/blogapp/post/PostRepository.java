@@ -28,4 +28,6 @@ public interface PostRepository extends CrudRepository<Post, Long> {
      * @return Iterable representing posts
      */
     Iterable<Post> findByAuthor(User author);
+
+    Iterable<Post> findAllByOrderByPostDateDesc();
 }
