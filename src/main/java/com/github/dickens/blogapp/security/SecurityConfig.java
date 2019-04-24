@@ -102,7 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * </p>
      *
      * <p>
-     * We're also telling spring that we're using JWT as our authentication filter.
+     * We're also telling spring that we're using JWT as our authentication filter. Also every request
+     * going to HTTP are redirected to HTTPS if X-Forwarded-Proto header is present.
      * </p>
      * @param http
      * @throws Exception
@@ -111,8 +112,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).disable()
-            .headers().frameOptions().disable()
-                .and()
             .requiresChannel()
                 .requestMatchers(r -> r.getHeader("X-Forwarder-Proto") != null)
                 .requiresSecure()
