@@ -97,7 +97,7 @@ public class DataInit {
 
     private void exposeCurlCommands() {
         Logger logger = LoggerFactory.getLogger(DataInit.class);
-        logger.info("CURL commands for REST testing: ");
+        logger.info("CURL COMMANDS FOR REST TESTING: ");
         logger.info("Register: ");
         logger.info("\"curl -v -XPOST -H \"Content-type: application/json\" -d '{\"userName\": \"Test\", \"password\": \"12345\", \"userFirst\":\"TestFirst\", \"userLast\":\"TestLast\"}' 'http://localhost:8080/api/auth/register'\"");
         logger.info("------------------------------------------------------------------");

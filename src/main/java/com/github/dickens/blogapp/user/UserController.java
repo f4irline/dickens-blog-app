@@ -29,22 +29,51 @@ import java.util.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * Rest controller class which holds user related endpoints.
+ *
+ * @author Tommi Lepola
+ * @author Ville-Veikko Nieminen
+ * @version 3.0
+ * @since 2019.0318
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class UserController {
 
+    /**
+     * CrudRepository for users.
+     */
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * CrudRepository for posts.
+     */
     @Autowired
     PostRepository postRepository;
 
+    /**
+     * CrudRepository for comments.
+     */
     @Autowired
     CommentRepository commentRepository;
 
+    /**
+     * CrudRepository for roles.
+     */
     @Autowired
     RoleRepository roleRepository;
 
+    /**
+     * Returns all users and links related to them following the HATEOAS approach.
+     *
+     * <p>
+     * The method was made simply for learning purposes, it's not really used on the front-end side.
+     * </p>
+     *
+     * @return all users and endpoints related to them.
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value="users", produces = { "application/hal+json" })
     public Resources<User> getUsers() {
@@ -69,6 +98,14 @@ public class UserController {
         return result;
     }
 
+    /**
+     * Deletes user with the given userId.
+     *
+     * @param userId userId of the user to be deleted.
+     * @return HTTP response 204 if succesful
+     * @throws ResponseStatusException with status 404 and message if user with given id was not found.
+     *
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "users/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
@@ -93,12 +130,31 @@ public class UserController {
         }
     }
 
+    /**
+     * Returns all users.
+     *
+     * @return all users.
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "users/all")
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /**
+     * Either elevates or de-elevates user's role.
+     *
+     * <p>
+     * The method is used to edit given user's role. The method is
+     * given userId and boolean as a parameter to determine the edited user and
+     * the user's new role.
+     * </p>
+     *
+     * @param userId userId of the user to be edited.
+     * @param isAdmin either "true" to indicate that user should be admin, or "false" to indicate that user should not be admin.
+     * @return HTTP response 200 with message if succesful.
+     * @throws ResponseStatusException with status 404 and message with user with given id was not found.
+     */
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "users/role/{userId}/{isAdmin}")
     public ResponseEntity<?> editUserRole(@PathVariable Long userId, @PathVariable boolean isAdmin) {
@@ -124,10 +180,16 @@ public class UserController {
         }
     }
 
+    /**
+     * Returns user's details when user has logged in, to determine user's name, id and such on the
+     * frontend side for different kinds of actions.
+     *
+     * @return
+     */
     @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/users/details")
     @Transactional
-    public UserDetails getDetails(Authentication authentication) {
+    public UserDetails getDetails() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
