@@ -184,7 +184,7 @@ public class UserController {
      * Returns user's details when user has logged in, to determine user's name, id and such on the
      * frontend side for different kinds of actions.
      *
-     * @return
+     * @return users details in a UserDetails object
      */
     @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/users/details")
