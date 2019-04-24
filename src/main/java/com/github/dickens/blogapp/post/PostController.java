@@ -179,6 +179,7 @@ public class PostController {
      *
      * @return Iterable representing posts
      */
+    @Transactional
     @GetMapping(value = "/posts/all")
     public Iterable<Post> getAllPosts() {
         return postRepository.findAllByOrderByPostDateDesc();
