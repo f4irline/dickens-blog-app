@@ -10,7 +10,6 @@
     "markdown-to-jsx": "^6.9.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-https-redirect": "^1.1.0",
     "react-mde": "^7.0.4",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.8",

@@ -4,14 +4,8 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import HttpsRedirect from 'react-https-redirect';
 
-const app = 
-<HttpsRedirect>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-</HttpsRedirect>;
+const app = <BrowserRouter><App /></BrowserRouter>;
 
 ReactDOM.render(app, document.getElementById('root'));
 
