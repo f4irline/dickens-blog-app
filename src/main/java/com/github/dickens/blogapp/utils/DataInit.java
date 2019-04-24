@@ -10,6 +10,7 @@ import com.github.dickens.blogapp.user.UserRepository;
 import com.github.dickens.blogapp.user.role.Role;
 import com.github.dickens.blogapp.user.role.RoleDefinition;
 import com.github.dickens.blogapp.user.role.RoleRepository;
+import com.google.common.collect.Iterables;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 import org.slf4j.Logger;
@@ -63,6 +64,11 @@ public class DataInit {
      * Creates roles and saves it to database using roleRepository.
      */
     private void initRoles() {
+
+        if (Iterables.size(roleRepository.findAll()) > 0) {
+            return;
+        }
+
         List<Role> roles = new ArrayList<>();
         roles.add(new Role(RoleDefinition.ROLE_ADMIN));
         roles.add(new Role(RoleDefinition.ROLE_USER));
@@ -74,6 +80,10 @@ public class DataInit {
      * Creates users, initializes them and adds them to database using userRepository.
      */
     private void initUsers() {
+        if (Iterables.size(userRepository.findAll()) > 0) {
+            return;
+        }
+
         Role userRole = roleRepository.findByDefinition(RoleDefinition.ROLE_USER)
                 .orElseThrow(() -> new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
         Role adminRole = roleRepository.findByDefinition(RoleDefinition.ROLE_ADMIN)
@@ -104,6 +114,10 @@ public class DataInit {
      * Creates posts and adds those to database using postRepository.
      */
     private void initPosts() {
+        if (Iterables.size(postRepository.findAll()) > 0) {
+            return;
+        }
+
         Lorem lorem = LoremIpsum.getInstance();
 
         postRepository.save(new Post(userRepository.findById(1001L).get(), lorem.getTitle(4, 6), lorem.getHtmlParagraphs(15, 20), "https://images.unsplash.com/photo-1552664622-2cdfdf76ed0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80", Category.MOVIES));
@@ -118,6 +132,10 @@ public class DataInit {
      * Creates comments and adds those to database using commentRepository.
      */
     private void initComments() {
+        if (Iterables.size(commentRepository.findAll()) > 0) {
+            return;
+        }
+
         Lorem lorem = LoremIpsum.getInstance();
 
         commentRepository.save(new Comment(postRepository.findById(1001L).get(),userRepository.findById(1001L).get(),lorem.getParagraphs(1, 3)));
