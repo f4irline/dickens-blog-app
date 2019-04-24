@@ -1,0 +1,11 @@
+com.github.dickens.blogapp
+com.github.dickens.blogapp.comment
+com.github.dickens.blogapp.post
+com.github.dickens.blogapp.search
+com.github.dickens.blogapp.security
+com.github.dickens.blogapp.security.auth
+com.github.dickens.blogapp.security.auth.jwt
+com.github.dickens.blogapp.security.auth.requests
+com.github.dickens.blogapp.user
+com.github.dickens.blogapp.user.role
+com.github.dickens.blogapp.utils
