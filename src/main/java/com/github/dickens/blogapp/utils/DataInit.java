@@ -71,7 +71,7 @@ public class DataInit {
     }
 
     /**
-     * Creates users, intializes them and adds them to database using userRepository.
+     * Creates users, initializes them and adds them to database using userRepository.
      */
     private void initUsers() {
         Role userRole = roleRepository.findByDefinition(RoleDefinition.ROLE_USER)
@@ -101,7 +101,7 @@ public class DataInit {
     }
 
     /**
-     * Creates posts and adds those to databse using postRepository.
+     * Creates posts and adds those to database using postRepository.
      */
     private void initPosts() {
         Lorem lorem = LoremIpsum.getInstance();
@@ -115,7 +115,7 @@ public class DataInit {
     }
 
     /**
-     * Creates comments and adds those to databse using commentRepository.
+     * Creates comments and adds those to database using commentRepository.
      */
     private void initComments() {
         Lorem lorem = LoremIpsum.getInstance();
