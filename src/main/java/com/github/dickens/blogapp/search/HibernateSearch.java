@@ -17,7 +17,6 @@ import java.util.ArrayList;
  * @since 2019.0204
  * @version 1.0
  */
-@Transactional
 @Repository
 public class HibernateSearch {
     /**
