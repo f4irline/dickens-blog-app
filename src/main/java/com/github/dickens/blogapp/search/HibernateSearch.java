@@ -29,9 +29,10 @@ public class HibernateSearch {
     /**
      * Returns Iterable containing Post found with search value.
      *
-     * @param text containgin the search value
+     * @param text containing the search value
      * @return Iterable representing posts
      */
+    @Transactional
     public Iterable<Post> search(String text) {
         Iterable<Post> results = new ArrayList<>();
         org.apache.lucene.search.Query query;
