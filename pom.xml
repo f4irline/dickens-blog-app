@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.dickens</groupId>
 	<artifactId>blog-app</artifactId>
-	<version>3.0.1-RELEASE</version>
+	<version>3.0.2-RELEASE</version>
 	<name>blog-app</name>
 	<description>Demo project for Spring Boot</description>
 
