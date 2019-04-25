@@ -1,12 +1,24 @@
 .image {
-  height: 25vh;
+  height: 16vw;
   margin: 2vh;
 }
 
 .body-wrapper {
   height: 21vh;
-  width: 100%;
+  width: 90%;
   overflow: hidden;
   margin: 2vh;
   word-wrap: break-word;
+}
+
+@media (max-width: 959px) {
+  .image {
+    height: 30vh;
+  }
+}
+
+@media (max-width: 550px) {
+  .image {
+    height: 50vw;
+  }
 }

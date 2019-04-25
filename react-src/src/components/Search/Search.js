@@ -7,6 +7,7 @@ const Search = (props) => {
 
   const onSearchSubmit = (e) => {
     props.onSearch(e.target.value);
+    e.target.value = '';
   };
 
   return (
@@ -19,7 +20,7 @@ const Search = (props) => {
           }
         }}
         label='SEARCH'
-        style={{ margin: 8 }}
+        style={{margin: 8}}
         placeholder='Find posts by title'
         fullWidth
         margin='normal'

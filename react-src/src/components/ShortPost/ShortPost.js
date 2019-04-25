@@ -54,10 +54,9 @@ const ShortPost = (props) => {
             <div className='body-wrapper'>
               <Markdown>{props.data.body}</Markdown>
             </div>
-            <Divider />
           </Grid>
-
-          <Grid container direction='row' justify='space-between'>
+          <Divider />
+          <Grid container direction='row' justify='space-between' style={{marginTop: '1vh'}}>
             <Grid item xs={6} md={6}>
               <Typography variant='body2'>
                 Author: {props.data.author.userFirst} {props.data.author.userLast}
