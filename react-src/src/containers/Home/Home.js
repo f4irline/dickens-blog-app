@@ -40,7 +40,7 @@ class Home extends Component {
   render() {
     return (
       <Grid direction='row' justify='center' container className='Home'>
-        <Grid item xs={11} md={8}>
+        <Grid item xs={10} md={8}>
           <Paper square>
             <Header user={this.props.user} onSearch={this.handleSearch.bind(this)} logout={this.props.logout} loggedIn={this.props.loggedIn} />
             <Divider variant='middle'/>
@@ -49,12 +49,12 @@ class Home extends Component {
         </Grid>
         <Switch>
           <Route path='/new' render={() => (
-            <Grid item xs={11} md={7}>
+            <Grid item xs={10} md={7}>
               <NewPost user={this.props.user} />
             </Grid>
           )}/>
           <Route path='/admin' render={() => (
-            <Grid item xs={11} md={7}>
+            <Grid item xs={10} md={7}>
               <ControlPanel logout={this.props.logout} user={this.props.user} />
             </Grid>
           )}/>
@@ -62,12 +62,12 @@ class Home extends Component {
             <Post user={this.props.user}/>
           )}/>
           <Route path='/category/:category' render={() => (
-            <Grid item xs={11} md={7}>
+            <Grid item xs={10} md={7}>
               <Posts searchValue={this.state.searchValue} postOpen={this.handlePostOpen.bind(this)} />
             </Grid>
           )}/>
           <Route path='/' render={() => (
-            <Grid item xs={11} md={7}>
+            <Grid item xs={10} md={7}>
               <Posts searchValue={this.state.searchValue} postOpen={this.handlePostOpen.bind(this)} />
             </Grid>
           )}/>

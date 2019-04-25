@@ -15,6 +15,7 @@ import AlertDialog from '../../components/AlertDialog/AlertDialog';
 import Grid from '@material-ui/core/Grid';
 import Loading from '../../components/Loading/Loading';
 
+import './ControlPanel.css';
 
 class ControlPanel extends Component {
 
@@ -135,7 +136,7 @@ class ControlPanel extends Component {
     }
     
     return (
-      <Paper>
+      <Paper className='table-wrapper'> 
         {this.state.showDialog ? <AlertDialog title='Delete user' description = {`Are you sure you want to delete ${this.state.userToDelete.userName}?`} handleClose={this.handleDelete.bind(this)} /> : null}
         <Table>
           <TableHead>

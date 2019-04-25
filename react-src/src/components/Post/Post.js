@@ -154,7 +154,7 @@ class Post extends Component {
     }
 
     return (
-      <Grid item xs={11} lg={7}>
+      <Grid item xs={10} lg={7}>
         {this.state.showDialog ? <AlertDialog title='Remove whole post?' 
           description = 'The whole post will be removed. Are you sure?' 
           handleClose={this.onClickCloseHandler.bind(this)} /> : null}
@@ -170,16 +170,16 @@ class Post extends Component {
             </div>
             <Divider/>
 
-            <Grid direction='row' justify='center' container className='Home'>
-              <Grid item xs={6}>
+            <Grid direction='row' justify='center' container className='footer'>
+              <Grid item xs={6} id="remove-wrapper">
                 {this.props.user.roles[1] !== undefined && this.props.user.roles[1].definition === 'ROLE_ADMIN' ?
                   <IconButton onClick={this.onClickOpenHandler.bind(this)}>
                     <DeleteIcon color='secondary' />
                   </IconButton>
                   : null}
               </Grid>
-              <Grid item xs={6}>
-                <Typography variant='caption' style={{fontSize: '2vh', marginTop: '1vh', textAlign: 'end'}}>
+              <Grid item xs={6} id="author-wrapper">
+                <Typography variant='caption'>
                   Author: {this.state.post.author.userFirst} {this.state.post.author.userLast} - Written: {new Date(this.state.post.postDate).toLocaleString('en-GB')}
                 </Typography>
               </Grid>
